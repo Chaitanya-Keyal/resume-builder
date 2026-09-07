@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { markupKeys } from '$lib/util/markup-keys';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 
 	let {
@@ -24,6 +25,7 @@
 		<span class="mb-1 block text-xs font-medium text-muted">{label}</span>
 	{/if}
 	<input
+		use:markupKeys
 		{id}
 		bind:value
 		class="h-8 w-full rounded-md border border-border bg-surface px-2.5 text-sm text-text outline-none placeholder:text-faint focus:border-accent focus:ring-2 focus:ring-[color-mix(in_srgb,var(--color-accent)_25%,transparent)] {mono

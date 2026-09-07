@@ -9,12 +9,13 @@
 	import { escapedCharsIn, toLatex } from '$lib/core/markup';
 	import type { Highlight } from '$lib/core/schema/types';
 	import { newHighlight } from '$lib/store/library';
+	import { markupKeys } from '$lib/util/markup-keys';
 	import { workspace } from '$lib/store/workspace.svelte';
 
 	let {
 		highlights,
 		label = 'Bullets',
-		hint = 'One achievement per line. **bold**, _italic_, [link](https://...). Special characters are escaped for you.',
+		hint = 'One achievement per line. Ctrl+B bold, Ctrl+I italic, Ctrl+K link, or type **bold**, _italic_, [link](https://...). Special characters are escaped for you.',
 		onchange
 	}: {
 		highlights: Highlight[];
@@ -88,6 +89,7 @@
 				<span class="mt-2 w-3 text-center text-xs text-faint select-none">-</span>
 				<div class="min-w-0 flex-1">
 					<textarea
+						use:markupKeys
 						bind:this={areas[h.id]}
 						value={h.text}
 						rows={1}

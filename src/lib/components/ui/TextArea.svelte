@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { markupKeys } from '$lib/util/markup-keys';
 	import type { HTMLTextareaAttributes } from 'svelte/elements';
 
 	let {
@@ -28,6 +29,7 @@
 		<span class="mb-1 block text-xs font-medium text-muted">{label}</span>
 	{/if}
 	<textarea
+		use:markupKeys
 		{id}
 		bind:this={el}
 		bind:value
