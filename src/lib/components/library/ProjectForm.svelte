@@ -3,18 +3,23 @@
 	import TextArea from '$lib/components/ui/TextArea.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import type { Project } from '$lib/core/schema/types';
-	import { syncRemovedHighlights } from '$lib/store/library';
+	import { syncId, syncRemovedHighlights } from '$lib/store/library';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import BulletList from './BulletList.svelte';
 	import DateField from './DateField.svelte';
 	import ExtrasFields from './ExtrasFields.svelte';
 
-	let { project: p }: { project: Project } = $props();
+	let { project: p, onrename }: { project: Project; onrename?: (id: string) => void } = $props();
 	const touch = () => workspace.touch('profile');
 </script>
 
 <div class="grid gap-3 sm:grid-cols-2">
-	<TextField label="Name" bind:value={p.name} oninput={touch} />
+	<TextField
+		label="Name"
+		bind:value={p.name}
+		oninput={touch}
+		onblur={() => onrename?.(syncId('projects', p.id, p.name))}
+	/>
 	<TextField
 		label="Context"
 		placeholder="Hackathon, course or company"

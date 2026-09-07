@@ -1,16 +1,23 @@
 <script lang="ts">
+	import { syncId } from '$lib/store/library';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import ChipsInput from '$lib/components/ui/ChipsInput.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import type { SkillGroup } from '$lib/core/schema/types';
 	import { workspace } from '$lib/store/workspace.svelte';
 
-	let { group: g }: { group: SkillGroup } = $props();
+	let { group: g, onrename }: { group: SkillGroup; onrename?: (id: string) => void } = $props();
 	const touch = () => workspace.touch('profile');
 </script>
 
 <div class="grid gap-3 sm:grid-cols-2">
-	<TextField label="Category" placeholder="Languages" bind:value={g.name} oninput={touch} />
+	<TextField
+		label="Category"
+		placeholder="Languages"
+		bind:value={g.name}
+		oninput={touch}
+		onblur={() => onrename?.(syncId('skills', g.id, g.name))}
+	/>
 	<TextField label="Level (optional)" placeholder="Advanced" bind:value={g.level} oninput={touch} />
 	<div class="sm:col-span-2">
 		<ChipsInput

@@ -5,13 +5,20 @@
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import { formatRef } from '$lib/core/resolve/refs';
 	import type { Engagement } from '$lib/core/schema/types';
-	import { addPosition, removePosition, usedIn } from '$lib/store/library';
+	import { addPosition, removePosition, syncId, usedIn } from '$lib/store/library';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import ExtrasFields from './ExtrasFields.svelte';
 	import PositionForm from './PositionForm.svelte';
 
-	let { engagement, collection }: { engagement: Engagement; collection: 'work' | 'volunteer' } =
-		$props();
+	let {
+		engagement,
+		collection,
+		onrename
+	}: {
+		engagement: Engagement;
+		collection: 'work' | 'volunteer';
+		onrename?: (id: string) => void;
+	} = $props();
 	const touch = () => workspace.touch('profile');
 </script>
 
@@ -19,6 +26,7 @@
 	<TextField
 		label={collection === 'work' ? 'Company' : 'Organisation'}
 		bind:value={engagement.name}
+		onblur={() => onrename?.(syncId(collection, engagement.id, engagement.name))}
 		oninput={touch}
 		hint="Markup works: Acme Corp ([Acme Labs](https://...))"
 	/>

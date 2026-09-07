@@ -187,6 +187,28 @@ export function syncRemovedHighlights(ref: string, before: Highlight[], after: H
 	for (const h of before) if (!kept.has(h.id)) ws.removeRef(ref, h.id);
 }
 
+/**
+ * A fresh entry's id follows its name, so a project called "Resume Builder" is
+ * `resume-builder` rather than `project`. Once any resume references the entry
+ * the id is frozen: refs, snapshots and site links all hang off it.
+ * Returns the id in force afterwards.
+ */
+export function syncId(c: ListCollection, id: string, name: string): string {
+	if (!name.trim() || usedIn(`${c}:${id}`)) return id;
+	let next = id;
+	ws.mutateProfile((p) => {
+		const list = p[c] as { id: string }[];
+		const e = list.find((x) => x.id === id);
+		if (!e) return;
+		next = uniqueSlug(
+			name,
+			list.filter((x) => x !== e).map((x) => x.id)
+		);
+		if (next !== id) e.id = next;
+	});
+	return next;
+}
+
 /** Resumes using a ref or any of its positions. */
 export function usedIn(ref: string): number {
 	let n = 0;

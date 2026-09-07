@@ -2,13 +2,14 @@
 	import ChipsInput from '$lib/components/ui/ChipsInput.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import type { Education } from '$lib/core/schema/types';
-	import { syncRemovedHighlights } from '$lib/store/library';
+	import { syncId, syncRemovedHighlights } from '$lib/store/library';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import BulletList from './BulletList.svelte';
 	import DateField from './DateField.svelte';
 	import ExtrasFields from './ExtrasFields.svelte';
 
-	let { education: e }: { education: Education } = $props();
+	let { education: e, onrename }: { education: Education; onrename?: (id: string) => void } =
+		$props();
 	const touch = () => workspace.touch('profile');
 	function setX(k: string, v: string) {
 		e.x = { ...e.x, [k]: v || undefined };
@@ -17,7 +18,12 @@
 </script>
 
 <div class="grid gap-3 sm:grid-cols-2">
-	<TextField label="Institution" bind:value={e.institution} oninput={touch} />
+	<TextField
+		label="Institution"
+		bind:value={e.institution}
+		oninput={touch}
+		onblur={() => onrename?.(syncId('education', e.id, e.institution))}
+	/>
 	<TextField label="Location" placeholder="City, Country" bind:value={e.location} oninput={touch} />
 	<TextField label="Degree type" placeholder="B.E." bind:value={e.studyType} oninput={touch} />
 	<TextField label="Field" placeholder="Computer Science" bind:value={e.area} oninput={touch} />

@@ -178,7 +178,11 @@
 						onmove={(dir) => moveEntry(c, e.id, dir)}
 						ondelete={() => del(c, e.id, e.name)}
 					>
-						<EngagementForm engagement={e} collection={c} />
+						<EngagementForm
+							onrename={(id) => ui.setExpanded(route, id)}
+							engagement={e}
+							collection={c}
+						/>
 					</EntryCard>
 				{/each}
 			</div>
@@ -213,7 +217,7 @@
 						onmove={(dir) => moveEntry('education', e.id, dir)}
 						ondelete={() => del('education', e.id, e.institution)}
 					>
-						<EducationForm education={e} />
+						<EducationForm onrename={(id) => ui.setExpanded(route, id)} education={e} />
 					</EntryCard>
 				{/each}
 			</div>
@@ -241,7 +245,7 @@
 						onmove={(dir) => moveEntry('projects', p.id, dir)}
 						ondelete={() => del('projects', p.id, p.name)}
 					>
-						<ProjectForm project={p} />
+						<ProjectForm onrename={(id) => ui.setExpanded(route, id)} project={p} />
 					</EntryCard>
 				{/each}
 			</div>
@@ -269,7 +273,7 @@
 						onmove={(dir) => moveEntry('skills', g.id, dir)}
 						ondelete={() => del('skills', g.id, g.name)}
 					>
-						<SkillGroupForm group={g} />
+						<SkillGroupForm onrename={(id) => ui.setExpanded(route, id)} group={g} />
 					</EntryCard>
 				{/each}
 			</div>
@@ -298,7 +302,7 @@
 						onmove={(dir) => moveEntry('awards', a.id, dir)}
 						ondelete={() => del('awards', a.id, a.title)}
 					>
-						<AwardForm award={a} />
+						<AwardForm onrename={(id) => ui.setExpanded(route, id)} award={a} />
 					</EntryCard>
 				{/each}
 			</div>
