@@ -13,7 +13,7 @@
 	import { workspace } from '$lib/store/workspace.svelte';
 	import sampleJson from '../../../../fixtures/sample/profile.json';
 
-	let url = $state('https://okaybro.dev/profile.json');
+	let url = $state('');
 	let busy = $state<string | null>(null);
 	let fileInput = $state<HTMLInputElement>();
 
@@ -152,7 +152,12 @@
 						void fromUrl();
 					}}
 				>
-					<TextField bind:value={url} class="flex-1" mono placeholder="https://…/profile.json" />
+					<TextField
+						bind:value={url}
+						class="flex-1"
+						mono
+						placeholder="https://okaybro.dev/profile.json"
+					/>
 					<Button variant="primary" type="submit" disabled={busy !== null || !url.trim()}
 						>{busy === 'url' ? 'Fetching…' : 'Import'}</Button
 					>
