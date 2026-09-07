@@ -31,8 +31,13 @@
 		if (workspace.profile) void compiles.warm();
 	});
 
-	afterNavigate(() => {
+	let scroller = $state<HTMLDivElement>();
+
+	afterNavigate(({ to }) => {
 		if (ui.returnTo && !path.startsWith('/library')) ui.returnTo = null;
+		// Pages scroll inside the content column, which the router does not reset the
+		// way it resets the window; a page must open at its top.
+		if (!to?.url.hash) scroller?.scrollTo({ top: 0 });
 	});
 
 	const UNDO_LABEL = {
@@ -99,7 +104,7 @@
 		<div class="flex min-w-0 flex-1 flex-col overflow-hidden pb-14 md:pb-0">
 			<ReturnBar />
 			<!-- Pages scroll here, so the sidebar stays put however long a page is. -->
-			<div class="min-h-0 flex-1 overflow-y-auto">{@render children()}</div>
+			<div bind:this={scroller} class="min-h-0 flex-1 overflow-y-auto">{@render children()}</div>
 		</div>
 	</div>
 	<BottomTabs />
