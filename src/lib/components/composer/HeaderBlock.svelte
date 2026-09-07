@@ -90,7 +90,7 @@
 				<p class="text-xs text-faint">No profiles (GitHub, LinkedIn...) in the library yet.</p>
 			{/if}
 		</div>
-		<div class="sm:col-span-2">
+		<div class="flex flex-col items-start gap-2 sm:col-span-2">
 			<Checkbox
 				checked={h.showSummary}
 				disabled={!profile.basics.summary}
@@ -106,7 +106,7 @@
 				onchange={(v) => setHeader(resume.id, { showTagline: v })}
 			/>
 			{#if h.showTagline}
-				<div class="mt-1.5 ml-6">
+				<div class="mt-0.5 ml-6 w-full max-w-xl">
 					<TextField
 						value={h.tagline ?? ''}
 						placeholder={profile.basics.label || 'A one-line headline'}
