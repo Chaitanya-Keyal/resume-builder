@@ -38,7 +38,7 @@ page.on('console', (m) => {
 });
 await page.goto(`http://localhost:${server.port}/debug`);
 await page.waitForFunction(
-	() => (window as unknown as { __result: unknown }).__result !== null,
+	() => (window as unknown as { __result: unknown }).__result != null,
 	null,
 	{ timeout: 300_000 }
 );

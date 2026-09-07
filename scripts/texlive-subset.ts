@@ -168,7 +168,7 @@ async function main() {
 	const run = async (url: string) => {
 		await page.goto(url);
 		await page.waitForFunction(
-			() => (window as unknown as { __result: unknown }).__result !== null,
+			() => (window as unknown as { __result: unknown }).__result != null,
 			null,
 			{ timeout: 600_000 }
 		);
