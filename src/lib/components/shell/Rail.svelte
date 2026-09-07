@@ -26,7 +26,7 @@
 </script>
 
 <nav
-	class="hidden w-56 shrink-0 flex-col border-r border-border bg-surface px-3 py-3 md:flex"
+	class="hidden w-56 shrink-0 flex-col overflow-y-auto border-r border-border bg-surface px-3 py-3 md:flex"
 	aria-label="Primary"
 >
 	<a href="{base}/resumes" class="mb-4 flex items-center gap-2.5 px-1.5 py-1" aria-label="Home">

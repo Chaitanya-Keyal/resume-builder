@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import FilePlus from '@lucide/svelte/icons/file-plus';
+	import FileText from '@lucide/svelte/icons/file-text';
 	import Link from '@lucide/svelte/icons/link';
 	import Sparkles from '@lucide/svelte/icons/sparkles';
 	import Upload from '@lucide/svelte/icons/upload';
@@ -86,9 +87,9 @@
 	<div class="w-full max-w-2xl">
 		<div class="mb-8">
 			<div
-				class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-lg font-bold text-accent-fg"
+				class="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-fg"
 			>
-				R
+				<FileText size={20} strokeWidth={2.25} />
 			</div>
 			<h1 class="text-2xl font-semibold tracking-tight">Resume Builder</h1>
 			<p class="mt-1 text-sm text-muted">
@@ -143,7 +144,7 @@
 				<Link class="mb-3 text-accent" size={20} />
 				<div class="font-medium">Import from a URL</div>
 				<div class="mt-0.5 mb-3 text-sm text-muted">
-					A profile published by a site, like a portfolio.
+					A profile published by a site that reads profile.json.
 				</div>
 				<form
 					class="flex gap-2"

@@ -77,11 +77,12 @@
 {:else if bare}
 	{@render children()}
 {:else}
-	<div class="flex h-dvh">
+	<div class="flex h-dvh overflow-hidden">
 		<Rail />
-		<div class="flex min-w-0 flex-1 flex-col pb-14 md:pb-0">
+		<div class="flex min-w-0 flex-1 flex-col overflow-hidden pb-14 md:pb-0">
 			<ReturnBar />
-			<div class="min-h-0 flex-1">{@render children()}</div>
+			<!-- Pages scroll here, so the sidebar stays put however long a page is. -->
+			<div class="min-h-0 flex-1 overflow-y-auto">{@render children()}</div>
 		</div>
 	</div>
 	<BottomTabs />
