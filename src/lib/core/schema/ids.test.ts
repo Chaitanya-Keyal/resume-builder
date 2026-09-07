@@ -3,8 +3,8 @@ import { newHighlightId, newId, slugify, uniqueSlug } from './ids';
 
 describe('ids', () => {
 	test('slugify', () => {
-		expect(slugify('Summer of Bitcoin')).toBe('summer-of-bitcoin');
-		expect(slugify('  BITS Pilani, Hyderabad ')).toBe('bits-pilani-hyderabad');
+		expect(slugify('Acme Corp')).toBe('acme-corp');
+		expect(slugify('  State University, Springfield ')).toBe('state-university-springfield');
 		expect(slugify('Café — München')).toBe('cafe-munchen');
 		expect(slugify('***')).toBe('item');
 	});

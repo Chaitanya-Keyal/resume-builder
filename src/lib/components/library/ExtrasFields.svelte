@@ -62,7 +62,7 @@
 				{#if showPeriod}
 					<TextField
 						label="Period label"
-						placeholder="Summer 2025 and Summer 2026"
+						placeholder="Summer 2024 and Summer 2025"
 						value={x?.periodLabel ?? ''}
 						oninput={(e) => set('periodLabel', (e.currentTarget as HTMLInputElement).value)}
 						hint="Free text for your website."

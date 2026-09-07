@@ -141,7 +141,7 @@ export interface Project {
 	name: string;
 	description?: string;
 	url?: string;
-	/** Organisation or event the project belongs to ("Synchrony Hackathon"). */
+	/** Organisation or event the project belongs to ("ACM Hackathon"). */
 	entity?: string;
 	type?: string;
 	roles?: string[];

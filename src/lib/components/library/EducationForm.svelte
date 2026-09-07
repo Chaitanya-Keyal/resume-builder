@@ -18,18 +18,13 @@
 
 <div class="grid gap-3 sm:grid-cols-2">
 	<TextField label="Institution" bind:value={e.institution} oninput={touch} />
-	<TextField
-		label="Location"
-		placeholder="Hyderabad, India"
-		bind:value={e.location}
-		oninput={touch}
-	/>
+	<TextField label="Location" placeholder="City, Country" bind:value={e.location} oninput={touch} />
 	<TextField label="Degree type" placeholder="B.E." bind:value={e.studyType} oninput={touch} />
 	<TextField label="Field" placeholder="Computer Science" bind:value={e.area} oninput={touch} />
 	<div class="sm:col-span-2">
 		<TextField
 			label="Degree line (printed)"
-			placeholder="B.E. Computer Science, M.Sc. Mathematics, Minor in Data Science"
+			placeholder="B.S. Computer Science, Minor in Mathematics"
 			value={e.x?.degreeLine ?? ''}
 			oninput={(ev) => setX('degreeLine', (ev.currentTarget as HTMLInputElement).value)}
 			hint="Overrides degree type and field on the resume when set."
@@ -68,7 +63,7 @@
 	</div>
 	<TextField
 		label="Short institution name"
-		placeholder="BITS Pilani, Hyderabad Campus"
+		placeholder="State University, Main Campus"
 		value={e.x?.institutionShort ?? ''}
 		oninput={(ev) => setX('institutionShort', (ev.currentTarget as HTMLInputElement).value)}
 	/>

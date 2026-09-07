@@ -17,7 +17,7 @@
 	<TextField label="Name" bind:value={p.name} oninput={touch} />
 	<TextField
 		label="Context"
-		placeholder="Synchrony Hackathon"
+		placeholder="Hackathon, course or company"
 		bind:value={p.entity}
 		oninput={touch}
 		hint="Printed in parentheses after the name."

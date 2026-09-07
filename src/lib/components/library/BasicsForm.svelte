@@ -21,7 +21,7 @@
 			<TextField label="Full name" bind:value={b.name} oninput={touch} />
 			<TextField
 				label="Headline"
-				placeholder="Backend Systems | AI Engineering | Open Source"
+				placeholder="Software Engineer | Distributed Systems"
 				bind:value={b.label}
 				oninput={touch}
 				hint="Printed under your contact line."
@@ -147,7 +147,7 @@
 				/>
 				<TextField
 					label="Short tagline"
-					placeholder="backend systems - ai agents - open source"
+					placeholder="distributed systems - developer tools"
 					value={b.x?.tagline ?? ''}
 					oninput={(e) => {
 						b.x = { ...b.x, tagline: (e.currentTarget as HTMLInputElement).value || undefined };
@@ -156,7 +156,7 @@
 				/>
 				<TextField
 					label="Role"
-					placeholder="AI engineering intern - open-source developer"
+					placeholder="Software engineer - open-source maintainer"
 					value={b.x?.role ?? ''}
 					oninput={(e) => {
 						b.x = { ...b.x, role: (e.currentTarget as HTMLInputElement).value || undefined };
@@ -165,7 +165,7 @@
 				/>
 				<TextField
 					label="Status"
-					placeholder="Open to Summer 2027 internships"
+					placeholder="Open to new roles from June"
 					value={b.x?.status ?? ''}
 					oninput={(e) => {
 						b.x = { ...b.x, status: (e.currentTarget as HTMLInputElement).value || undefined };

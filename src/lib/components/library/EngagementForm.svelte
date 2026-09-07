@@ -20,11 +20,11 @@
 		label={collection === 'work' ? 'Company' : 'Organisation'}
 		bind:value={engagement.name}
 		oninput={touch}
-		hint="Markup works: Summer of Bitcoin ([SeedSigner](https://...))"
+		hint="Markup works: Acme Corp ([Acme Labs](https://...))"
 	/>
 	<TextField
 		label="Location"
-		placeholder="Hyderabad, India"
+		placeholder="City, Country"
 		bind:value={engagement.location}
 		oninput={touch}
 	/>
