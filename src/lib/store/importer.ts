@@ -1,5 +1,6 @@
 import { looksLikeJsonResume } from '$lib/core/schema/jsonresume';
-import type { Profile, Workspace } from '$lib/core/schema/types';
+import { resumeSchema } from '$lib/core/schema/resume';
+import type { Profile, Resume, Workspace } from '$lib/core/schema/types';
 import {
 	parseProfile,
 	parseWorkspace,
@@ -7,12 +8,14 @@ import {
 	type Problem
 } from '$lib/core/schema/validate';
 
-export type ImportKind = 'workspace' | 'profile' | 'jsonresume';
+export type ImportKind = 'workspace' | 'profile' | 'jsonresume' | 'resume';
 
+/** A resume import carries only `resume`; every other kind carries `profile`. */
 export interface Imported {
 	kind: ImportKind;
-	profile: Profile;
+	profile?: Profile;
 	workspace?: Workspace;
+	resume?: Resume;
 	warnings: Problem[];
 }
 
@@ -21,6 +24,7 @@ export function detectShape(json: unknown): ImportKind | 'unknown' {
 	const j = json as Record<string, unknown>;
 	if ('profile' in j && 'resumes' in j) return 'workspace';
 	if ('version' in j && 'basics' in j) return 'profile';
+	if ('sections' in j && 'header' in j && 'template' in j) return 'resume';
 	if (looksLikeJsonResume(j)) return 'jsonresume';
 	return 'unknown';
 }
@@ -52,12 +56,25 @@ export function parseImport(text: string): Imported {
 			const { profile, warnings } = parseProfile(json);
 			return { kind, profile, warnings };
 		}
+		if (kind === 'resume') {
+			const r = resumeSchema.safeParse(json);
+			if (!r.success)
+				throw new ImportError(
+					'That resume.json is not valid.',
+					r.error.issues.map((i) => ({
+						level: 'error' as const,
+						path: i.path.join('.'),
+						message: i.message
+					}))
+				);
+			return { kind, resume: r.data, warnings: [] };
+		}
 	} catch (e) {
 		if (e instanceof ValidationError) throw new ImportError(e.message, e.problems);
 		throw e;
 	}
 	throw new ImportError(
-		'Unrecognised file: expected a profile.json, a workspace export, or a JSON Resume.'
+		'Unrecognised file: expected a profile.json, a resume.json, a workspace export, or a JSON Resume.'
 	);
 }
 

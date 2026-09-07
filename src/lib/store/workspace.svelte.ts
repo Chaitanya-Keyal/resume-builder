@@ -97,6 +97,15 @@ class WorkspaceStore {
 		this.touch('overlay');
 	}
 
+	/** Add a resume, or replace the one with the same id. Returns true when it replaced. */
+	putResume(r: Resume): boolean {
+		const i = this.resumes.findIndex((x) => x.id === r.id);
+		if (i >= 0) this.resumes[i] = r;
+		else this.resumes.push(r);
+		this.touch('resumes');
+		return i >= 0;
+	}
+
 	setResumes(resumes: Resume[]) {
 		this.resumes = resumes;
 		this.touch('resumes');

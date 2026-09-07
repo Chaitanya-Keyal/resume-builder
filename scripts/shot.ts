@@ -4,7 +4,7 @@
  *
  *   bun scripts/shot.ts <outDir> <step> [<step> …]
  *   steps:  goto:/path   click:<css or text=…>   wait:<ms>   shot:<name>   type:<css>=<text>
- *           key:<Key>   dark   light   viewport:<w>x<h>   eval:<js>   seed:sample
+ *           key:<Key>   dark   light   viewport:<w>x<h>   eval:<js>   seed:sample   file:<css>=<path>
  */
 import { mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -85,6 +85,12 @@ for (const step of steps) {
 	else if (cmd === 'type') {
 		const [sel, text] = rest.split('=');
 		await page.locator(sel).first().fill(text);
+	} else if (cmd === 'file') {
+		const cut = rest.lastIndexOf('=');
+		await page
+			.locator(rest.slice(0, cut))
+			.first()
+			.setInputFiles(rest.slice(cut + 1));
 	} else if (cmd === 'key') await page.keyboard.press(rest);
 	else if (cmd === 'dark') await page.evaluate(() => localStorage.setItem('theme', '"dark"'));
 	else if (cmd === 'light') await page.evaluate(() => localStorage.setItem('theme', '"light"'));

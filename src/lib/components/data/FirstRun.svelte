@@ -20,12 +20,17 @@
 
 	function finish(imported?: Imported) {
 		if (imported?.workspace) {
-			workspace.setProfile(imported.profile, imported.warnings);
+			workspace.setProfile(imported.workspace.profile, imported.warnings);
 			workspace.setResumes(imported.workspace.resumes);
 			if (imported.workspace.overlay) workspace.setOverlay(imported.workspace.overlay);
 			if (imported.workspace.settings) workspace.updateSettings(imported.workspace.settings);
-		} else if (imported) {
+		} else if (imported?.profile) {
 			workspace.setProfile(imported.profile, imported.warnings);
+		} else if (imported?.resume) {
+			toast.error(
+				'That is a resume.json. Start with your library first, then import it from Data.'
+			);
+			return;
 		}
 		let first = workspace.resumes[0];
 		if (!first) first = workspace.newResume({ name: 'Default', mode: 'all' })!;
