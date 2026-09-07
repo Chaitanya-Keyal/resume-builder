@@ -28,6 +28,7 @@
 		onchange?.();
 	}
 	const links = $derived(x?.links ?? []);
+	const related = $derived(x?.related ?? []);
 </script>
 
 {#if workspace.settings.website.enabled}
@@ -112,6 +113,52 @@
 						class="text-xs text-muted hover:text-text"
 						onclick={() => set('links', [...links, { label: 'source', href: '' }])}
 						>+ Add link</button
+					>
+				</div>
+				<div class="sm:col-span-2">
+					<span class="mb-1 block text-xs font-medium text-muted">Related pages</span>
+					<p class="mb-1.5 text-xs text-faint">
+						Other pages on your site this entry points to, as site paths.
+					</p>
+					{#each related as l, i (i)}
+						<div class="mb-1.5 grid grid-cols-[1fr_2fr_auto] gap-1.5">
+							<TextField
+								placeholder="label"
+								value={l.label}
+								oninput={(e) => {
+									const next = related.map((x, j) =>
+										j === i ? { ...x, label: (e.currentTarget as HTMLInputElement).value } : x
+									);
+									set('related', next);
+								}}
+							/>
+							<TextField
+								placeholder="/projects/my-project"
+								mono
+								value={l.href}
+								oninput={(e) => {
+									const next = related.map((x, j) =>
+										j === i ? { ...x, href: (e.currentTarget as HTMLInputElement).value } : x
+									);
+									set('related', next);
+								}}
+							/>
+							<button
+								type="button"
+								class="px-1 text-xs text-faint hover:text-danger"
+								onclick={() =>
+									set(
+										'related',
+										related.filter((_, j) => j !== i)
+									)}>remove</button
+							>
+						</div>
+					{/each}
+					<button
+						type="button"
+						class="text-xs text-muted hover:text-text"
+						onclick={() => set('related', [...related, { label: '', href: '/' }])}
+						>+ Add related page</button
 					>
 				</div>
 				<div class="sm:col-span-2">
