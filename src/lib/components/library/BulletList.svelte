@@ -13,7 +13,7 @@
 	let {
 		highlights,
 		label = 'Bullets',
-		hint = 'One achievement per line. **bold**, _italic_, [link](https://…). Special characters are escaped for you.',
+		hint = 'One achievement per line. **bold**, _italic_, [link](https://...). Special characters are escaped for you.',
 		onchange
 	}: {
 		highlights: Highlight[];
@@ -78,13 +78,13 @@
 	<div class="mb-1 flex items-center justify-between">
 		<span class="text-xs font-medium text-muted">{label}</span>
 		<span class="text-[11px] text-faint"
-			>Enter adds · Backspace on empty removes · Alt+↑/↓ moves</span
+			>Enter adds - Backspace on empty removes - Alt+Up/Down moves</span
 		>
 	</div>
 	<ul class="space-y-1.5">
 		{#each highlights as h, i (h.id)}
 			<li class="group flex items-start gap-1.5">
-				<span class="mt-2 w-3 text-center text-xs text-faint select-none">•</span>
+				<span class="mt-2 w-3 text-center text-xs text-faint select-none">-</span>
 				<div class="min-w-0 flex-1">
 					<textarea
 						bind:this={areas[h.id]}
@@ -129,10 +129,10 @@
 					<button
 						type="button"
 						class="p-0.5 {h.hidden ? 'text-warn' : 'text-faint hover:text-text'}"
-						aria-label={h.hidden ? 'Shown on the portfolio' : 'Hide from the portfolio'}
+						aria-label={h.hidden ? 'Shown on your website' : 'Hide from your website'}
 						title={h.hidden
-							? 'Hidden from the portfolio; still selectable in resumes'
-							: 'Hide from the portfolio (resume-only bullet)'}
+							? 'Hidden from your website; still selectable in resumes'
+							: 'Hide from your website (resume-only bullet)'}
 						onclick={() => toggleHidden(i)}
 						>{#if h.hidden}<EyeOff size={13} />{:else}<Eye size={13} />{/if}</button
 					>

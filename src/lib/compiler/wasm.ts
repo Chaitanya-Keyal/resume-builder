@@ -69,7 +69,10 @@ export class WasmCompiler implements Compiler {
 				} else if (ev.data.cmd === undefined)
 					reject(new Error('The LaTeX engine failed to start.'));
 			};
-			w.onerror = (e) => reject(new Error(`The LaTeX engine failed to load: ${e.message}`));
+			w.onerror = (e) => {
+				reject(new Error(`The LaTeX engine failed to load: ${e.message}`));
+				if (this.worker === w) this.respawn();
+			};
 		});
 	}
 
@@ -170,6 +173,8 @@ export class WasmCompiler implements Compiler {
 				w.onmessage = null;
 				const { result, status, log } = ev.data;
 				const pdf = result === 'ok' && ev.data.pdf ? new Uint8Array(ev.data.pdf) : undefined;
+				// A fatal TeX error aborts the WASM instance; start a fresh one for the next compile.
+				if (result !== 'ok' && /Engine crashed|Aborted\(/.test(log)) this.respawn();
 				resolve({
 					ok: result === 'ok' && status === 0 && !!pdf,
 					pdf,

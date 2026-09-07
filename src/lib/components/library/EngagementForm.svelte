@@ -20,7 +20,7 @@
 		label={collection === 'work' ? 'Company' : 'Organisation'}
 		bind:value={engagement.name}
 		oninput={touch}
-		hint="Markup works: Summer of Bitcoin ([SeedSigner](https://…))"
+		hint="Markup works: Summer of Bitcoin ([SeedSigner](https://...))"
 	/>
 	<TextField
 		label="Location"
@@ -28,14 +28,20 @@
 		bind:value={engagement.location}
 		oninput={touch}
 	/>
-	<TextField label="URL" placeholder="https://…" mono bind:value={engagement.url} oninput={touch} />
+	<TextField
+		label="URL"
+		placeholder="https://..."
+		mono
+		bind:value={engagement.url}
+		oninput={touch}
+	/>
 	<div class="sm:col-span-2">
 		<TextArea
-			label="Description (portfolio)"
+			label="Description (website)"
 			rows={2}
 			bind:value={engagement.description}
 			oninput={touch}
-			hint="A paragraph for the portfolio page. Not printed on resumes."
+			hint="A paragraph for your website. Not printed on resumes."
 		/>
 	</div>
 </div>
@@ -43,7 +49,7 @@
 <div class="mt-4 space-y-3">
 	<div class="flex items-center justify-between">
 		<span class="text-xs font-medium text-muted"
-			>Stints <span class="font-normal text-faint">· each is a separate entry on a resume</span
+			>Stints <span class="font-normal text-faint">- each is a separate entry on a resume</span
 			></span
 		>
 		<Button size="sm" onclick={() => addPosition(collection, engagement.id)}

@@ -32,7 +32,7 @@
 			placeholder="B.E. Computer Science, M.Sc. Mathematics, Minor in Data Science"
 			value={e.x?.degreeLine ?? ''}
 			oninput={(ev) => setX('degreeLine', (ev.currentTarget as HTMLInputElement).value)}
-			hint="Overrides “degree type + field” on the resume when set."
+			hint="Overrides degree type and field on the resume when set."
 		/>
 	</div>
 	<TextField label="Score" placeholder="8.9/10" bind:value={e.score} oninput={touch} />

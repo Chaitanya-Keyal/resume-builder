@@ -13,7 +13,7 @@
 	const pages = $derived(compiles.state(resume.id).pages);
 	const nextDenser = $derived.by(() => {
 		const i = t.density.findIndex((d) => d.id === density);
-		return t.density[i + 1] ?? (i === -1 ? t.density[1] : undefined);
+		return t.density[i + 1] ?? (i === -1 ? t.density[t.density.length - 1] : undefined);
 	});
 </script>
 
@@ -94,7 +94,7 @@
 				<button
 					type="button"
 					class="font-medium underline"
-					onclick={() => applyDensity(resume.id, nextDenser.id)}>Try “{nextDenser.label}”</button
+					onclick={() => applyDensity(resume.id, nextDenser.id)}>Try "{nextDenser.label}"</button
 				> or untick a few bullets.
 			</div>
 		{/if}

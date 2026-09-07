@@ -36,6 +36,6 @@
 		title="Show the compile log"
 	>
 		<CircleCheck size={13} class="text-ok" />
-		{s.stale ? 'From last session' : `Up to date · ${s.ms} ms`}
+		{s.stale ? 'From last session' : `Up to date - ${s.ms} ms`}
 	</button>
 {/if}

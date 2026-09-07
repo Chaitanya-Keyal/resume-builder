@@ -63,7 +63,7 @@
 		},
 		skills: {
 			title: 'Skills',
-			blurb: 'Prints as “Category: a, b, c” lines. A resume picks which categories.',
+			blurb: 'Prints as "Category: a, b, c" lines. A resume picks which categories.',
 			add: 'Add category'
 		},
 		awards: {
@@ -77,7 +77,7 @@
 	const range = (s?: string, e?: string, l?: string) =>
 		formatRange(
 			{ start: s, end: e, label: l },
-			{ style: 'MMM yyyy', separator: ' – ', present: 'Present' }
+			{ style: 'MMM yyyy', separator: ' - ', present: 'Present' }
 		);
 
 	function expanded(id: string) {
@@ -160,7 +160,7 @@
 						subtitle={latest
 							? [latest.position, range(latest.startDate, latest.endDate, latest.dateLabel)]
 									.filter(Boolean)
-									.join(' · ') + (e.positions.length > 1 ? ` · ${e.positions.length} stints` : '')
+									.join(' - ') + (e.positions.length > 1 ? ` - ${e.positions.length} stints` : '')
 							: undefined}
 						expanded={expanded(e.id)}
 						usedIn={usedIn(`${c}:${e.id}`)}
@@ -204,7 +204,7 @@
 							range(e.startDate, e.endDate, e.dateLabel)
 						]
 							.filter(Boolean)
-							.join(' · ')}
+							.join(' - ')}
 						expanded={expanded(e.id)}
 						usedIn={usedIn(`education:${e.id}`)}
 						canMove={{ up: i > 0, down: i < profile.education.length - 1 }}
@@ -231,7 +231,7 @@
 						title={p.name}
 						subtitle={[p.keywords.join(', '), range(p.startDate, p.endDate, p.dateLabel)]
 							.filter(Boolean)
-							.join(' · ')}
+							.join(' - ')}
 						expanded={expanded(p.id)}
 						usedIn={usedIn(`projects:${p.id}`)}
 						hidden={!!p.x?.hidden}
@@ -289,7 +289,7 @@
 						title={a.title}
 						subtitle={[a.awarder, range(undefined, a.date, a.dateLabel)]
 							.filter(Boolean)
-							.join(' · ')}
+							.join(' - ')}
 						expanded={expanded(a.id)}
 						usedIn={usedIn(`awards:${a.id}`)}
 						canMove={{ up: i > 0, down: i < profile.awards.length - 1 }}

@@ -1,9 +1,7 @@
 <script lang="ts">
 	let { keys }: { keys: string } = $props();
 	const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
-	const parts = $derived(
-		keys.split('+').map((k) => (k === 'Mod' ? (isMac ? '⌘' : 'Ctrl') : k === 'Shift' ? '⇧' : k))
-	);
+	const parts = $derived(keys.split('+').map((k) => (k === 'Mod' ? (isMac ? 'Cmd' : 'Ctrl') : k)));
 </script>
 
 <span class="inline-flex gap-0.5">

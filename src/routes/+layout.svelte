@@ -73,7 +73,7 @@
 </svelte:head>
 
 {#if !workspace.loaded}
-	<div class="flex h-dvh items-center justify-center text-sm text-faint">Loading…</div>
+	<div class="flex h-dvh items-center justify-center text-sm text-faint">Loading...</div>
 {:else if bare}
 	{@render children()}
 {:else}

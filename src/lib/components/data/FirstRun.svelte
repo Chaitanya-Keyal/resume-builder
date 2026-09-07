@@ -159,7 +159,7 @@
 						placeholder="https://okaybro.dev/profile.json"
 					/>
 					<Button variant="primary" type="submit" disabled={busy !== null || !url.trim()}
-						>{busy === 'url' ? 'Fetching…' : 'Import'}</Button
+						>{busy === 'url' ? 'Fetching...' : 'Import'}</Button
 					>
 				</form>
 			</div>

@@ -107,6 +107,36 @@ function documents(): Record<string, string> {
 			}
 		}
 	}
+	// Every size command, weight, shape and math symbol a template can produce, at
+	// each font size: fonts are loaded lazily, so a document that happens not to
+	// use \tiny at 10 pt would otherwise leave cmsy5 out of the tree.
+	for (const fontSize of [10, 11, 12]) {
+		const sizes = [
+			'tiny',
+			'scriptsize',
+			'footnotesize',
+			'small',
+			'normalsize',
+			'large',
+			'Large',
+			'LARGE',
+			'huge',
+			'Huge'
+		];
+		const body = sizes
+			.map(
+				(sz) =>
+					`{\\${sz} Aa \\textbf{Bb} \\textit{Cc} \\emph{Dd} \\textsc{Ee} \\underline{Ff} $|$ $\\sim$ $\\bullet$ $\\vcenter{\\hbox{\\tiny$\\bullet$}}$ $\\rightarrow$ $\\times$ $\\geq$ $\\leq$ $\\pm$ $\\mu$ \\ldots{} \\textdegree{} \\texteuro{} \\pounds{} \\S{} \\copyright{} \\textbullet{} \\texttrademark{} \\textregistered{} \\textquotedbl{} \\textless{} \\textgreater{} \\#\\$\\%\\&\\_\\{\\}\\^{}\\textbackslash{} 0123456789}\\par`
+			)
+			.join('\n');
+		const t = templates.jake;
+		docs[`fontprobe-${fontSize}`] =
+			`${t.render({ header: { name: 'Probe', contacts: [] }, sections: [] }, { ...t.defaults, fontSize } as never).replace('\\end{document}', '')}
+\\begin{itemize}\\item level one \\begin{itemize}\\item level two \\begin{itemize}\\item level three\\end{itemize}\\end{itemize}\\end{itemize}
+${body}
+\\end{document}
+`;
+	}
 	return docs;
 }
 
@@ -204,7 +234,12 @@ async function main() {
 		if (h.path && h.path !== 'MINIMAL') files.set(key, h);
 		else if (!h.path) misses.set(key, { fmt: h.fmt, name: h.name });
 	}
+	// Fonts the format preloads (cmr5, cmsy5, ...) are never requested as TFMs at
+	// run time, so key the map on the Type 1 files we ship as well.
 	const tfms = new Set([...files.values()].filter((h) => h.fmt === 3).map((h) => h.name));
+	const pfbs = new Set([...files.values()].filter((h) => h.fmt === 32).map((h) => h.name));
+	const keepMapLine = (l: string) =>
+		tfms.has(l.split(' ')[0]) || [...l.matchAll(/<<?([^\s<]+\.pfb)/g)].some((m) => pfbs.has(m[1]));
 
 	if (existsSync(TREE)) rmSync(TREE, { recursive: true });
 	const manifestFiles: { fmt: number; name: string; bytes: number }[] = [];
@@ -215,10 +250,7 @@ async function main() {
 		if (h.fmt === 11 && h.name === 'pdftex.map') {
 			// 5 MB upstream; keep the lines for fonts we actually load.
 			bytes = new TextEncoder().encode(
-				readFileSync(h.path!, 'utf8')
-					.split('\n')
-					.filter((l) => tfms.has(l.split(' ')[0]))
-					.join('\n') + '\n'
+				readFileSync(h.path!, 'utf8').split('\n').filter(keepMapLine).join('\n') + '\n'
 			);
 		} else bytes = new Uint8Array(readFileSync(h.path!));
 		const dest = join(TREE, String(h.fmt), h.name);

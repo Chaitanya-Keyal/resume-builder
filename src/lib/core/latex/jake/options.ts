@@ -48,13 +48,13 @@ export const SPACING: Record<
 		listEnd: -7
 	},
 	normal: {
-		section: -4,
-		sectionRule: -3,
+		section: -6,
+		sectionRule: -4,
 		item: -1,
-		subheading: 2,
-		subheadingAfter: -5,
-		projectAfter: -5,
-		subItem: -2,
-		listEnd: -4
+		subheading: 0,
+		subheadingAfter: -6,
+		projectAfter: -6,
+		subItem: -3,
+		listEnd: -5
 	}
 };

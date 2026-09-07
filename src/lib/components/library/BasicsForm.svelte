@@ -27,23 +27,23 @@
 				hint="Printed under your contact line."
 			/>
 			<TextField label="Email" type="email" bind:value={b.email} oninput={touch} />
-			<TextField label="Website" placeholder="https://…" bind:value={b.url} oninput={touch} />
+			<TextField label="Website" placeholder="https://..." bind:value={b.url} oninput={touch} />
 			<div class="sm:col-span-2">
 				<TextArea
 					label="Summary"
 					rows={2}
 					bind:value={b.summary}
 					oninput={touch}
-					hint="Not printed by the default template; the portfolio uses it."
+					hint="Not printed by the default template; a website can use it."
 				/>
 			</div>
 			<div class="sm:col-span-2">
 				<span class="mb-1 block text-xs font-medium text-muted">Phone</span>
 				<p class="text-sm text-muted">
-					{#if phone}<span class="font-mono text-text">{phone}</span> ·
+					{#if phone}<span class="font-mono text-text">{phone}</span> -
 					{/if}
 					Kept out of the public profile.
-					<a class="text-accent underline" href="{base}/data">Edit in Data → Private</a>.
+					<a class="text-accent underline" href="{base}/data">Edit in Data -> Private</a>.
 				</p>
 			</div>
 		</div>
@@ -130,8 +130,10 @@
 	</section>
 
 	<section class="rounded-lg border border-border bg-surface p-4">
-		<h2 class="mb-1 text-sm font-semibold">Portfolio extras</h2>
-		<p class="mb-3 text-xs text-muted">Only a site that reads profile.json uses these.</p>
+		<h2 class="mb-1 text-sm font-semibold">Website fields</h2>
+		<p class="mb-3 text-xs text-muted">
+			Only a site that reads your profile.json uses these. Resumes ignore them.
+		</p>
 		<div class="grid gap-3 sm:grid-cols-2">
 			<TextField
 				label="Handle"
@@ -144,7 +146,7 @@
 			/>
 			<TextField
 				label="Short tagline"
-				placeholder="backend systems · ai agents · open source"
+				placeholder="backend systems - ai agents - open source"
 				value={b.x?.tagline ?? ''}
 				oninput={(e) => {
 					b.x = { ...b.x, tagline: (e.currentTarget as HTMLInputElement).value || undefined };
@@ -153,7 +155,7 @@
 			/>
 			<TextField
 				label="Role"
-				placeholder="AI engineering intern · open-source developer"
+				placeholder="AI engineering intern - open-source developer"
 				value={b.x?.role ?? ''}
 				oninput={(e) => {
 					b.x = { ...b.x, role: (e.currentTarget as HTMLInputElement).value || undefined };
@@ -171,7 +173,7 @@
 			/>
 			<TextField
 				label="Site repository"
-				placeholder="https://github.com/…"
+				placeholder="https://github.com/..."
 				mono
 				value={b.x?.repo ?? ''}
 				oninput={(e) => {

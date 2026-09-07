@@ -88,10 +88,10 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 					label: e.name,
 					detail: [
 						pos.position,
-						pos.dateLabel ?? [pos.startDate, pos.endDate].filter(Boolean).join(' – ')
+						pos.dateLabel ?? [pos.startDate, pos.endDate].filter(Boolean).join(' - ')
 					]
 						.filter(Boolean)
-						.join(' · '),
+						.join(' - '),
 					highlightIds: pos.highlights.map((h) => h.id),
 					hidden: e.x?.hidden
 				});

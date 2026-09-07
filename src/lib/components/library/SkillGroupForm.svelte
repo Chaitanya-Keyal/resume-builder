@@ -20,20 +20,20 @@
 				g.keywords = v;
 				touch();
 			}}
-			hint="Printed as “Category: a, b, c”. Order matters."
+			hint="Printed as 'Category: a, b, c'. Order matters."
 		/>
 	</div>
 	<div class="flex flex-wrap gap-4 sm:col-span-2">
 		<Checkbox
 			checked={!!g.x?.hidden}
-			label="Hidden from the portfolio"
+			label="Hidden from your website"
 			onchange={(v) => {
 				g.x = { ...g.x, hidden: v || undefined };
 				touch();
 			}}
 		/>
 		<TextField
-			placeholder="portfolio key (optional)"
+			placeholder="website key (optional)"
 			mono
 			value={(g.x?.key as string | undefined) ?? ''}
 			oninput={(e) => {

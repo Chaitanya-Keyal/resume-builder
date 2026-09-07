@@ -12,7 +12,7 @@
 </script>
 
 <div>
-	<ChipsInput bind:value {label} placeholder="backend, intern-2027…" {onchange} />
+	<ChipsInput bind:value {label} placeholder="backend, intern-2027..." {onchange} />
 	{#if suggestions.length}
 		<div class="mt-1.5 flex flex-wrap gap-1">
 			{#each suggestions as s (s)}

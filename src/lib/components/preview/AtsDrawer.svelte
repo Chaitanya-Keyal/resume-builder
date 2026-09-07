@@ -46,7 +46,7 @@
 	size="lg"
 >
 	{#if busy}
-		<p class="text-sm text-muted">Extracting…</p>
+		<p class="text-sm text-muted">Extracting...</p>
 	{:else if !report}
 		<p class="text-sm text-muted">Compile the resume first.</p>
 	{:else}

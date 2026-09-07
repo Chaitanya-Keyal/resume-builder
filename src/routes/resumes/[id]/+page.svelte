@@ -13,6 +13,7 @@
 	import LabelsEditor from '$lib/components/resumes/LabelsEditor.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Dialog from '$lib/components/ui/Dialog.svelte';
+	import Splitter from '$lib/components/ui/Splitter.svelte';
 	import { renderTex } from '$lib/core/latex';
 	import { resolve } from '$lib/core/resolve/resolve';
 	import { compiles } from '$lib/store/compile.svelte';
@@ -45,6 +46,18 @@
 	let showAts = $state(false);
 	let confirmDelete = $state(false);
 	let labelsDraft = $state<string[]>([]);
+	let splitContainer = $state<HTMLDivElement>();
+	let containerWidth = $state(0);
+	// The stored width, kept sane for whatever screen this is.
+	const splitPx = $derived(
+		Math.max(320, Math.min(ui.splitterPx, Math.max(320, containerWidth - 380)))
+	);
+	$effect(() => {
+		if (!splitContainer) return;
+		const ro = new ResizeObserver(([e]) => (containerWidth = e.contentRect.width));
+		ro.observe(splitContainer);
+		return () => ro.disconnect();
+	});
 
 	onMount(() => {
 		ui.setLastResume(id);
@@ -151,17 +164,18 @@
 				)}
 			ondelete={() => (confirmDelete = true)}
 		/>
-		<div class="flex min-h-0 flex-1">
-			<div class="min-w-0 flex-1 overflow-y-auto {ui.previewOpen ? 'hidden md:block' : ''}">
+		<div bind:this={splitContainer} class="flex min-h-0 flex-1" style="--split: {splitPx}px">
+			<!-- Wide screens show both panes side by side; narrower ones show one at a time. -->
+			<div class="min-w-0 flex-1 overflow-y-auto {ui.previewOpen ? 'hidden lg:block' : ''}">
 				<div class="mx-auto max-w-3xl">
 					<CompositionPane {resume} {profile} />
 				</div>
 			</div>
 			{#if ui.previewOpen}
-				<div
-					class="w-full shrink-0 border-l border-border md:w-[var(--split)]"
-					style="--split: {ui.splitterPx}px"
-				>
+				<div class="hidden lg:contents">
+					<Splitter container={splitContainer} onresize={(px) => ui.setSplitter(px)} />
+				</div>
+				<div class="w-full min-w-0 shrink-0 border-l border-border lg:w-[var(--split)]">
 					<PdfPreview resumeId={id} />
 				</div>
 			{/if}

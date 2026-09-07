@@ -133,18 +133,23 @@ export const jake: Template<JakeOptions> = {
 	description: 'The classic single-column, small-caps-sections, one-page resume.',
 	optionsSchema: jakeOptionsSchema,
 	defaults: jakeDefaults,
+	// Loosest first, so "next denser" is the next entry.
 	density: [
 		{
-			id: 'normal',
-			label: 'Normal',
+			id: 'roomy',
+			label: 'Roomy',
 			options: { fontSize: 11, margins: 'default', spacing: 'normal' }
+		},
+		{
+			id: 'standard',
+			label: 'Standard',
+			options: { fontSize: 11, margins: 'tight', spacing: 'tight' }
 		},
 		{
 			id: 'compact',
 			label: 'Compact',
-			options: { fontSize: 11, margins: 'tight', spacing: 'tight' }
-		},
-		{ id: 'tight', label: 'Tight', options: { fontSize: 10, margins: 'tight', spacing: 'tight' } }
+			options: { fontSize: 10, margins: 'tight', spacing: 'tight' }
+		}
 	],
 	sectionTitles: SECTION_TITLES,
 	defaultSectionOrder: [

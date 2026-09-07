@@ -42,7 +42,7 @@
 	description="Frozen copies of this resume's output. One is taken on every PDF download; the newest 20 unpinned are kept."
 >
 	{#if list.length === 0}
-		<p class="text-sm text-muted">No snapshots yet. Download the PDF or choose “Save snapshot”.</p>
+		<p class="text-sm text-muted">No snapshots yet. Download the PDF or choose "Save snapshot".</p>
 	{:else}
 		<ul class="divide-y divide-border">
 			{#each list as s (s.id)}

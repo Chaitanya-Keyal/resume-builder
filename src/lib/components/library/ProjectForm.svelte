@@ -35,14 +35,14 @@
 	</div>
 	<TextField
 		label="URL"
-		placeholder="https://github.com/…"
+		placeholder="https://github.com/..."
 		mono
 		bind:value={p.url}
 		oninput={touch}
 	/>
 	<TextField
 		label="Type"
-		placeholder="application, library, talk…"
+		placeholder="application, library, talk..."
 		bind:value={p.type}
 		oninput={touch}
 	/>
@@ -56,7 +56,7 @@
 	</div>
 	<div class="sm:col-span-2">
 		<TextArea
-			label="Description (portfolio)"
+			label="Description (website)"
 			rows={2}
 			bind:value={p.description}
 			oninput={touch}

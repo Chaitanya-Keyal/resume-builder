@@ -20,7 +20,7 @@
 	import { copyText, downloadText } from '$lib/util/download';
 
 	const ws = workspace;
-	const endpointHint = 'POST { tex } → { ok, pdf (base64), pages, log }';
+	const endpointHint = 'POST { tex } -> { ok, pdf (base64), pages, log }';
 	let includeOverlay = $state(false);
 	let url = $state(ws.settings.sourceUrl ?? '');
 	let busy = $state(false);
@@ -118,8 +118,8 @@
 	<section class="rounded-lg border border-border bg-surface p-4">
 		<h2 class="text-sm font-semibold">Private</h2>
 		<p class="mb-3 text-xs text-muted">
-			Never included in profile.json, so the public copy in a portfolio repo stays clean. Resumes
-			print it.
+			Never included in profile.json, so a public copy, say in your website repo, stays clean.
+			Resumes print it.
 		</p>
 		<div class="grid gap-3 sm:grid-cols-2">
 			<TextField
@@ -233,7 +233,7 @@
 			<Button type="submit" disabled={busy || !url.trim()}
 				><RefreshCw size={14} />
 				{busy
-					? 'Fetching…'
+					? 'Fetching...'
 					: ws.settings.sourceUrl === url.trim() && url
 						? 'Re-import'
 						: 'Import from URL'}</Button
@@ -278,7 +278,7 @@
 				<TextField
 					label="Compile endpoint"
 					mono
-					placeholder="https://…/api/compile"
+					placeholder="https://.../api/compile"
 					value={ws.settings.remoteUrl ?? ''}
 					oninput={(e) => {
 						ws.updateSettings({ remoteUrl: (e.currentTarget as HTMLInputElement).value });
@@ -306,8 +306,8 @@
 >
 	{#if pending && counts}
 		<p class="text-sm">
-			{pending.profile.basics.name || 'Unnamed'} · {counts.work} jobs · {counts.projects} projects{#if counts.resumes !== undefined}
-				· {counts.resumes} resumes{/if}.
+			{pending.profile.basics.name || 'Unnamed'} - {counts.work} jobs - {counts.projects} projects{#if counts.resumes !== undefined}
+				- {counts.resumes} resumes{/if}.
 		</p>
 		{#if pending.warnings.length}
 			<ul class="mt-2 space-y-0.5 text-xs text-warn">

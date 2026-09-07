@@ -45,6 +45,11 @@
 		},
 		{
 			"fmt": 3,
+			"name": "cmr17",
+			"bytes": 1292
+		},
+		{
+			"fmt": 3,
 			"name": "cmr6",
 			"bytes": 1300
 		},
@@ -80,6 +85,26 @@
 		},
 		{
 			"fmt": 3,
+			"name": "ecbx0500",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx0600",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx0700",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx0800",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
 			"name": "ecbx0900",
 			"bytes": 3584
 		},
@@ -100,8 +125,48 @@
 		},
 		{
 			"fmt": 3,
+			"name": "ecbx1440",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx1728",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx2074",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
 			"name": "ecbx2488",
 			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "eccc0500",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc0600",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc0700",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc0800",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc0900",
+			"bytes": 3072
 		},
 		{
 			"fmt": 3,
@@ -125,12 +190,37 @@
 		},
 		{
 			"fmt": 3,
+			"name": "eccc1728",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc2074",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc2488",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
 			"name": "ecrm0500",
 			"bytes": 3584
 		},
 		{
 			"fmt": 3,
 			"name": "ecrm0600",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm0700",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm0800",
 			"bytes": 3584
 		},
 		{
@@ -160,6 +250,41 @@
 		},
 		{
 			"fmt": 3,
+			"name": "ecrm1728",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm2074",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm2488",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecti0500",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti0600",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti0700",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti0800",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
 			"name": "ecti0900",
 			"bytes": 3072
 		},
@@ -176,6 +301,26 @@
 		{
 			"fmt": 3,
 			"name": "ecti1200",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti1440",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti1728",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti2074",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti2488",
 			"bytes": 3072
 		},
 		{
@@ -214,9 +359,69 @@
 			"bytes": 520
 		},
 		{
+			"fmt": 3,
+			"name": "tcrm0500",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm0600",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm0700",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm0800",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm0900",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm1000",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm1095",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm1200",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm1440",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm1728",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm2074",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcrm2488",
+			"bytes": 1536
+		},
+		{
 			"fmt": 11,
 			"name": "pdftex.map",
-			"bytes": 2080
+			"bytes": 22581
 		},
 		{
 			"fmt": 26,
@@ -510,6 +715,41 @@
 		},
 		{
 			"fmt": 32,
+			"name": "cmmi10.pfb",
+			"bytes": 36299
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi12.pfb",
+			"bytes": 36741
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi5.pfb",
+			"bytes": 37912
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi6.pfb",
+			"bytes": 37166
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi7.pfb",
+			"bytes": 36281
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi8.pfb",
+			"bytes": 35469
+		},
+		{
+			"fmt": 32,
+			"name": "cmmi9.pfb",
+			"bytes": 36094
+		},
+		{
+			"fmt": 32,
 			"name": "cmsy10.pfb",
 			"bytes": 32569
 		},
@@ -525,8 +765,38 @@
 		},
 		{
 			"fmt": 32,
+			"name": "cmsy7.pfb",
+			"bytes": 32716
+		},
+		{
+			"fmt": 32,
+			"name": "cmsy8.pfb",
+			"bytes": 32626
+		},
+		{
+			"fmt": 32,
 			"name": "cmsy9.pfb",
 			"bytes": 32442
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx0500.pfb",
+			"bytes": 165845
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx0600.pfb",
+			"bytes": 161999
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx0700.pfb",
+			"bytes": 144215
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx0800.pfb",
+			"bytes": 164252
 		},
 		{
 			"fmt": 32,
@@ -550,6 +820,61 @@
 		},
 		{
 			"fmt": 32,
+			"name": "sfbx1440.pfb",
+			"bytes": 135942
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx1728.pfb",
+			"bytes": 139826
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx2074.pfb",
+			"bytes": 140194
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx2488.pfb",
+			"bytes": 135938
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc0500.pfb",
+			"bytes": 140690
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc0600.pfb",
+			"bytes": 129705
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc0700.pfb",
+			"bytes": 137120
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc0800.pfb",
+			"bytes": 138426
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc0900.pfb",
+			"bytes": 118515
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc1000.pfb",
+			"bytes": 109713
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc1095.pfb",
+			"bytes": 118110
+		},
+		{
+			"fmt": 32,
 			"name": "sfcc1200.pfb",
 			"bytes": 108594
 		},
@@ -557,6 +882,41 @@
 			"fmt": 32,
 			"name": "sfcc1440.pfb",
 			"bytes": 110032
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc1728.pfb",
+			"bytes": 107203
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc2074.pfb",
+			"bytes": 108041
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc2488.pfb",
+			"bytes": 107888
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm0500.pfb",
+			"bytes": 180418
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm0600.pfb",
+			"bytes": 162624
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm0700.pfb",
+			"bytes": 154599
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm0800.pfb",
+			"bytes": 164227
 		},
 		{
 			"fmt": 32,
@@ -580,6 +940,46 @@
 		},
 		{
 			"fmt": 32,
+			"name": "sfrm1440.pfb",
+			"bytes": 131078
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm1728.pfb",
+			"bytes": 131438
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm2074.pfb",
+			"bytes": 131290
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm2488.pfb",
+			"bytes": 131381
+		},
+		{
+			"fmt": 32,
+			"name": "sfti0500.pfb",
+			"bytes": 199261
+		},
+		{
+			"fmt": 32,
+			"name": "sfti0600.pfb",
+			"bytes": 188157
+		},
+		{
+			"fmt": 32,
+			"name": "sfti0700.pfb",
+			"bytes": 184338
+		},
+		{
+			"fmt": 32,
+			"name": "sfti0800.pfb",
+			"bytes": 187625
+		},
+		{
+			"fmt": 32,
 			"name": "sfti0900.pfb",
 			"bytes": 183673
 		},
@@ -595,6 +995,31 @@
 		},
 		{
 			"fmt": 32,
+			"name": "sfti1200.pfb",
+			"bytes": 198221
+		},
+		{
+			"fmt": 32,
+			"name": "sfti1440.pfb",
+			"bytes": 187615
+		},
+		{
+			"fmt": 32,
+			"name": "sfti1728.pfb",
+			"bytes": 179164
+		},
+		{
+			"fmt": 32,
+			"name": "sfti2074.pfb",
+			"bytes": 192934
+		},
+		{
+			"fmt": 32,
+			"name": "sfti2488.pfb",
+			"bytes": 194312
+		},
+		{
+			"fmt": 32,
 			"name": "sfxc2488.pfb",
 			"bytes": 115470
 		},
@@ -602,6 +1027,11 @@
 			"fmt": 44,
 			"name": "cm-super-t1.enc",
 			"bytes": 2971
+		},
+		{
+			"fmt": 44,
+			"name": "cm-super-ts1.enc",
+			"bytes": 2900
 		}
 	],
 	"misses": [
@@ -655,6 +1085,34 @@
 		},
 		{
 			"fmt": 33,
+			"name": "cmmi10.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi12.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi5.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi6.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi7.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi8.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmmi9.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "cmsy10.vf"
 		},
 		{
@@ -667,7 +1125,31 @@
 		},
 		{
 			"fmt": 33,
+			"name": "cmsy7.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmsy8.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "cmsy9.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx0800.vf"
 		},
 		{
 			"fmt": 33,
@@ -687,11 +1169,83 @@
 		},
 		{
 			"fmt": 33,
+			"name": "ecbx1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc1095.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "eccc1200.vf"
 		},
 		{
 			"fmt": 33,
 			"name": "eccc1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm0800.vf"
 		},
 		{
 			"fmt": 33,
@@ -711,6 +1265,38 @@
 		},
 		{
 			"fmt": 33,
+			"name": "ecrm1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti0800.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "ecti0900.vf"
 		},
 		{
@@ -723,7 +1309,75 @@
 		},
 		{
 			"fmt": 33,
+			"name": "ecti1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti2488.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "ecxc2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcrm2488.vf"
 		}
 	]
 }

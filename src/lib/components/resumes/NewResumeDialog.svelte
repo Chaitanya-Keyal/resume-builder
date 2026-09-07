@@ -63,7 +63,7 @@
 		<fieldset>
 			<legend class="mb-1 block text-xs font-medium text-muted">Start from</legend>
 			<div class="grid gap-1.5">
-				{#each [{ v: 'all', l: 'Everything', d: 'Every entry and bullet selected. Trim from there.' }, { v: 'empty', l: 'Empty', d: 'Sections in place, nothing picked yet.' }, ...(workspace.resumes.length ? [{ v: 'copy', l: 'A copy of…', d: 'Same selections and overrides as another resume.' }] : [])] as o (o.v)}
+				{#each [{ v: 'all', l: 'Everything', d: 'Every entry and bullet selected. Trim from there.' }, { v: 'empty', l: 'Empty', d: 'Sections in place, nothing picked yet.' }, ...(workspace.resumes.length ? [{ v: 'copy', l: 'A copy of...', d: 'Same selections and overrides as another resume.' }] : [])] as o (o.v)}
 					<label
 						class="flex cursor-pointer items-start gap-2 rounded-md border border-border px-3 py-2 hover:bg-surface-2 {mode ===
 						o.v

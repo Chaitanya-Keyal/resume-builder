@@ -79,7 +79,7 @@
 	{:else}
 		<button
 			type="button"
-			class="h-8 max-w-64 truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2"
+			class="h-8 max-w-[38vw] truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2 sm:max-w-64"
 			title="Rename (F2)"
 			onclick={startRename}>{resume.name}</button
 		>
@@ -101,7 +101,7 @@
 	<div class="flex-1"></div>
 
 	<PageBadge resumeId={resume.id} />
-	<CompileStatus resumeId={resume.id} {onshowlog} />
+	<span class="hidden md:contents"><CompileStatus resumeId={resume.id} {onshowlog} /></span>
 
 	<span class="mx-1 hidden h-5 w-px bg-border sm:block"></span>
 
@@ -125,8 +125,8 @@
 		triggerClass="text-muted hover:bg-surface-2 hover:text-text flex h-8 w-8 items-center justify-center rounded-md"
 		items={[
 			{ label: 'Save snapshot', icon: Save, onSelect: onsnapshot },
-			{ label: 'Snapshots…', icon: History, onSelect: onsnapshots },
-			{ label: 'What a parser sees…', icon: ScanText, onSelect: onats },
+			{ label: 'Snapshots...', icon: History, onSelect: onsnapshots },
+			{ label: 'What a parser sees...', icon: ScanText, onSelect: onats },
 			{ separator: true },
 			{ label: 'Export resume JSON', icon: FileDown, onSelect: onexport },
 			{ label: 'Duplicate', icon: Copy, onSelect: () => workspace.duplicateResume(resume.id) },

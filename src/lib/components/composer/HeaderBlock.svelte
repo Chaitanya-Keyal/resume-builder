@@ -32,7 +32,7 @@
 			<Checkbox
 				checked={h.showPhone}
 				disabled={!phone}
-				label={phone ? `Phone · ${phone}` : 'Phone'}
+				label={phone ? `Phone - ${phone}` : 'Phone'}
 				onchange={(v) => setHeader(resume.id, { showPhone: v })}
 			/>
 			{#if !phone}
@@ -43,13 +43,13 @@
 			<Checkbox
 				checked={h.showEmail}
 				disabled={!profile.basics.email}
-				label={profile.basics.email ? `Email · ${profile.basics.email}` : 'Email'}
+				label={profile.basics.email ? `Email - ${profile.basics.email}` : 'Email'}
 				onchange={(v) => setHeader(resume.id, { showEmail: v })}
 			/>
 			<Checkbox
 				checked={h.showUrl}
 				disabled={!profile.basics.url}
-				label={profile.basics.url ? `Website · ${profile.basics.url}` : 'Website'}
+				label={profile.basics.url ? `Website - ${profile.basics.url}` : 'Website'}
 				onchange={(v) => setHeader(resume.id, { showUrl: v })}
 			/>
 			<Checkbox
@@ -65,7 +65,7 @@
 				<div class="flex items-center gap-1">
 					<Checkbox
 						checked={on}
-						label="{p.network} · {p.url.replace(/^https?:\/\//, '')}"
+						label="{p.network} - {p.url.replace(/^https?:\/\//, '')}"
 						onchange={() => toggleProfile(resume.id, p.network)}
 					/>
 					{#if on && h.profiles.length > 1}
@@ -87,7 +87,7 @@
 				</div>
 			{/each}
 			{#if !profile.basics.profiles.length}
-				<p class="text-xs text-faint">No profiles (GitHub, LinkedIn…) in the library yet.</p>
+				<p class="text-xs text-faint">No profiles (GitHub, LinkedIn...) in the library yet.</p>
 			{/if}
 		</div>
 		<div class="sm:col-span-2">

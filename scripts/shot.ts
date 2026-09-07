@@ -26,11 +26,20 @@ page.on('console', (m) => {
 		console.log(`[${m.type()}]`, m.text().slice(0, 300));
 });
 
-async function seed(kind: 'sample') {
-	const root = join(import.meta.dir, '..', 'fixtures', kind);
-	const profile = readFileSync(join(root, 'profile.json'), 'utf8');
-	const overlay = readFileSync(join(root, 'overlay.json'), 'utf8');
-	const resume = readFileSync(join(root, 'resume.jake.json'), 'utf8');
+/** `seed:sample` loads the bundled sample; `seed:/path/to/workspace.json` loads an export. */
+async function seed(kind: string) {
+	let profile: string, overlay: string | null, resume: string | null;
+	if (kind === 'sample') {
+		const root = join(import.meta.dir, '..', 'fixtures', 'sample');
+		profile = readFileSync(join(root, 'profile.json'), 'utf8');
+		overlay = readFileSync(join(root, 'overlay.json'), 'utf8');
+		resume = readFileSync(join(root, 'resume.jake.json'), 'utf8');
+	} else {
+		const ws = JSON.parse(readFileSync(kind, 'utf8'));
+		profile = JSON.stringify(ws.profile);
+		overlay = ws.overlay ? JSON.stringify(ws.overlay) : null;
+		resume = ws.resumes?.[0] ? JSON.stringify(ws.resumes[0]) : null;
+	}
 	await page.goto(`${BASE}/`);
 	await page.evaluate(
 		async ({ profile, overlay, resume }) => {
@@ -75,7 +84,7 @@ for (const step of steps) {
 		const [w, h] = rest.split('x').map(Number);
 		await page.setViewportSize({ width: w, height: h });
 	} else if (cmd === 'eval') console.log(await page.evaluate(rest));
-	else if (cmd === 'seed') await seed('sample');
+	else if (cmd === 'seed') await seed(rest);
 	else console.log('unknown step', step);
 }
 await browser.close();

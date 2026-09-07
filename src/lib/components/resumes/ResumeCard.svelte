@@ -39,7 +39,7 @@
 		<div class="min-w-0">
 			<h3 class="truncate font-medium">{resume.name}</h3>
 			<p class="mt-0.5 text-xs text-muted">
-				{getTemplate(resume.template).name} · {entries} entries · updated {relativeTime(
+				{getTemplate(resume.template).name} - {entries} entries - updated {relativeTime(
 					resume.updatedAt
 				)}
 			</p>

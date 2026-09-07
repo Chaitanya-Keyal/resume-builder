@@ -23,7 +23,7 @@
 	<div class="mb-3 flex items-center justify-between">
 		<span class="text-xs font-medium text-muted"
 			>Stint <span class="font-mono">{position.id}</span>{#if usedIn}
-				· in {usedIn} resume{usedIn === 1 ? '' : 's'}{/if}</span
+				- in {usedIn} resume{usedIn === 1 ? '' : 's'}{/if}</span
 		>
 		{#if canDelete}
 			<button

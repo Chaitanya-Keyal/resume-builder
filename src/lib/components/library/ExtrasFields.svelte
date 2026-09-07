@@ -1,5 +1,5 @@
 <script lang="ts">
-	// Portfolio-facing extras kept under `x`. Hidden behind a disclosure so the
+	// Website-facing extras kept under `x`. Hidden behind a disclosure so the
 	// resume-relevant fields stay in front.
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
@@ -36,8 +36,10 @@
 		onclick={() => (open = !open)}
 		aria-expanded={open}
 	>
-		<ChevronDown size={13} class="transition-transform {open ? 'rotate-180' : ''}" /> Portfolio extras
-		<span class="font-normal text-faint">slug, one-liner, stack, links, hidden</span>
+		<ChevronDown size={13} class="transition-transform {open ? 'rotate-180' : ''}" /> Website fields
+		<span class="font-normal text-faint"
+			>for a site that reads your profile.json; resumes ignore these</span
+		>
 	</button>
 	{#if open}
 		<div class="grid gap-3 border-t border-border px-3 py-3 sm:grid-cols-2">
@@ -47,7 +49,7 @@
 				mono
 				value={x?.slug ?? ''}
 				oninput={(e) => set('slug', (e.currentTarget as HTMLInputElement).value)}
-				hint="URL segment on the portfolio."
+				hint="URL segment on your website."
 			/>
 			<TextField
 				label="One-liner"
@@ -61,7 +63,7 @@
 					placeholder="Summer 2025 and Summer 2026"
 					value={x?.periodLabel ?? ''}
 					oninput={(e) => set('periodLabel', (e.currentTarget as HTMLInputElement).value)}
-					hint="Free text for the portfolio."
+					hint="Free text for your website."
 				/>
 			{/if}
 			{#if showStack}
@@ -82,7 +84,7 @@
 							}}
 						/>
 						<TextField
-							placeholder="https://…"
+							placeholder="https://..."
 							mono
 							value={l.href}
 							oninput={(e) => {
@@ -113,7 +115,7 @@
 				<TextArea
 					label="Description"
 					rows={2}
-					placeholder="A paragraph for the portfolio page."
+					placeholder="A paragraph for your website."
 					value={(x?.description as string | undefined) ?? ''}
 					oninput={(e) =>
 						set('description' as keyof EntryX, (e.currentTarget as HTMLTextAreaElement).value)}
@@ -122,7 +124,7 @@
 			<div class="sm:col-span-2">
 				<Checkbox
 					checked={!!x?.hidden}
-					label="Hidden from the portfolio"
+					label="Hidden from your website"
 					onchange={(v) => set('hidden', v || undefined)}
 				/>
 			</div>

@@ -61,7 +61,7 @@
 				{#if subtitle}<span class="block truncate text-xs text-muted">{subtitle}</span>{/if}
 			</span>
 		</button>
-		{#if hidden}<Badge>hidden from portfolio</Badge>{/if}
+		{#if hidden}<Badge>hidden from website</Badge>{/if}
 		{#if usedIn}<Badge tone="accent">in {usedIn} resume{usedIn === 1 ? '' : 's'}</Badge>{/if}
 		<span
 			class="flex shrink-0 items-center opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"

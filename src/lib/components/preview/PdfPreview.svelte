@@ -88,7 +88,7 @@
 	<div class="flex h-9 shrink-0 items-center gap-1 border-b border-border bg-surface px-2">
 		<span class="text-xs text-muted">Preview</span>
 		{#if pageCount}<span class="text-xs text-faint"
-				>· {pageCount} page{pageCount === 1 ? '' : 's'}</span
+				>- {pageCount} page{pageCount === 1 ? '' : 's'}</span
 			>{/if}
 		<span class="flex-1"></span>
 		<IconButton size="sm" label="Zoom out" onclick={() => zoomBy(1 / 1.2)}
@@ -132,11 +132,11 @@
 				{#if compiles.engine === 'loading' && p && p.phase !== 'ready'}
 					Downloading the LaTeX engine, once ({(p.loaded / 1e6).toFixed(1)} of {(
 						p.total / 1e6
-					).toFixed(1)} MB)…
+					).toFixed(1)} MB)...
 				{:else if s.status === 'error'}
 					<span class="text-danger">Compile failed. See the log.</span>
 				{:else}
-					Compiling your first PDF…
+					Compiling your first PDF...
 				{/if}
 			</p>
 		{/if}
@@ -144,7 +144,7 @@
 			<div
 				class="pointer-events-none absolute top-3 left-1/2 -translate-x-1/2 rounded-full border border-border bg-surface/90 px-3 py-1 text-xs text-muted shadow"
 			>
-				Compiling…
+				Compiling...
 			</div>
 		{:else if s.stale && pageCount}
 			<div
