@@ -17,6 +17,7 @@
 	import { renderTex } from '$lib/core/latex';
 	import { resolve } from '$lib/core/resolve/resolve';
 	import { compiles } from '$lib/store/compile.svelte';
+	import { uploadUrl } from '$lib/store/github';
 	import { resumeJson } from '$lib/store/exporter';
 	import { saveSnapshot } from '$lib/store/snapshots';
 	import { ui } from '$lib/store/ui.svelte';
@@ -74,6 +75,28 @@
 	$effect(() => {
 		if (tex && workspace.settings.autoCompile) compiles.request(id, tex, 'discrete');
 	});
+
+	/** Tokenless: save the PDF under the site's file name and open GitHub's upload page for that folder. */
+	function uploadPdf() {
+		const site = workspace.settings.website;
+		const path = site.pdfPath?.trim();
+		if (!resume || !site.repo || !path) return;
+		const s = compiles.state(id);
+		if (!s.pdf || s.status !== 'ok') {
+			toast.error(s.status === 'compiling' ? 'Still compiling. One moment.' : 'No PDF yet.');
+			return;
+		}
+		const name = path.slice(path.lastIndexOf('/') + 1) || 'resume.pdf';
+		downloadBlob(name, new Blob([s.pdf as BlobPart], { type: 'application/pdf' }));
+		window.open(
+			uploadUrl(site.repo.trim(), (site.branch ?? '').trim() || 'main', path),
+			'_blank',
+			'noopener'
+		);
+		toast.success(`Saved ${name}`, {
+			description: 'Drop it on the GitHub page that opened, then Commit changes.'
+		});
+	}
 
 	function download(kind: 'pdf' | 'tex') {
 		if (!resume) return;
@@ -162,6 +185,7 @@
 					resumeJson($state.snapshot(resume)),
 					'application/json'
 				)}
+			onupload={uploadPdf}
 			ondelete={() => (confirmDelete = true)}
 		/>
 		<div bind:this={splitContainer} class="flex min-h-0 flex-1" style="--split: {splitPx}px">

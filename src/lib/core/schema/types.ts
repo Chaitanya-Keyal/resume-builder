@@ -352,6 +352,8 @@ export interface WebsiteSync {
 	branch?: string;
 	/** Path of profile.json inside the repo. */
 	path?: string;
+	/** Where the site keeps the resume PDF, e.g. `static/resume.pdf`. */
+	pdfPath?: string;
 }
 
 export interface Settings {

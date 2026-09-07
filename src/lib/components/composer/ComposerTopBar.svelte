@@ -11,6 +11,7 @@
 	import ScanText from '@lucide/svelte/icons/scan-text';
 	import Tag from '@lucide/svelte/icons/tag';
 	import Trash2 from '@lucide/svelte/icons/trash-2';
+	import Upload from '@lucide/svelte/icons/upload';
 	import WandSparkles from '@lucide/svelte/icons/wand-sparkles';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -31,6 +32,7 @@
 		onsnapshots,
 		onats,
 		onexport,
+		onupload,
 		ondelete
 	}: {
 		resume: Resume;
@@ -41,6 +43,7 @@
 		onsnapshots: () => void;
 		onats: () => void;
 		onexport: () => void;
+		onupload: () => void;
 		ondelete: () => void;
 	} = $props();
 
@@ -129,6 +132,9 @@
 			{ label: 'What a parser sees...', icon: ScanText, onSelect: onats },
 			{ separator: true },
 			{ label: 'Export resume JSON', icon: FileDown, onSelect: onexport },
+			...(workspace.settings.website.enabled && workspace.settings.website.pdfPath?.trim()
+				? [{ label: 'Upload PDF to GitHub', icon: Upload, onSelect: onupload }]
+				: []),
 			{ label: 'Duplicate', icon: Copy, onSelect: () => workspace.duplicateResume(resume.id) },
 			{ separator: true },
 			{

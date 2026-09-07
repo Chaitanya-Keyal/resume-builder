@@ -20,7 +20,8 @@ export const websiteSyncSchema = z.object({
 	enabled: z.boolean().default(false),
 	repo: z.string().optional(),
 	branch: z.string().optional(),
-	path: z.string().optional()
+	path: z.string().optional(),
+	pdfPath: z.string().optional()
 });
 
 export const settingsSchema = z.object({

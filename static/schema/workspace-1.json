@@ -1331,6 +1331,28 @@
 		"settings": {
 			"type": "object",
 			"properties": {
+				"website": {
+					"default": {},
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"default": false,
+							"type": "boolean"
+						},
+						"repo": {
+							"type": "string"
+						},
+						"branch": {
+							"type": "string"
+						},
+						"path": {
+							"type": "string"
+						},
+						"pdfPath": {
+							"type": "string"
+						}
+					}
+				},
 				"compiler": {
 					"default": "wasm",
 					"type": "string",

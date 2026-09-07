@@ -36,6 +36,12 @@ export async function fetchCurrent(t: Target): Promise<{ text: string } | null> 
 	return { text: new TextDecoder().decode(bytes) };
 }
 
+/** GitHub's drag-and-drop upload page for the directory holding `path`. */
+export function uploadUrl(repo: string, branch: string, path: string): string {
+	const dir = path.includes('/') ? path.slice(0, path.lastIndexOf('/')) : '';
+	return `https://github.com/${repo}/upload/${encodeURIComponent(branch)}${dir ? `/${dir}` : ''}`;
+}
+
 /** GitHub's web editor for the file: edit when it exists, otherwise a new file at that path. */
 export function editorUrl(t: Target, exists: boolean): string {
 	const branch = encodeURIComponent(t.branch);

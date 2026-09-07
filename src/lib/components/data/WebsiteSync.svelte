@@ -70,7 +70,7 @@
 	</div>
 
 	{#if site.enabled}
-		<div class="mt-4 grid gap-3 sm:grid-cols-3">
+		<div class="mt-4 grid gap-3 sm:grid-cols-2">
 			<TextField
 				label="GitHub repository"
 				placeholder="owner/repo"
@@ -91,6 +91,14 @@
 				mono
 				value={site.path ?? ''}
 				oninput={(e) => set({ path: (e.currentTarget as HTMLInputElement).value })}
+			/>
+			<TextField
+				label="Path to the resume PDF (optional)"
+				placeholder="static/resume.pdf"
+				mono
+				value={site.pdfPath ?? ''}
+				oninput={(e) => set({ pdfPath: (e.currentTarget as HTMLInputElement).value })}
+				hint="Adds 'Upload PDF to GitHub' to a resume's menu: downloads the PDF under this name and opens the upload page for its folder."
 			/>
 		</div>
 		<div class="mt-3 flex flex-wrap items-center gap-3">
