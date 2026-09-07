@@ -51,13 +51,17 @@ export function atsReport(pagesText: string[], resolved: ResolvedResume): AtsRep
 		);
 	}
 
-	// Ligatures: "fi"/"fl" usually survive with glyphtounicode, but check a few known words.
-	const ligWords = ['first', 'file', 'workflow', 'office', 'efficient', 'profile'];
-	const lig = ligWords.filter(
-		(w) => new RegExp(w.replace(/f[il]/, '.'), 'i').test(flat) && !new RegExp(w, 'i').test(flat)
-	);
-	if (lig.length)
-		checks.push({ level: 'warn', message: `Possible ligature collapse in: ${lig.join(', ')}.` });
+	// Ligatures: with glyphtounicode the PDF maps "fi"/"fl" glyphs back to plain letters. If a
+	// parser still sees the single ligature code points, or the replacement character, some
+	// keyword matchers will not find "file" or "workflow".
+	const ligs = flat.match(/[\uFB00-\uFB06]/g) ?? [];
+	if (ligs.length)
+		checks.push({
+			level: 'warn',
+			message: `${ligs.length} ligature glyph${ligs.length === 1 ? '' : 's'} (fi, fl, ff) came out as single characters; keyword matchers may miss those words.`
+		});
+	if (/\uFFFD/.test(flat))
+		checks.push({ level: 'warn', message: 'Some characters could not be mapped to text.' });
 
 	// Section headings should appear, in order.
 	const titles = resolved.sections.map((s) => s.title ?? '').filter(Boolean);
