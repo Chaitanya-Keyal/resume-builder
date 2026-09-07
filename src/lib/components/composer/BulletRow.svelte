@@ -3,6 +3,8 @@
 	import ArrowUp from '@lucide/svelte/icons/arrow-up';
 	import Pencil from '@lucide/svelte/icons/pencil';
 	import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import { dragHandle } from 'svelte-dnd-action';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import TextArea from '$lib/components/ui/TextArea.svelte';
@@ -41,6 +43,14 @@
 </script>
 
 <div class="group flex items-start gap-2 py-1 pl-7 {included ? '' : 'opacity-50'}">
+	{#if included}
+		<span
+			use:dragHandle
+			class="mt-0.5 -ml-5 cursor-grab text-faint hover:text-text active:cursor-grabbing"
+			aria-label="Drag to reorder"
+			title="Drag to reorder"><GripVertical size={13} /></span
+		>
+	{/if}
 	<Checkbox checked={included} onchange={ontoggle} />
 	<div class="min-w-0 flex-1">
 		{#if editing}

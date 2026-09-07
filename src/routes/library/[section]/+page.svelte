@@ -103,7 +103,8 @@
 	function del(c: ListCollection, id: string, label: string) {
 		const n = removeEntry(c, id);
 		toast.success(`Deleted ${label || 'entry'}`, {
-			description: n ? `Removed from ${n} resume${n === 1 ? '' : 's'}.` : undefined
+			description: n ? `Removed from ${n} resume${n === 1 ? '' : 's'}.` : undefined,
+			action: { label: 'Undo', onClick: () => workspace.undo() }
 		});
 	}
 	async function created(id: string) {

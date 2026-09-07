@@ -8,7 +8,15 @@
 	import { listRefs } from '$lib/core/resolve/refs';
 	import { isItemRef } from '$lib/core/resolve/resolve';
 	import type { ItemRef, Profile, Resume, Section } from '$lib/core/schema/types';
-	import { highlightsOf, moveSection, removeSection, setSectionTitle } from '$lib/store/composer';
+	import {
+		highlightsOf,
+		moveSection,
+		removeSection,
+		reorderItems,
+		setSectionTitle
+	} from '$lib/store/composer';
+	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import EntryRow from './EntryRow.svelte';
 
 	let {
@@ -54,10 +62,27 @@
 
 	let editingTitle = $state(false);
 	let draft = $state('');
+
+	// Included entries can be dragged; the excluded ones sit below in library order.
+	let dnd = $derived(rows.filter((r) => r.item).map((r) => ({ id: r.entry.ref })));
+	const rowByRef = $derived(new Map(rows.map((r) => [r.entry.ref, r])));
+	const excluded = $derived(rows.filter((r) => !r.item));
+	const DND = $derived({
+		type: `entries:${section.id}`,
+		flipDurationMs: 150,
+		dropTargetStyle: {},
+		dropTargetClasses: ['dnd-target']
+	});
 </script>
 
 <section class="rounded-lg border border-border bg-surface">
 	<div class="flex items-center gap-2 px-3 py-2">
+		<span
+			use:dragHandle
+			class="-ml-1 cursor-grab text-faint hover:text-text active:cursor-grabbing"
+			aria-label="Drag to reorder section"
+			title="Drag to reorder"><GripVertical size={14} /></span
+		>
 		{#if editingTitle}
 			<!-- svelte-ignore a11y_autofocus -->
 			<input
@@ -118,7 +143,36 @@
 		{#if rows.length === 0}
 			<p class="px-3 py-3 text-xs text-faint">Nothing in the library for this section yet.</p>
 		{/if}
-		{#each rows as row, i (row.entry.ref)}
+		<div
+			use:dragHandleZone={{ items: dnd, ...DND }}
+			onconsider={(e) => (dnd = e.detail.items)}
+			onfinalize={(e) => {
+				dnd = e.detail.items;
+				reorderItems(
+					resume.id,
+					section.id,
+					dnd.map((d) => d.id)
+				);
+			}}
+		>
+			{#each dnd as d, i (d.id)}
+				{@const row = rowByRef.get(d.id)}
+				{#if row}
+					<div>
+						<EntryRow
+							{resume}
+							sectionId={section.id}
+							entry={row.entry}
+							item={row.item}
+							highlights={highlightsOf(profile, row.entry.ref)}
+							librarySection={LIBRARY_SECTION[section.type] ?? 'more'}
+							canMove={{ up: i > 0, down: i < dnd.length - 1 }}
+						/>
+					</div>
+				{/if}
+			{/each}
+		</div>
+		{#each excluded as row (row.entry.ref)}
 			<EntryRow
 				{resume}
 				sectionId={section.id}
@@ -126,7 +180,7 @@
 				item={row.item}
 				highlights={highlightsOf(profile, row.entry.ref)}
 				librarySection={LIBRARY_SECTION[section.type] ?? 'more'}
-				canMove={{ up: !!row.item && i > 0, down: !!row.item && i < refItems.length - 1 }}
+				canMove={{ up: false, down: false }}
 			/>
 		{/each}
 	</div>

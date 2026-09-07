@@ -69,3 +69,10 @@
 		outline-offset: 2px;
 	}
 }
+
+/* svelte-dnd-action drop target while dragging */
+.dnd-target {
+	outline: 1px dashed var(--color-accent);
+	outline-offset: 2px;
+	border-radius: 0.5rem;
+}

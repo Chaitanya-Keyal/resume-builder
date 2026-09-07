@@ -74,13 +74,20 @@
 		}
 	}
 
+	/** A workspace import touched profile, resumes and overlay: undo each. */
+	function undoImport(steps: number) {
+		for (let i = 0; i < steps; i++) ws.undo();
+	}
+
 	function applyPending() {
 		if (!pending) return;
 		const imp = pending;
 		pending = null;
 		if (imp.resume) {
 			const replaced = ws.putResume(imp.resume);
-			toast.success(replaced ? `Replaced "${imp.resume.name}"` : `Added "${imp.resume.name}"`);
+			toast.success(replaced ? `Replaced "${imp.resume.name}"` : `Added "${imp.resume.name}"`, {
+				action: { label: 'Undo', onClick: () => workspace.undo() }
+			});
 			return;
 		}
 		if (!imp.profile) return;
@@ -93,8 +100,9 @@
 		for (const w of imp.warnings) toast.warning(w.message, { description: w.path });
 		toast.success(imp.workspace ? 'Workspace restored' : 'Library replaced', {
 			description: imp.workspace
-				? undefined
-				: 'Resumes keep their selections; anything that no longer exists is flagged in the composer.'
+				? 'Ctrl+Z, or Undo here, brings the previous state back.'
+				: 'Resumes keep their selections; anything that no longer exists is flagged in the composer.',
+			action: { label: 'Undo', onClick: () => undoImport(imp.workspace ? 3 : 1) }
 		});
 	}
 

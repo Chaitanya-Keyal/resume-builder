@@ -42,7 +42,7 @@
 		compiles.dispose(id);
 		await deleteAllSnapshots(id);
 		await dbDel(KEYS.artifact(id));
-		toast.success('Resume deleted');
+		toast.success('Resume deleted', { action: { label: 'Undo', onClick: () => workspace.undo() } });
 	}
 </script>
 

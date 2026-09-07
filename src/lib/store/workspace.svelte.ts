@@ -21,6 +21,18 @@ import { dbClear, dbGet, dbSet, KEYS } from './db';
 
 type Key = 'profile' | 'overlay' | 'resumes' | 'settings';
 
+/** Keys whose edits can be undone. Settings are not content. */
+const UNDOABLE: Key[] = ['profile', 'overlay', 'resumes'];
+/** Edits to the same document closer together than this collapse into one undo step (typing). */
+const COALESCE_MS = 700;
+const MAX_UNDO = 100;
+
+interface UndoEntry {
+	key: Key;
+	before: unknown;
+	at: number;
+}
+
 class WorkspaceStore {
 	profile = $state<Profile | null>(null);
 	overlay = $state<Overlay>(emptyOverlay());
@@ -35,6 +47,109 @@ class WorkspaceStore {
 
 	private dirty = new Set<Key>();
 	private timer: ReturnType<typeof setTimeout> | undefined;
+
+	/* ---------- undo ---------- */
+
+	/** Last persisted-shape snapshot per key, so `touch` knows what changed. */
+	private last: Partial<Record<Key, string>> = {};
+	private undoStack: UndoEntry[] = [];
+	private redoStack: UndoEntry[] = [];
+	private recording = true;
+	canUndo = $state(false);
+	canRedo = $state(false);
+
+	private current(key: Key): unknown {
+		switch (key) {
+			case 'profile':
+				return $state.snapshot(this.profile);
+			case 'overlay':
+				return $state.snapshot(this.overlay);
+			case 'resumes':
+				return $state.snapshot(this.resumes);
+			case 'settings':
+				return $state.snapshot(this.settings);
+		}
+	}
+
+	private assign(key: Key, value: unknown) {
+		switch (key) {
+			case 'profile':
+				this.profile = value as Profile | null;
+				break;
+			case 'overlay':
+				this.overlay = value as Overlay;
+				break;
+			case 'resumes':
+				this.resumes = value as Resume[];
+				break;
+			case 'settings':
+				this.settings = value as Settings;
+		}
+	}
+
+	private remember(key: Key) {
+		this.last[key] = JSON.stringify(this.current(key));
+	}
+
+	private record(key: Key) {
+		if (!this.recording || !UNDOABLE.includes(key)) return;
+		const before = this.last[key];
+		const now = JSON.stringify(this.current(key));
+		if (before === undefined || before === now) {
+			this.last[key] = now;
+			return;
+		}
+		const top = this.undoStack[this.undoStack.length - 1];
+		const t = Date.now();
+		if (top && top.key === key && t - top.at < COALESCE_MS) top.at = t;
+		else {
+			this.undoStack.push({ key, before: JSON.parse(before), at: t });
+			if (this.undoStack.length > MAX_UNDO) this.undoStack.shift();
+		}
+		this.redoStack = [];
+		this.last[key] = now;
+		this.syncUndoFlags();
+	}
+
+	private syncUndoFlags() {
+		this.canUndo = this.undoStack.length > 0;
+		this.canRedo = this.redoStack.length > 0;
+	}
+
+	/** Seal the current typing group so the next edit starts a new undo step. */
+	sealUndo() {
+		const top = this.undoStack[this.undoStack.length - 1];
+		if (top) top.at = 0;
+	}
+
+	private swap(from: UndoEntry[], to: UndoEntry[]): Key | null {
+		const entry = from.pop();
+		if (!entry) return null;
+		to.push({ key: entry.key, before: this.current(entry.key), at: 0 });
+		this.recording = false;
+		this.assign(entry.key, entry.before);
+		this.remember(entry.key);
+		this.dirty.add(entry.key);
+		void this.flush();
+		this.recording = true;
+		this.syncUndoFlags();
+		return entry.key;
+	}
+
+	/** Returns which document was restored, or null when there was nothing to undo. */
+	undo(): Key | null {
+		return this.swap(this.undoStack, this.redoStack);
+	}
+
+	redo(): Key | null {
+		return this.swap(this.redoStack, this.undoStack);
+	}
+
+	private clearUndo() {
+		this.undoStack = [];
+		this.redoStack = [];
+		this.syncUndoFlags();
+	}
 
 	async load() {
 		const [profile, overlay, resumes, settings] = await Promise.all([
@@ -53,13 +168,17 @@ class WorkspaceStore {
 			.flatMap((r) => (r.success ? [r.data] : []));
 		const s = settings ? settingsSchema.safeParse(settings) : undefined;
 		this.settings = s?.success ? s.data : defaultSettings();
+		for (const k of UNDOABLE) this.remember(k);
 		this.loaded = true;
 	}
 
 	/* ---------- persistence ---------- */
 
 	touch(...keys: Key[]) {
-		for (const k of keys) this.dirty.add(k);
+		for (const k of keys) {
+			this.dirty.add(k);
+			this.record(k);
+		}
 		clearTimeout(this.timer);
 		this.timer = setTimeout(() => void this.flush(), 250);
 	}
@@ -127,6 +246,8 @@ class WorkspaceStore {
 		this.resumes = [];
 		this.settings = defaultSettings();
 		this.dirty.clear();
+		this.clearUndo();
+		this.last = {};
 		await dbClear();
 	}
 

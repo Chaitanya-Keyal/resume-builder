@@ -4,7 +4,7 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { onMount, type Snippet } from 'svelte';
-	import { Toaster } from 'svelte-sonner';
+	import { Toaster, toast } from 'svelte-sonner';
 	import { pwaInfo } from 'virtual:pwa-info';
 	import { registerSW } from 'virtual:pwa-register';
 	import BottomTabs from '$lib/components/shell/BottomTabs.svelte';
@@ -35,13 +35,30 @@
 		if (ui.returnTo && !path.startsWith('/library')) ui.returnTo = null;
 	});
 
+	const UNDO_LABEL = {
+		profile: 'Library change reverted',
+		overlay: 'Private fields reverted',
+		resumes: 'Resume change reverted',
+		settings: 'Settings reverted'
+	} as const;
+
 	function onkeydown(e: KeyboardEvent) {
 		const mod = e.metaKey || e.ctrlKey;
 		if (!mod) return;
 		const tag = (e.target as HTMLElement | null)?.tagName;
 		const typing =
 			tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement | null)?.isContentEditable;
-		if (e.key === '1' || e.key === '2' || e.key === '3') {
+		if (e.key.toLowerCase() === 'z' && !typing) {
+			// Inside a field the browser's own text undo applies; everywhere else, ours.
+			e.preventDefault();
+			const key = e.shiftKey ? workspace.redo() : workspace.undo();
+			if (key) toast.message(e.shiftKey ? 'Redone' : 'Undone', { description: UNDO_LABEL[key] });
+			else toast.message(e.shiftKey ? 'Nothing to redo' : 'Nothing to undo');
+		} else if (e.key.toLowerCase() === 'y' && !typing) {
+			e.preventDefault();
+			const key = workspace.redo();
+			if (key) toast.message('Redone', { description: UNDO_LABEL[key] });
+		} else if (e.key === '1' || e.key === '2' || e.key === '3') {
 			e.preventDefault();
 			void goto(`${base}${['/library', '/resumes', '/data'][Number(e.key) - 1]}`);
 		} else if (e.key === '\\') {

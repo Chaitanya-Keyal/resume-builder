@@ -145,6 +145,7 @@
 		await deleteAllSnapshots(id);
 		await dbDel(KEYS.artifact(id));
 		await goto(`${base}/resumes`);
+		toast.success('Resume deleted', { action: { label: 'Undo', onClick: () => workspace.undo() } });
 	}
 
 	function onshortcut(e: Event) {

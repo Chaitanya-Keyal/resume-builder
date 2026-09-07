@@ -50,4 +50,26 @@ writeFileSync(
 	readFileSync(join(ROOT, 'schema/profile-1.json'), 'utf8')
 );
 writeFileSync(join(dest, 'markup.ts'), bundleMarkup());
-console.log(`vendored profile.types.ts, profile.schema.json, markup.ts → ${dest}`);
+
+// The pure core a site needs to turn profile.json + resume.json into a
+// resolved resume: same files, same relative imports, under <dest>/core.
+const CORE = [
+	'schema/types.ts',
+	'markup/index.ts',
+	'markup/parse.ts',
+	'markup/escape.ts',
+	'markup/html.ts',
+	'markup/plain.ts',
+	'markup/latex.ts',
+	'resolve/types.ts',
+	'resolve/refs.ts',
+	'resolve/overlay.ts',
+	'resolve/resolve.ts',
+	'latex/dates.ts'
+];
+for (const rel of CORE) {
+	const out = join(dest, 'core', rel);
+	mkdirSync(join(out, '..'), { recursive: true });
+	writeFileSync(out, header + readFileSync(join(ROOT, 'src/lib/core', rel), 'utf8'));
+}
+console.log(`vendored profile.types.ts, profile.schema.json, markup.ts, core/ -> ${dest}`);

@@ -4,6 +4,8 @@
 	import ArrowUp from '@lucide/svelte/icons/arrow-up';
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
+	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import { toPlain } from '$lib/core/markup';
 	import type { RefEntry } from '$lib/core/resolve/refs';
@@ -12,6 +14,7 @@
 		clearBulletOverride,
 		moveBullet,
 		moveItem,
+		reorderBullets,
 		setBulletOverride,
 		setItemOverride,
 		toggleBullet,
@@ -41,14 +44,18 @@
 	let open = $state(false);
 	const included = $derived(!!item);
 	const libraryOrder = $derived(highlights.map((h) => h.id));
-	/** Included bullets in resume order, then the rest in library order. */
-	const rows = $derived.by(() => {
-		const byId = new Map(highlights.map((h) => [h.id, h]));
-		const picked = (item?.bullets ?? []).flatMap((id) => byId.get(id) ?? []);
-		const rest = highlights.filter((h) => !item?.bullets.includes(h.id));
-		return [...picked, ...rest];
-	});
 	const count = $derived(`${item?.bullets.length ?? 0}/${highlights.length}`);
+
+	// Included bullets can be dragged; the rest follow in library order.
+	let dnd = $derived((item?.bullets ?? []).map((id) => ({ id })));
+	const byId = $derived(new Map(highlights.map((h) => [h.id, h])));
+	const rest = $derived(highlights.filter((h) => !item?.bullets.includes(h.id)));
+	const DND = $derived({
+		type: `bullets:${entry.ref}`,
+		flipDurationMs: 150,
+		dropTargetStyle: {},
+		dropTargetClasses: ['dnd-target']
+	});
 
 	const editHref = $derived(
 		`${base}/library/${librarySection}?entry=${encodeURIComponent(entry.ref)}`
@@ -60,6 +67,14 @@
 
 <div class="border-t border-border first:border-t-0 {included ? '' : 'opacity-60'}">
 	<div class="group flex items-center gap-2 px-3 py-1.5">
+		{#if included}
+			<span
+				use:dragHandle
+				class="-ml-1.5 cursor-grab text-faint hover:text-text active:cursor-grabbing"
+				aria-label="Drag to reorder"
+				title="Drag to reorder"><GripVertical size={14} /></span
+			>
+		{/if}
 		<Checkbox
 			checked={included}
 			onchange={() => toggleItem(resume.id, sectionId, entry.ref, entry.highlightIds)}
@@ -131,13 +146,44 @@
 					</div>
 				</div>
 			{/if}
-			{#each rows as h (h.id)}
-				{@const idx = item?.bullets.indexOf(h.id) ?? -1}
+			<div
+				use:dragHandleZone={{ items: dnd, ...DND }}
+				onconsider={(e) => (dnd = e.detail.items)}
+				onfinalize={(e) => {
+					dnd = e.detail.items;
+					reorderBullets(
+						resume.id,
+						sectionId,
+						entry.ref,
+						dnd.map((d) => d.id)
+					);
+				}}
+			>
+				{#each dnd as d, idx (d.id)}
+					{@const h = byId.get(d.id)}
+					{#if h}
+						<div>
+							<BulletRow
+								highlight={h}
+								included={true}
+								override={item?.overrides?.bullets?.[h.id]}
+								canMove={{ up: idx > 0, down: idx < dnd.length - 1 }}
+								ontoggle={() => toggleBullet(resume.id, sectionId, entry.ref, h.id, libraryOrder)}
+								onmove={(dir) => moveBullet(resume.id, sectionId, entry.ref, h.id, dir)}
+								onoverride={(text) =>
+									setBulletOverride(resume.id, sectionId, entry.ref, h.id, text, h.text)}
+								onrevert={() => clearBulletOverride(resume.id, sectionId, entry.ref, h.id)}
+							/>
+						</div>
+					{/if}
+				{/each}
+			</div>
+			{#each rest as h (h.id)}
 				<BulletRow
 					highlight={h}
-					included={idx !== -1}
+					included={false}
 					override={item?.overrides?.bullets?.[h.id]}
-					canMove={{ up: idx > 0, down: idx !== -1 && idx < (item?.bullets.length ?? 0) - 1 }}
+					canMove={{ up: false, down: false }}
 					ontoggle={() => {
 						if (!item) toggleItem(resume.id, sectionId, entry.ref, [h.id]);
 						else toggleBullet(resume.id, sectionId, entry.ref, h.id, libraryOrder);

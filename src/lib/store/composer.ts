@@ -85,8 +85,9 @@ export function reorderItems(id: string, sectionId: string, refs: string[]) {
 		const s = section(r, sectionId);
 		if (!s) return;
 		const byRef = new Map(s.items.filter(isItemRef).map((it) => [it.ref, it]));
-		const custom = s.items.filter((it) => !isItemRef(it));
-		s.items = [...refs.flatMap((ref) => byRef.get(ref) ?? []), ...custom];
+		const named = new Set(refs);
+		const rest = s.items.filter((it) => !isItemRef(it) || !named.has(it.ref));
+		s.items = [...refs.flatMap((ref) => byRef.get(ref) ?? []), ...rest];
 	});
 }
 
@@ -120,6 +121,20 @@ export function moveBullet(id: string, sectionId: string, ref: string, hid: stri
 		const s = section(r, sectionId);
 		const it = s && itemRef(s, ref);
 		if (it) move(it.bullets, it.bullets.indexOf(hid), dir);
+	});
+}
+
+/** Put the included bullets in exactly this order (drag and drop). */
+export function reorderBullets(id: string, sectionId: string, ref: string, hids: string[]) {
+	ws.mutateResume(id, (r) => {
+		const s = section(r, sectionId);
+		const it = s && itemRef(s, ref);
+		if (!it) return;
+		const have = new Set(it.bullets);
+		it.bullets = [
+			...hids.filter((h) => have.has(h)),
+			...it.bullets.filter((h) => !hids.includes(h))
+		];
 	});
 }
 
@@ -191,8 +206,13 @@ export function moveSection(id: string, sectionId: string, dir: -1 | 1) {
 
 export function reorderSections(id: string, sectionIds: string[]) {
 	ws.mutateResume(id, (r) => {
+		// Never lose a section: anything the caller forgot keeps its place at the end.
 		const byId = new Map(r.sections.map((s) => [s.id, s]));
-		r.sections = sectionIds.flatMap((sid) => byId.get(sid) ?? []);
+		const named = new Set(sectionIds);
+		r.sections = [
+			...sectionIds.flatMap((sid) => byId.get(sid) ?? []),
+			...r.sections.filter((s) => !named.has(s.id))
+		];
 	});
 }
 
