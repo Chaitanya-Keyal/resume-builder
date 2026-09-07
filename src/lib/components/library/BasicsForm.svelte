@@ -129,58 +129,60 @@
 		</div>
 	</section>
 
-	<section class="rounded-lg border border-border bg-surface p-4">
-		<h2 class="mb-1 text-sm font-semibold">Website fields</h2>
-		<p class="mb-3 text-xs text-muted">
-			Only a site that reads your profile.json uses these. Resumes ignore them.
-		</p>
-		<div class="grid gap-3 sm:grid-cols-2">
-			<TextField
-				label="Handle"
-				placeholder="okaybro"
-				value={b.x?.handle ?? ''}
-				oninput={(e) => {
-					b.x = { ...b.x, handle: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-			/>
-			<TextField
-				label="Short tagline"
-				placeholder="backend systems - ai agents - open source"
-				value={b.x?.tagline ?? ''}
-				oninput={(e) => {
-					b.x = { ...b.x, tagline: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-			/>
-			<TextField
-				label="Role"
-				placeholder="AI engineering intern - open-source developer"
-				value={b.x?.role ?? ''}
-				oninput={(e) => {
-					b.x = { ...b.x, role: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-			/>
-			<TextField
-				label="Status"
-				placeholder="Open to Summer 2027 internships"
-				value={b.x?.status ?? ''}
-				oninput={(e) => {
-					b.x = { ...b.x, status: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-			/>
-			<TextField
-				label="Site repository"
-				placeholder="https://github.com/..."
-				mono
-				value={b.x?.repo ?? ''}
-				oninput={(e) => {
-					b.x = { ...b.x, repo: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-			/>
-		</div>
-	</section>
+	{#if workspace.settings.website.enabled}
+		<section class="rounded-lg border border-border bg-surface p-4">
+			<h2 class="mb-1 text-sm font-semibold">Website fields</h2>
+			<p class="mb-3 text-xs text-muted">
+				Only a site that reads your profile.json uses these. Resumes ignore them.
+			</p>
+			<div class="grid gap-3 sm:grid-cols-2">
+				<TextField
+					label="Handle"
+					placeholder="okaybro"
+					value={b.x?.handle ?? ''}
+					oninput={(e) => {
+						b.x = { ...b.x, handle: (e.currentTarget as HTMLInputElement).value || undefined };
+						touch();
+					}}
+				/>
+				<TextField
+					label="Short tagline"
+					placeholder="backend systems - ai agents - open source"
+					value={b.x?.tagline ?? ''}
+					oninput={(e) => {
+						b.x = { ...b.x, tagline: (e.currentTarget as HTMLInputElement).value || undefined };
+						touch();
+					}}
+				/>
+				<TextField
+					label="Role"
+					placeholder="AI engineering intern - open-source developer"
+					value={b.x?.role ?? ''}
+					oninput={(e) => {
+						b.x = { ...b.x, role: (e.currentTarget as HTMLInputElement).value || undefined };
+						touch();
+					}}
+				/>
+				<TextField
+					label="Status"
+					placeholder="Open to Summer 2027 internships"
+					value={b.x?.status ?? ''}
+					oninput={(e) => {
+						b.x = { ...b.x, status: (e.currentTarget as HTMLInputElement).value || undefined };
+						touch();
+					}}
+				/>
+				<TextField
+					label="Site repository"
+					placeholder="https://github.com/..."
+					mono
+					value={b.x?.repo ?? ''}
+					oninput={(e) => {
+						b.x = { ...b.x, repo: (e.currentTarget as HTMLInputElement).value || undefined };
+						touch();
+					}}
+				/>
+			</div>
+		</section>
+	{/if}
 </div>

@@ -23,24 +23,26 @@
 			hint="Printed as 'Category: a, b, c'. Order matters."
 		/>
 	</div>
-	<div class="flex flex-wrap gap-4 sm:col-span-2">
-		<Checkbox
-			checked={!!g.x?.hidden}
-			label="Hidden from your website"
-			onchange={(v) => {
-				g.x = { ...g.x, hidden: v || undefined };
-				touch();
-			}}
-		/>
-		<TextField
-			placeholder="website key (optional)"
-			mono
-			value={(g.x?.key as string | undefined) ?? ''}
-			oninput={(e) => {
-				g.x = { ...g.x, key: (e.currentTarget as HTMLInputElement).value || undefined };
-				touch();
-			}}
-			class="w-52"
-		/>
-	</div>
+	{#if workspace.settings.website.enabled}
+		<div class="flex flex-wrap gap-4 sm:col-span-2">
+			<Checkbox
+				checked={!!g.x?.hidden}
+				label="Hidden from your website"
+				onchange={(v) => {
+					g.x = { ...g.x, hidden: v || undefined };
+					touch();
+				}}
+			/>
+			<TextField
+				placeholder="website key (optional)"
+				mono
+				value={(g.x?.key as string | undefined) ?? ''}
+				oninput={(e) => {
+					g.x = { ...g.x, key: (e.currentTarget as HTMLInputElement).value || undefined };
+					touch();
+				}}
+				class="w-52"
+			/>
+		</div>
+	{/if}
 </div>

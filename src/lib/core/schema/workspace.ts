@@ -16,7 +16,15 @@ export const overlaySchema = z.object({
 	patches: z.array(z.object({ ref: z.string(), fields: z.record(z.string(), z.string()) })).optional()
 });
 
+export const websiteSyncSchema = z.object({
+	enabled: z.boolean().default(false),
+	repo: z.string().optional(),
+	branch: z.string().optional(),
+	path: z.string().optional()
+});
+
 export const settingsSchema = z.object({
+	website: websiteSyncSchema.prefault({}),
 	compiler: z.enum(['wasm', 'remote']).default('wasm'),
 	remoteUrl: z.string().optional(),
 	sourceUrl: z.string().optional(),

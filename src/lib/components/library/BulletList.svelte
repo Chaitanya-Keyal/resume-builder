@@ -9,6 +9,7 @@
 	import { escapedCharsIn, toLatex } from '$lib/core/markup';
 	import type { Highlight } from '$lib/core/schema/types';
 	import { newHighlight } from '$lib/store/library';
+	import { workspace } from '$lib/store/workspace.svelte';
 
 	let {
 		highlights,
@@ -126,16 +127,18 @@
 						aria-label="Move down"
 						onclick={() => move(i, 1)}><ArrowDown size={13} /></button
 					>
-					<button
-						type="button"
-						class="p-0.5 {h.hidden ? 'text-warn' : 'text-faint hover:text-text'}"
-						aria-label={h.hidden ? 'Shown on your website' : 'Hide from your website'}
-						title={h.hidden
-							? 'Hidden from your website; still selectable in resumes'
-							: 'Hide from your website (resume-only bullet)'}
-						onclick={() => toggleHidden(i)}
-						>{#if h.hidden}<EyeOff size={13} />{:else}<Eye size={13} />{/if}</button
-					>
+					{#if workspace.settings.website.enabled}
+						<button
+							type="button"
+							class="p-0.5 {h.hidden ? 'text-warn' : 'text-faint hover:text-text'}"
+							aria-label={h.hidden ? 'Shown on your website' : 'Hide from your website'}
+							title={h.hidden
+								? 'Hidden from your website; still selectable in resumes'
+								: 'Hide from your website (resume-only bullet)'}
+							onclick={() => toggleHidden(i)}
+							>{#if h.hidden}<EyeOff size={13} />{:else}<Eye size={13} />{/if}</button
+						>
+					{/if}
 					<button
 						type="button"
 						class="p-0.5 font-mono text-[10px] {peek === h.id

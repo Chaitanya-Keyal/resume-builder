@@ -18,6 +18,7 @@
 	import { ui } from '$lib/store/ui.svelte';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import { copyText, downloadText } from '$lib/util/download';
+	import WebsiteSync from '$lib/components/data/WebsiteSync.svelte';
 
 	const ws = workspace;
 	const endpointHint = 'POST { tex } -> { ok, pdf (base64), pages, log }';
@@ -138,10 +139,10 @@
 	</section>
 
 	<section class="rounded-lg border border-border bg-surface p-4">
-		<h2 class="text-sm font-semibold">Publish the library</h2>
+		<h2 class="text-sm font-semibold">Export the library</h2>
 		<p class="mb-3 text-xs text-muted">
-			profile.json is the public file: your library without private fields or resumes. Commit it to
-			a site that reads it, and re-import from that URL on another device.
+			profile.json is the public file: your library without private fields or resumes. Keep it
+			anywhere, or import it on another device.
 		</p>
 		{#if ws.profile}
 			<div class="flex flex-wrap gap-2">
@@ -240,6 +241,8 @@
 			>
 		</form>
 	</section>
+
+	<WebsiteSync />
 
 	<section class="rounded-lg border border-border bg-surface p-4">
 		<h2 class="mb-3 text-sm font-semibold">Preferences</h2>

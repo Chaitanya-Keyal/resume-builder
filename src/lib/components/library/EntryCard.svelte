@@ -7,6 +7,7 @@
 	import type { Snippet } from 'svelte';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Menu, { type MenuItem } from '$lib/components/ui/Menu.svelte';
+	import { workspace } from '$lib/store/workspace.svelte';
 
 	let {
 		id,
@@ -61,7 +62,7 @@
 				{#if subtitle}<span class="block truncate text-xs text-muted">{subtitle}</span>{/if}
 			</span>
 		</button>
-		{#if hidden}<Badge>hidden from website</Badge>{/if}
+		{#if hidden && workspace.settings.website.enabled}<Badge>hidden from website</Badge>{/if}
 		{#if usedIn}<Badge tone="accent">in {usedIn} resume{usedIn === 1 ? '' : 's'}</Badge>{/if}
 		<span
 			class="flex shrink-0 items-center opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"

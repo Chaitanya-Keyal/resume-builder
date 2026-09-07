@@ -344,7 +344,18 @@ export interface Overlay {
 	patches?: { ref: string; fields: Record<string, string> }[];
 }
 
+/** Optional link to a site that reads profile.json; off unless the user has one. */
+export interface WebsiteSync {
+	enabled: boolean;
+	/** GitHub `owner/repo`. */
+	repo?: string;
+	branch?: string;
+	/** Path of profile.json inside the repo. */
+	path?: string;
+}
+
 export interface Settings {
+	website: WebsiteSync;
 	compiler: 'wasm' | 'remote';
 	remoteUrl?: string;
 	/** Where the profile was last imported from, for one-click re-import. */

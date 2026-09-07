@@ -21,6 +21,9 @@ const context = await browser.newContext({
 });
 const page = await context.newPage();
 page.on('pageerror', (e) => console.log('[pageerror]', e.message));
+page.on('response', (r) => {
+	if (r.status() >= 400) console.log('[http]', r.status(), r.url());
+});
 page.on('console', (m) => {
 	if (m.type() === 'error' || m.type() === 'warning')
 		console.log(`[${m.type()}]`, m.text().slice(0, 300));
@@ -28,7 +31,10 @@ page.on('console', (m) => {
 
 /** `seed:sample` loads the bundled sample; `seed:/path/to/workspace.json` loads an export. */
 async function seed(kind: string) {
-	let profile: string, overlay: string | null, resume: string | null;
+	let profile: string,
+		overlay: string | null,
+		resume: string | null,
+		settings: string | null = null;
 	if (kind === 'sample') {
 		const root = join(import.meta.dir, '..', 'fixtures', 'sample');
 		profile = readFileSync(join(root, 'profile.json'), 'utf8');
@@ -39,10 +45,11 @@ async function seed(kind: string) {
 		profile = JSON.stringify(ws.profile);
 		overlay = ws.overlay ? JSON.stringify(ws.overlay) : null;
 		resume = ws.resumes?.[0] ? JSON.stringify(ws.resumes[0]) : null;
+		settings = ws.settings ? JSON.stringify(ws.settings) : null;
 	}
 	await page.goto(`${BASE}/`);
 	await page.evaluate(
-		async ({ profile, overlay, resume }) => {
+		async ({ profile, overlay, resume, settings }) => {
 			const { openDB } = await new Promise<{ openDB: () => Promise<IDBDatabase> }>((res) =>
 				res({
 					openDB: () =>
@@ -60,9 +67,10 @@ async function seed(kind: string) {
 			st.put(JSON.parse(profile), 'profile');
 			if (overlay) st.put(JSON.parse(overlay), 'overlay');
 			if (resume) st.put([JSON.parse(resume)], 'resumes');
+			if (settings) st.put(JSON.parse(settings), 'settings');
 			await new Promise((r) => (tx.oncomplete = r));
 		},
-		{ profile, overlay, resume }
+		{ profile, overlay, resume, settings }
 	);
 }
 

@@ -56,11 +56,11 @@
 	</div>
 	<div class="sm:col-span-2">
 		<TextArea
-			label="Description (website)"
+			label="Description"
 			rows={2}
 			bind:value={p.description}
 			oninput={touch}
-			hint="Not printed on resumes."
+			hint="A short paragraph about the project. Not printed on resumes."
 		/>
 	</div>
 	<div class="sm:col-span-2">

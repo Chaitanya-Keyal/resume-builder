@@ -90,7 +90,13 @@ class CompileManager {
 
 	/** Download and start the engine ahead of the first compile. Concurrent callers share one load. */
 	warm(): Promise<void> {
-		if (!this.compiler) this.configure({ compiler: 'wasm', autoCompile: true, theme: 'system' });
+		if (!this.compiler)
+			this.configure({
+				website: { enabled: false },
+				compiler: 'wasm',
+				autoCompile: true,
+				theme: 'system'
+			});
 		if (this.engine === 'ready') return Promise.resolve();
 		if (this.warming) return this.warming;
 		this.engine = 'loading';

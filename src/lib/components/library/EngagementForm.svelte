@@ -37,11 +37,11 @@
 	/>
 	<div class="sm:col-span-2">
 		<TextArea
-			label="Description (website)"
+			label="Description"
 			rows={2}
 			bind:value={engagement.description}
 			oninput={touch}
-			hint="A paragraph for your website. Not printed on resumes."
+			hint="A short paragraph about the organisation. Not printed on resumes."
 		/>
 	</div>
 </div>
