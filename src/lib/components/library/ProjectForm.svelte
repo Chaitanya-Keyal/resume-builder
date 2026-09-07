@@ -20,7 +20,7 @@
 		placeholder="Hackathon, course or company"
 		bind:value={p.entity}
 		oninput={touch}
-		hint="Printed in parentheses after the name."
+		hint="Printed as 'Name (Context)' on a resume that switches it on in the composer."
 	/>
 	<div class="sm:col-span-2">
 		<ChipsInput

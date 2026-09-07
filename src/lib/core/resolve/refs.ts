@@ -76,6 +76,8 @@ export interface RefEntry {
 	description?: string;
 	/** Library URL a resume may choose to print (projects). */
 	url?: string;
+	/** Organisation or event a resume may choose to print after the name (projects). */
+	entity?: string;
 }
 
 /** Every selectable item in the profile, in library order. */
@@ -126,7 +128,8 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 				highlightIds: p.highlights.map((h) => h.id),
 				hidden: p.x?.hidden,
 				description: p.description || undefined,
-				url: p.url || undefined
+				url: p.url || undefined,
+				entity: p.entity || undefined
 			});
 		}
 	}

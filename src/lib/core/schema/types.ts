@@ -280,6 +280,8 @@ export interface ItemOverride {
 	showDescription?: boolean;
 	/** Projects: print the library URL in the heading line. */
 	showUrl?: boolean;
+	/** Projects: print the organisation or event after the name, "name (entity)". */
+	showEntity?: boolean;
 	bullets?: Record<string, BulletOverride>;
 	extraBullets?: ExtraBullet[];
 }

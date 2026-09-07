@@ -152,6 +152,9 @@
 												"showUrl": {
 													"type": "boolean"
 												},
+												"showEntity": {
+													"type": "boolean"
+												},
 												"bullets": {
 													"type": "object",
 													"propertyNames": {

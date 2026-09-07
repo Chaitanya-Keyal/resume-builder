@@ -146,8 +146,23 @@
 			>
 		</span>
 	</div>
-	{#if open && (highlights.length || entry.description || entry.url)}
+	{#if open && (highlights.length || entry.description || entry.url || entry.entity)}
 		<div class="pr-3 pb-2">
+			{#if entry.entity}
+				<div class="flex items-start gap-2 py-1 pl-9">
+					<Checkbox
+						checked={!!item?.overrides?.showEntity}
+						disabled={!item}
+						onchange={(v) => setItemOverride(resume.id, sectionId, entry.ref, { showEntity: v })}
+					/>
+					<div class="min-w-0">
+						<span class="text-xs font-medium text-muted">Context</span>
+						<p class="truncate text-xs text-faint">
+							Prints "{toPlain(entry.label)} ({entry.entity})"
+						</p>
+					</div>
+				</div>
+			{/if}
 			{#if entry.url}
 				<div class="flex items-start gap-2 py-1 pl-9">
 					<Checkbox

@@ -202,7 +202,7 @@ function resolveRef(
 			return {
 				kind: 'project',
 				key,
-				title: ov.title ?? (pr.entity ? `${pr.name} (${pr.entity})` : pr.name),
+				title: ov.title ?? (ov.showEntity && pr.entity ? `${pr.name} (${pr.entity})` : pr.name),
 				keywords: ov.keywords ?? pr.keywords,
 				url: ov.showUrl ? pr.url || undefined : undefined,
 				dates: { label: ov.dateLabel ?? pr.dateLabel, start: pr.startDate, end: pr.endDate },
