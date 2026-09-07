@@ -53,11 +53,10 @@ export function preamble(o: JakeOptions): string {
 
 %-------------------------
 % Custom commands
-\\newcommand{\\resumeItem}[1]{
-  \\item\\small{
-    {#1 \\vspace{${pt(s.item)}}}
-  }
-}
+% One line on purpose: a space or newline between the text and \\vspace is a
+% legal break point, and with \\raggedright TeX happily puts the \\vspace on an
+% empty second line whenever the text fills the line exactly.
+\\newcommand{\\resumeItem}[1]{\\item\\small{{#1\\vspace{${pt(s.item)}}}}}
 
 \\newcommand{\\resumeSubheading}[4]{
   \\vspace{${pt(s.subheading)}}\\item

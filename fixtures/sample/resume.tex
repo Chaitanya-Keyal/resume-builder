@@ -44,11 +44,10 @@
 
 %-------------------------
 % Custom commands
-\newcommand{\resumeItem}[1]{
-  \item\small{
-    {#1 \vspace{-2pt}}
-  }
-}
+% One line on purpose: a space or newline between the text and \vspace is a
+% legal break point, and with \raggedright TeX happily puts the \vspace on an
+% empty second line whenever the text fills the line exactly.
+\newcommand{\resumeItem}[1]{\item\small{{#1\vspace{-2pt}}}}
 
 \newcommand{\resumeSubheading}[4]{
   \vspace{-1pt}\item
