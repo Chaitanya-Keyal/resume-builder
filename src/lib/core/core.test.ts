@@ -128,6 +128,8 @@ describe('dates', () => {
 		const o = { style: 'MMM yyyy' as const, separator: ' -- ', present: 'Present' };
 		expect(formatRange({ start: '2025-05', end: '2025-08' }, o)).toBe('May 2025 -- Aug 2025');
 		expect(formatRange({ start: '2025-05' }, o)).toBe('May 2025 -- Present');
+		expect(formatRange({ start: '2026-08', end: '2026-08' }, o)).toBe('Aug 2026');
+		expect(formatRange({ start: '2024-02', end: '2024-09' }, { ...o, style: 'yyyy' })).toBe('2024');
 		expect(formatRange({ end: '2028' }, o)).toBe('2028');
 		expect(formatRange({ label: 'Summer 2025', start: '2025-05' }, o)).toBe('Summer 2025');
 		expect(formatRange({ label: '', start: '2025-05' }, o)).toBe('');

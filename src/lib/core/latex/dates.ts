@@ -45,7 +45,11 @@ export interface RangeOptions {
 /** `label` wins (an empty label prints nothing); otherwise "start SEP end", "start SEP Present", or just the end date. */
 export function formatRange(d: DateRange, o: RangeOptions): string {
 	if (d.label !== undefined) return d.label;
-	if (d.start)
-		return `${formatDate(d.start, o.style)}${o.separator}${d.end ? formatDate(d.end, o.style) : o.present}`;
+	if (d.start) {
+		const a = formatDate(d.start, o.style);
+		const b = d.end ? formatDate(d.end, o.style) : o.present;
+		// A one-month (or, at year precision, one-year) stint prints once, not "Aug 2026 -- Aug 2026".
+		return a === b ? a : `${a}${o.separator}${b}`;
+	}
 	return d.end ? formatDate(d.end, o.style) : '';
 }
