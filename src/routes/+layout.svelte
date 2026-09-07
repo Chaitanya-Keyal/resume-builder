@@ -6,7 +6,6 @@
 	import { onMount, type Snippet } from 'svelte';
 	import { Toaster, toast } from 'svelte-sonner';
 	import { pwaInfo } from 'virtual:pwa-info';
-	import { registerSW } from 'virtual:pwa-register';
 	import BottomTabs from '$lib/components/shell/BottomTabs.svelte';
 	import Rail from '$lib/components/shell/Rail.svelte';
 	import ReturnBar from '$lib/components/shell/ReturnBar.svelte';
@@ -16,6 +15,31 @@
 
 	let { children }: { children: Snippet } = $props();
 
+	/**
+	 * The generated register helper resolves `./sw.js` against the current page, which
+	 * 404s on every nested route and silently leaves the browser on a stale build.
+	 * Register at the site root instead, and reload once when a new worker takes over.
+	 */
+	async function registerWorker() {
+		if (!('serviceWorker' in navigator)) return;
+		try {
+			const reg = await navigator.serviceWorker.register(`${base}/sw.js`, {
+				scope: `${base}/`,
+				updateViaCache: 'none'
+			});
+			let hadController = !!navigator.serviceWorker.controller;
+			navigator.serviceWorker.addEventListener('controllerchange', () => {
+				// First install: nothing to refresh. Later installs: the page is stale.
+				if (hadController) location.reload();
+				hadController = true;
+			});
+			void reg.update();
+			setInterval(() => void reg.update(), 60 * 60 * 1000);
+		} catch (e) {
+			console.warn('service worker registration failed', e);
+		}
+	}
+
 	const path = $derived(page.url.pathname.replace(base, '') || '/');
 	const bare = $derived(path === '/' || path === '/debug');
 
@@ -23,7 +47,7 @@
 		if (import.meta.env.DEV)
 			(window as unknown as { __rb: unknown }).__rb = { workspace, compiles, ui };
 		ui.init();
-		if (!import.meta.env.DEV) registerSW({ immediate: true });
+		if (!import.meta.env.DEV) registerWorker();
 		await workspace.load();
 		compiles.configure();
 		if (!workspace.profile && !bare) await goto(`${base}/`, { replaceState: true });
