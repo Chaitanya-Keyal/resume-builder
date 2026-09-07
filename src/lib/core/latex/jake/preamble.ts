@@ -66,9 +66,10 @@ export function preamble(o: JakeOptions): string {
     \\end{tabular*}\\vspace{${pt(s.subheadingAfter)}}
 }
 
+% The left cell wraps instead of running into the date when a heading is long.
 \\newcommand{\\resumeProjectHeading}[2]{
     \\item
-    \\begin{tabular*}{0.97\\textwidth}{l@{\\extracolsep{\\fill}}r}
+    \\begin{tabular*}{0.97\\textwidth}{>{\\raggedright\\arraybackslash}p{\\dimexpr0.97\\textwidth-1.6in\\relax}@{\\extracolsep{\\fill}}r}
       \\small#1 & #2 \\\\
     \\end{tabular*}\\vspace{${pt(s.projectAfter)}}
 }
