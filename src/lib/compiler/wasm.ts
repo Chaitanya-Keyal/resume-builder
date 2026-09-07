@@ -96,9 +96,16 @@ export class WasmCompiler implements Compiler {
 		);
 		const formatP = (async () => {
 			const r = await fetch(url(manifest.format.file));
-			if (!r.ok || !r.body) throw new Error(`Missing format file (${r.status})`);
-			const gunzip = r.body.pipeThrough(new DecompressionStream('gzip'));
-			const data = await new Response(gunzip).arrayBuffer();
+			if (!r.ok) throw new Error(`Missing format file (${r.status})`);
+			const raw = await r.arrayBuffer();
+			// Some servers (Vite in dev) inflate .gz files themselves; only gunzip when the magic bytes are present.
+			const head = new Uint8Array(raw, 0, 2);
+			const data =
+				head[0] === 0x1f && head[1] === 0x8b
+					? await new Response(
+							new Blob([raw]).stream().pipeThrough(new DecompressionStream('gzip'))
+						).arrayBuffer()
+					: raw;
 			report(manifest.format.bytes, manifest.format.name);
 			return { fmt: manifest.format.fmt, name: manifest.format.name, data };
 		})();

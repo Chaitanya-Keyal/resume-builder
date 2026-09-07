@@ -1,4 +1,14 @@
-<main class="mx-auto max-w-2xl p-8">
-	<h1 class="text-2xl font-semibold">Resume Builder</h1>
-	<p class="mt-2 text-muted">Scaffold. The editor lands here.</p>
-</main>
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
+	import FirstRun from '$lib/components/data/FirstRun.svelte';
+	import { workspace } from '$lib/store/workspace.svelte';
+
+	$effect(() => {
+		if (workspace.loaded && workspace.profile) void goto(`${base}/resumes`, { replaceState: true });
+	});
+</script>
+
+{#if workspace.loaded && !workspace.profile}
+	<FirstRun />
+{/if}

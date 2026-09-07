@@ -4,7 +4,8 @@ import { lookupRef } from './refs';
 /** Profile with private fields merged in. Never persisted or exported as the profile. */
 export function applyOverlay(profile: Profile, overlay: Overlay | undefined): Profile {
 	if (!overlay) return profile;
-	const out: Profile = structuredClone(profile);
+	// JSON round-trip rather than structuredClone: the caller may hand us a reactive proxy.
+	const out: Profile = JSON.parse(JSON.stringify(profile));
 	if (overlay.basics) {
 		const { phone, email, url, location } = overlay.basics;
 		if (phone) out.basics.phone = phone;

@@ -1,0 +1,104 @@
+<script lang="ts">
+	import ArrowDown from '@lucide/svelte/icons/arrow-down';
+	import ArrowUp from '@lucide/svelte/icons/arrow-up';
+	import Pencil from '@lucide/svelte/icons/pencil';
+	import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+	import Badge from '$lib/components/ui/Badge.svelte';
+	import Checkbox from '$lib/components/ui/Checkbox.svelte';
+	import TextArea from '$lib/components/ui/TextArea.svelte';
+	import { toPlain } from '$lib/core/markup';
+	import type { BulletOverride, Highlight } from '$lib/core/schema/types';
+
+	let {
+		highlight,
+		included,
+		override,
+		canMove,
+		ontoggle,
+		onmove,
+		onoverride,
+		onrevert
+	}: {
+		highlight: Highlight;
+		included: boolean;
+		override?: BulletOverride;
+		canMove: { up: boolean; down: boolean };
+		ontoggle: () => void;
+		onmove: (dir: -1 | 1) => void;
+		onoverride: (text: string) => void;
+		onrevert: () => void;
+	} = $props();
+
+	let editing = $state(false);
+	let draft = $state('');
+	const text = $derived(override?.text ?? highlight.text);
+	const stale = $derived(override && override.baseText !== highlight.text);
+
+	function startEdit() {
+		draft = text;
+		editing = true;
+	}
+</script>
+
+<div class="group flex items-start gap-2 py-1 pl-7 {included ? '' : 'opacity-50'}">
+	<Checkbox checked={included} onchange={ontoggle} />
+	<div class="min-w-0 flex-1">
+		{#if editing}
+			<TextArea
+				bind:value={draft}
+				rows={2}
+				oninput={() => onoverride(draft)}
+				onblur={() => (editing = false)}
+				onkeydown={(e) => {
+					if (e.key === 'Escape') editing = false;
+				}}
+				hint="Only this resume. **bold**, _italic_, [link](url)."
+			/>
+		{:else}
+			<p class="text-[13px] leading-snug">
+				{toPlain(text)}
+				{#if override}
+					<Badge tone={stale ? 'warn' : 'accent'} class="ml-1 align-middle"
+						>{stale ? 'library changed' : 'edited'}</Badge
+					>
+				{/if}
+			</p>
+		{/if}
+	</div>
+	<div
+		class="flex shrink-0 items-center opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100"
+	>
+		{#if included}
+			<button
+				type="button"
+				class="p-0.5 text-faint hover:text-text disabled:opacity-30"
+				aria-label="Move up"
+				disabled={!canMove.up}
+				onclick={() => onmove(-1)}><ArrowUp size={13} /></button
+			>
+			<button
+				type="button"
+				class="p-0.5 text-faint hover:text-text disabled:opacity-30"
+				aria-label="Move down"
+				disabled={!canMove.down}
+				onclick={() => onmove(1)}><ArrowDown size={13} /></button
+			>
+			<button
+				type="button"
+				class="p-0.5 text-faint hover:text-text"
+				aria-label="Edit for this resume"
+				title="Reword for this resume only"
+				onclick={startEdit}><Pencil size={13} /></button
+			>
+			{#if override}
+				<button
+					type="button"
+					class="p-0.5 text-faint hover:text-text"
+					aria-label="Revert to library text"
+					title="Revert to the library text"
+					onclick={onrevert}><RotateCcw size={13} /></button
+				>
+			{/if}
+		{/if}
+	</div>
+</div>
