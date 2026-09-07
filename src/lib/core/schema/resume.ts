@@ -38,6 +38,7 @@ export const itemOverrideSchema = z.object({
 	location: z.string().optional(),
 	keywords: z.array(z.string()).optional(),
 	showDescription: z.boolean().optional(),
+	showUrl: z.boolean().optional(),
 	bullets: z.record(z.string(), bulletOverrideSchema).optional(),
 	extraBullets: z.array(extraBulletSchema).optional()
 });

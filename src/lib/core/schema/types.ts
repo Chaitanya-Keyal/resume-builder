@@ -278,6 +278,8 @@ export interface ItemOverride {
 	keywords?: string[];
 	/** Print the library description (or a position's summary) as a paragraph under the heading. */
 	showDescription?: boolean;
+	/** Projects: print the library URL in the heading line. */
+	showUrl?: boolean;
 	bullets?: Record<string, BulletOverride>;
 	extraBullets?: ExtraBullet[];
 }

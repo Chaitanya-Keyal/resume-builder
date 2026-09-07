@@ -1213,6 +1213,9 @@
 															"showDescription": {
 																"type": "boolean"
 															},
+															"showUrl": {
+																"type": "boolean"
+															},
 															"bullets": {
 																"type": "object",
 																"propertyNames": {

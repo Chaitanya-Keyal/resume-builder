@@ -74,6 +74,8 @@ export interface RefEntry {
 	hidden?: boolean;
 	/** Library paragraph a resume may choose to print under the heading. */
 	description?: string;
+	/** Library URL a resume may choose to print (projects). */
+	url?: string;
 }
 
 /** Every selectable item in the profile, in library order. */
@@ -123,7 +125,8 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 				detail: p.keywords.join(', '),
 				highlightIds: p.highlights.map((h) => h.id),
 				hidden: p.x?.hidden,
-				description: p.description || undefined
+				description: p.description || undefined,
+				url: p.url || undefined
 			});
 		}
 	}

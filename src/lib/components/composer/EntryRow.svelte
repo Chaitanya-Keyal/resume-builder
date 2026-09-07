@@ -145,8 +145,21 @@
 			>
 		</span>
 	</div>
-	{#if open && (highlights.length || entry.description)}
+	{#if open && (highlights.length || entry.description || entry.url)}
 		<div class="pr-3 pb-2">
+			{#if entry.url}
+				<div class="flex items-start gap-2 py-1 pl-9">
+					<Checkbox
+						checked={!!item?.overrides?.showUrl}
+						disabled={!item}
+						onchange={(v) => setItemOverride(resume.id, sectionId, entry.ref, { showUrl: v })}
+					/>
+					<div class="min-w-0">
+						<span class="text-xs font-medium text-muted">Link</span>
+						<p class="truncate text-xs text-faint" title={entry.url}>{entry.url}</p>
+					</div>
+				</div>
+			{/if}
 			{#if entry.description}
 				<div class="flex items-start gap-2 py-1 pl-9">
 					<Checkbox

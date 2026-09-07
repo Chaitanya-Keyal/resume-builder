@@ -204,7 +204,7 @@ function resolveRef(
 				key,
 				title: ov.title ?? (pr.entity ? `${pr.name} (${pr.entity})` : pr.name),
 				keywords: ov.keywords ?? pr.keywords,
-				url: pr.url,
+				url: ov.showUrl ? pr.url || undefined : undefined,
 				dates: { label: ov.dateLabel ?? pr.dateLabel, start: pr.startDate, end: pr.endDate },
 				description: ov.showDescription ? pr.description || undefined : undefined,
 				bullets: resolveBullets(pr.highlights, item, section, problems)

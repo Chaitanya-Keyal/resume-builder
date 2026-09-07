@@ -2,6 +2,7 @@ import { escapeLatex, escapeUrl, toLatex } from '../../markup';
 import type { DateRange, ResolvedItem, ResolvedResume, ResolvedSection } from '../../resolve/types';
 import type { SectionType } from '../../schema/types';
 import { formatRange } from '../dates';
+import { displayUrl } from '../../resolve/resolve';
 import type { Template } from '../template';
 import { jakeDefaults, jakeOptionsSchema, type JakeOptions } from './options';
 import { preamble } from './preamble';
@@ -65,9 +66,10 @@ function render(resume: ResolvedResume, o: JakeOptions): string {
 	};
 
 	const project = (it: Extract<ResolvedItem, { kind: 'project' }>) => {
-		const head = it.keywords.length
-			? `\\textbf{${md(it.title)}} $|$ \\emph{${escapeLatex(it.keywords.join(', '))}}`
-			: `\\textbf{${md(it.title)}}`;
+		const parts = [`\\textbf{${md(it.title)}}`];
+		if (it.keywords.length) parts.push(`\\emph{${escapeLatex(it.keywords.join(', '))}}`);
+		if (it.url) parts.push(link(it.url, displayUrl(it.url)));
+		const head = parts.join(' $|$ ');
 		return `\\resumeProjectHeading\n{${head}}{${escapeLatex(dates(it.dates))}}\n${paragraph(it.description)}${bullets(it.bullets)}`;
 	};
 
