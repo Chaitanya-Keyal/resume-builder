@@ -39,19 +39,21 @@ export function preamble(o: CleanOptions): string {
 \\titlespacing*{\\section}{0pt}{0pt}{0pt}
 
 % One entry: bold title with the date on the right, then an italic line with the place on the right.
+% The left column wraps (long project titles, long stacks) instead of running
+% into the date; the last row carries no \\\\ so the box ends at its descender.
 \\newcommand{\\cleanEntry}[4]{
   \\vspace{${pt(s.entry)}}
-  \\begin{tabular*}{\\textwidth}[t]{l@{\\extracolsep{\\fill}}r}
+  \\begin{tabular*}{\\textwidth}[t]{@{}>{\\raggedright\\arraybackslash}p{\\dimexpr\\textwidth-1.7in\\relax}@{\\extracolsep{\\fill}}r@{}}
     \\textbf{#1} & #2 \\\\
-    \\textit{\\small #3} & \\textit{\\small #4} \\\\
-  \\end{tabular*}\\vspace{-4pt}
+    \\textit{\\small #3} & \\textit{\\small #4}
+  \\end{tabular*}\\par
 }
 % A one-line entry: bold title with the date on the right.
 \\newcommand{\\cleanLine}[2]{
   \\vspace{${pt(s.entry)}}
-  \\begin{tabular*}{\\textwidth}[t]{l@{\\extracolsep{\\fill}}r}
-    #1 & #2 \\\\
-  \\end{tabular*}\\vspace{-4pt}
+  \\begin{tabular*}{\\textwidth}[t]{@{}>{\\raggedright\\arraybackslash}p{\\dimexpr\\textwidth-1.7in\\relax}@{\\extracolsep{\\fill}}r@{}}
+    #1 & #2
+  \\end{tabular*}\\par
 }
 \\newcommand{\\cleanItem}[1]{\\item\\small{#1}}
 \\newcommand{\\cleanListStart}{\\begin{itemize}[leftmargin=0.15in, label=\\textbullet, itemsep=${pt(s.itemSep)}, topsep=${pt(s.listTop)}, parsep=0pt, partopsep=0pt]}

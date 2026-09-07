@@ -36,6 +36,6 @@ export const SPACING: Record<
 		listEnd: number;
 	}
 > = {
-	tight: { section: 6, afterRule: 2, entry: 3, itemSep: -2, listTop: 0, listEnd: -2 },
-	normal: { section: 9, afterRule: 3, entry: 5, itemSep: -1, listTop: 1, listEnd: 0 }
+	tight: { section: 5, afterRule: -8, entry: 3, itemSep: -2, listTop: 3, listEnd: -8 },
+	normal: { section: 8, afterRule: -7, entry: 4, itemSep: -1, listTop: 4, listEnd: -7 }
 };
