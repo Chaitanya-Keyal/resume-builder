@@ -74,7 +74,8 @@
 		onclick={() => input?.focus()}
 	>
 		{#each value as chip, i (chip)}
-			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<!-- A chip is a focusable, draggable list item: the listeners are the reordering controls. -->
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
 			<span
 				bind:this={chips[i]}
 				draggable="true"
