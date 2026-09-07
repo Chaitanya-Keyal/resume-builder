@@ -61,6 +61,10 @@
 					"default": true,
 					"type": "boolean"
 				},
+				"showSummary": {
+					"default": false,
+					"type": "boolean"
+				},
 				"profiles": {
 					"default": [],
 					"type": "array",

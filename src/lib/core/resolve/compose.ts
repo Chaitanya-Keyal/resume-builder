@@ -59,6 +59,7 @@ export function createResume(profile: Profile, o: NewResumeOptions): Resume {
 			showUrl: false,
 			showLocation: false,
 			showTagline: true,
+			showSummary: false,
 			profiles: profile.basics.profiles.map((p) => p.network)
 		},
 		sections

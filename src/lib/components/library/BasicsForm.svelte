@@ -34,7 +34,7 @@
 					rows={2}
 					bind:value={b.summary}
 					oninput={touch}
-					hint="Not printed by the default template; a website can use it."
+					hint="A short paragraph under the contact line. Off on resumes until you switch it on for one in the composer."
 				/>
 			</div>
 			<div class="sm:col-span-2">

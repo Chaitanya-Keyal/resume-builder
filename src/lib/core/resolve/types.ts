@@ -17,6 +17,8 @@ export interface ContactItem {
 export interface ResolvedHeader {
 	name: string;
 	tagline?: string;
+	/** Only when the resume asked for it. */
+	summary?: string;
 	contacts: ContactItem[];
 }
 

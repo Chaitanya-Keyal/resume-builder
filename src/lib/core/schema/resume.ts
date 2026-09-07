@@ -70,6 +70,7 @@ export const headerOptionsSchema = z.object({
 	showUrl: z.boolean().default(false),
 	showLocation: z.boolean().default(false),
 	showTagline: z.boolean().default(true),
+	showSummary: z.boolean().default(false),
 	profiles: z.array(z.string()).default([]),
 	tagline: z.string().optional()
 });

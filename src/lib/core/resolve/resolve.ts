@@ -62,6 +62,7 @@ export function resolve(
 			});
 	}
 	const tagline = h.showTagline ? (h.tagline ?? p.basics.label) || undefined : undefined;
+	const summary = h.showSummary ? p.basics.summary || undefined : undefined;
 
 	const sections: ResolvedSection[] = [];
 	for (const section of resume.sections) {
@@ -74,7 +75,10 @@ export function resolve(
 			sections.push({ id: section.id, type: section.type, title: section.title, items });
 	}
 
-	return { resolved: { header: { name: p.basics.name, tagline, contacts }, sections }, problems };
+	return {
+		resolved: { header: { name: p.basics.name, tagline, summary, contacts }, sections },
+		problems
+	};
 }
 
 function resolveCustom(item: CustomItem): ResolvedItem {

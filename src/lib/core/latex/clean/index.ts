@@ -33,6 +33,7 @@ function render(resume: ResolvedResume, o: CleanOptions): string {
 		if (h.tagline) lines.push(`\\vspace{2pt}{\\large ${md(h.tagline)}}\\par`);
 		if (contacts.length)
 			lines.push(`\\vspace{3pt}{\\small ${contacts.join(' \\textbullet{} ')}}\\par`);
+		if (h.summary) lines.push(`\\vspace{4pt}{\\small ${md(h.summary)}}\\par`);
 		return `${lines.join('\n')}\n`;
 	};
 

@@ -92,6 +92,15 @@
 		</div>
 		<div class="sm:col-span-2">
 			<Checkbox
+				checked={h.showSummary}
+				disabled={!profile.basics.summary}
+				label={profile.basics.summary ? 'Summary' : 'Summary (none in the library)'}
+				onchange={(v) => setHeader(resume.id, { showSummary: v })}
+			/>
+			{#if h.showSummary && profile.basics.summary}
+				<p class="mt-0.5 mb-2 ml-6 text-xs text-faint">{profile.basics.summary}</p>
+			{/if}
+			<Checkbox
 				checked={h.showTagline}
 				label="Tagline"
 				onchange={(v) => setHeader(resume.id, { showTagline: v })}

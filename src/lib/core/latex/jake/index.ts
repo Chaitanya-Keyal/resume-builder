@@ -36,7 +36,10 @@ function render(resume: ResolvedResume, o: JakeOptions): string {
 			lines.push(`    \\small ${contacts.join(' $|$ ')}${h.tagline ? ' \\\\ \\vspace{4pt}' : ''}`);
 		}
 		if (h.tagline) lines.push(`    \\small ${md(h.tagline)}`);
-		return `${banner('heading')}\n\\begin{center}\n${lines.join('\n')}\n\\end{center}\n`;
+		const summary = h.summary
+			? `\\vspace{-14pt}\n\\begin{itemize}[leftmargin=0.15in, label={}]\n    \\small{\\item{${md(h.summary)}}}\n\\end{itemize}\\vspace{-4pt}\n`
+			: '';
+		return `${banner('heading')}\n\\begin{center}\n${lines.join('\n')}\n\\end{center}\n${summary}`;
 	};
 
 	const bullets = (items: ResolvedItem['bullets']) =>

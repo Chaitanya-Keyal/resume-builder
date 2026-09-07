@@ -316,6 +316,8 @@ export interface HeaderOptions {
 	showUrl: boolean;
 	showLocation: boolean;
 	showTagline: boolean;
+	/** Print `basics.summary` as a short paragraph under the contact line. */
+	showSummary: boolean;
 	/** Network names from `basics.profiles`, in print order. */
 	profiles: string[];
 	/** Resume-specific headline; falls back to `basics.label`. */
