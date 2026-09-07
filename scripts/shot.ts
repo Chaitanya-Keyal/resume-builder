@@ -83,8 +83,11 @@ for (const step of steps) {
 	else if (cmd === 'shot')
 		await page.screenshot({ path: join(outDir, `${rest}.png`), fullPage: false });
 	else if (cmd === 'type') {
-		const [sel, text] = rest.split('=');
-		await page.locator(sel).first().fill(text);
+		const cut = rest.lastIndexOf('=');
+		await page
+			.locator(rest.slice(0, cut))
+			.first()
+			.fill(rest.slice(cut + 1));
 	} else if (cmd === 'file') {
 		const cut = rest.lastIndexOf('=');
 		await page
