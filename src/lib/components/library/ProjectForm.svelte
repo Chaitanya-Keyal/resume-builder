@@ -60,7 +60,7 @@
 			rows={2}
 			bind:value={p.description}
 			oninput={touch}
-			hint="A short paragraph about the project. Not printed on resumes."
+			hint="A short paragraph about the project. Off on resumes until you switch it on for one in the composer."
 		/>
 	</div>
 	<div class="sm:col-span-2">

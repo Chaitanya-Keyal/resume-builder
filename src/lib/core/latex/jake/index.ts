@@ -44,6 +44,13 @@ function render(resume: ResolvedResume, o: JakeOptions): string {
 			? `\\resumeItemListStart\n${items.map((b) => `\\resumeItem{${md(b.text)}}`).join('\n')}\n\\resumeItemListEnd\n`
 			: '';
 
+	// A description prints as a short paragraph aligned with the bullet text,
+	// using the same label-less list the skills block uses.
+	const paragraph = (text: string | undefined) =>
+		text
+			? `\\begin{itemize}[leftmargin=0.15in, label={}]\n    \\small{\\item{${md(text)}}}\n\\end{itemize}\\vspace{-14pt}\n`
+			: '';
+
 	const subheading = (it: Extract<ResolvedItem, { kind: 'subheading' }>, type: SectionType) => {
 		// Education prints location on the first line and the date on the second;
 		// everything else prints the date first.
@@ -51,14 +58,14 @@ function render(resume: ResolvedResume, o: JakeOptions): string {
 			type === 'education'
 				? [escapeLatex(it.location), escapeLatex(dates(it.dates))]
 				: [escapeLatex(dates(it.dates)), escapeLatex(it.location)];
-		return `\\resumeSubheading\n{${md(it.title)}}{${b}}\n{${md(it.subtitle)}}{${d}}\n${bullets(it.bullets)}`;
+		return `\\resumeSubheading\n{${md(it.title)}}{${b}}\n{${md(it.subtitle)}}{${d}}\n${paragraph(it.description)}${bullets(it.bullets)}`;
 	};
 
 	const project = (it: Extract<ResolvedItem, { kind: 'project' }>) => {
 		const head = it.keywords.length
 			? `\\textbf{${md(it.title)}} $|$ \\emph{${escapeLatex(it.keywords.join(', '))}}`
 			: `\\textbf{${md(it.title)}}`;
-		return `\\resumeProjectHeading\n{${head}}{${escapeLatex(dates(it.dates))}}\n${bullets(it.bullets)}`;
+		return `\\resumeProjectHeading\n{${head}}{${escapeLatex(dates(it.dates))}}\n${paragraph(it.description)}${bullets(it.bullets)}`;
 	};
 
 	const award = (it: Extract<ResolvedItem, { kind: 'award' }>) => {

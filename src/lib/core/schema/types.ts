@@ -276,6 +276,8 @@ export interface ItemOverride {
 	location?: string;
 	/** Projects: stack subset/order. Skills: keyword subset/order. */
 	keywords?: string[];
+	/** Print the library description (or a position's summary) as a paragraph under the heading. */
+	showDescription?: boolean;
 	bullets?: Record<string, BulletOverride>;
 	extraBullets?: ExtraBullet[];
 }

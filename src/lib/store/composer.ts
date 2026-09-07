@@ -154,7 +154,7 @@ export function setItemOverride(
 	id: string,
 	sectionId: string,
 	ref: string,
-	patch: Record<string, string | undefined>
+	patch: Record<string, string | boolean | undefined>
 ) {
 	ws.mutateResume(id, (r) => {
 		const s = section(r, sectionId);
@@ -162,7 +162,8 @@ export function setItemOverride(
 		if (!it) return;
 		it.overrides ??= {};
 		for (const [k, v] of Object.entries(patch)) {
-			if (v === undefined || v === '') delete (it.overrides as Record<string, unknown>)[k];
+			if (v === undefined || v === '' || v === false)
+				delete (it.overrides as Record<string, unknown>)[k];
 			else (it.overrides as Record<string, unknown>)[k] = v;
 		}
 	});

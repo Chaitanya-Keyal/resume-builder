@@ -142,6 +142,9 @@
 														"type": "string"
 													}
 												},
+												"showDescription": {
+													"type": "boolean"
+												},
 												"bullets": {
 													"type": "object",
 													"propertyNames": {

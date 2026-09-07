@@ -20,11 +20,11 @@
 				g.keywords = v;
 				touch();
 			}}
-			hint="Printed as 'Category: a, b, c'. Order matters."
+			hint="Printed as 'Category: a, b, c' in this order. Drag to reorder."
 		/>
 	</div>
 	{#if workspace.settings.website.enabled}
-		<div class="flex flex-wrap gap-4 sm:col-span-2">
+		<div class="sm:col-span-2">
 			<Checkbox
 				checked={!!g.x?.hidden}
 				label="Hidden from your website"
@@ -33,16 +33,9 @@
 					touch();
 				}}
 			/>
-			<TextField
-				placeholder="website key (optional)"
-				mono
-				value={(g.x?.key as string | undefined) ?? ''}
-				oninput={(e) => {
-					g.x = { ...g.x, key: (e.currentTarget as HTMLInputElement).value || undefined };
-					touch();
-				}}
-				class="w-52"
-			/>
+			<p class="mt-1 text-xs text-faint">
+				Still available to resumes; a site reading profile.json skips this group.
+			</p>
 		</div>
 	{/if}
 </div>

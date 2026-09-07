@@ -13,6 +13,7 @@
 		moveBullet,
 		moveItem,
 		setBulletOverride,
+		setItemOverride,
 		toggleBullet,
 		toggleItem
 	} from '$lib/store/composer';
@@ -112,8 +113,24 @@
 			>
 		</span>
 	</div>
-	{#if open && highlights.length}
+	{#if open && (highlights.length || entry.description)}
 		<div class="pr-3 pb-2">
+			{#if entry.description}
+				<div class="flex items-start gap-2 py-1 pl-9">
+					<Checkbox
+						checked={!!item?.overrides?.showDescription}
+						disabled={!item}
+						onchange={(v) =>
+							setItemOverride(resume.id, sectionId, entry.ref, { showDescription: v })}
+					/>
+					<div class="min-w-0">
+						<span class="text-xs font-medium text-muted">Description</span>
+						<p class="truncate text-xs text-faint" title={toPlain(entry.description)}>
+							{toPlain(entry.description)}
+						</p>
+					</div>
+				</div>
+			{/if}
 			{#each rows as h (h.id)}
 				{@const idx = item?.bullets.indexOf(h.id) ?? -1}
 				<BulletRow

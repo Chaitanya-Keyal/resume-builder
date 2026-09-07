@@ -17,21 +17,30 @@
 
 	let draft = $state('');
 	let input = $state<HTMLInputElement>();
+	let dragging = $state<number | null>(null);
+	let over = $state<number | null>(null);
 
+	function set(next: string[]) {
+		value = next;
+		onchange?.(value);
+	}
 	function commit() {
 		const parts = draft
 			.split(',')
 			.map((s) => s.trim())
 			.filter(Boolean);
-		if (parts.length) {
-			value = [...value, ...parts.filter((p) => !value.includes(p))];
-			onchange?.(value);
-		}
+		if (parts.length) set([...value, ...parts.filter((p) => !value.includes(p))]);
 		draft = '';
 	}
 	function remove(i: number) {
-		value = value.filter((_, j) => j !== i);
-		onchange?.(value);
+		set(value.filter((_, j) => j !== i));
+	}
+	function move(from: number, to: number) {
+		if (from === to || to < 0 || to >= value.length) return;
+		const next = [...value];
+		const [chip] = next.splice(from, 1);
+		next.splice(to, 0, chip);
+		set(next);
 	}
 	function onkeydown(e: KeyboardEvent) {
 		if (e.key === 'Enter' || e.key === ',') {
@@ -41,6 +50,20 @@
 			remove(value.length - 1);
 		}
 	}
+	/** A focused chip moves with Alt+Left/Right, and Delete removes it. */
+	function onchipkey(e: KeyboardEvent, i: number) {
+		if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+			e.preventDefault();
+			const to = i + (e.key === 'ArrowLeft' ? -1 : 1);
+			move(i, to);
+			queueMicrotask(() => chips[to]?.focus());
+		} else if (e.key === 'Delete' || e.key === 'Backspace') {
+			e.preventDefault();
+			remove(i);
+			input?.focus();
+		}
+	}
+	let chips = $state<HTMLElement[]>([]);
 </script>
 
 <div>
@@ -51,14 +74,48 @@
 		onclick={() => input?.focus()}
 	>
 		{#each value as chip, i (chip)}
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 			<span
-				class="inline-flex h-6 items-center gap-1 rounded-md bg-surface-2 pr-1 pl-2 text-[13px]"
+				bind:this={chips[i]}
+				draggable="true"
+				tabindex="0"
+				role="listitem"
+				title="Drag to reorder. Alt+Left/Right moves, Delete removes."
+				class="inline-flex h-6 cursor-grab items-center gap-1 rounded-md bg-surface-2 pr-1 pl-2 text-[13px] outline-none select-none focus-visible:ring-2 focus-visible:ring-accent active:cursor-grabbing {dragging ===
+				i
+					? 'opacity-40'
+					: ''} {over === i && dragging !== null && dragging !== i ? 'ring-2 ring-accent' : ''}"
+				ondragstart={(e) => {
+					dragging = i;
+					e.dataTransfer?.setData('text/plain', chip);
+					if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move';
+				}}
+				ondragover={(e) => {
+					e.preventDefault();
+					over = i;
+				}}
+				ondragleave={() => {
+					if (over === i) over = null;
+				}}
+				ondrop={(e) => {
+					e.preventDefault();
+					if (dragging !== null) move(dragging, i);
+					dragging = null;
+					over = null;
+				}}
+				ondragend={() => {
+					dragging = null;
+					over = null;
+				}}
+				onkeydown={(e) => onchipkey(e, i)}
+				onclick={(e) => e.stopPropagation()}
 			>
 				{chip}
 				<button
 					type="button"
 					class="rounded p-0.5 text-muted hover:text-danger"
 					aria-label="Remove {chip}"
+					tabindex="-1"
 					onclick={(e) => {
 						e.stopPropagation();
 						remove(i);

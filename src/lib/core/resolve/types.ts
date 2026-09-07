@@ -39,6 +39,8 @@ export interface ResolvedBullet {
 interface Base {
 	/** Ref for library items, item id for custom ones. Stable across renders. */
 	key: string;
+	/** Paragraph under the heading, only when the resume asked for it. */
+	description?: string;
 	bullets: ResolvedBullet[];
 }
 

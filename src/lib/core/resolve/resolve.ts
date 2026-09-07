@@ -174,6 +174,7 @@ function resolveRef(
 				subtitle: ov.subtitle ?? pos.position,
 				dates: { label: ov.dateLabel ?? pos.dateLabel, start: pos.startDate, end: pos.endDate },
 				location: ov.location ?? pos.location ?? e.location ?? '',
+				description: ov.showDescription ? pos.summary || e.description || undefined : undefined,
 				bullets: resolveBullets(pos.highlights, item, section, problems)
 			};
 		}
@@ -186,6 +187,9 @@ function resolveRef(
 				subtitle: ov.subtitle ?? e.x?.degreeLine ?? [e.studyType, e.area].filter(Boolean).join(' '),
 				dates: { label: ov.dateLabel ?? e.dateLabel, start: e.startDate, end: e.endDate },
 				location: ov.location ?? e.location ?? '',
+				description: ov.showDescription
+					? (e.x?.summary as string | undefined) || undefined
+					: undefined,
 				bullets: resolveBullets(e.highlights, item, section, problems)
 			};
 		}
@@ -198,6 +202,7 @@ function resolveRef(
 				keywords: ov.keywords ?? pr.keywords,
 				url: pr.url,
 				dates: { label: ov.dateLabel ?? pr.dateLabel, start: pr.startDate, end: pr.endDate },
+				description: ov.showDescription ? pr.description || undefined : undefined,
 				bullets: resolveBullets(pr.highlights, item, section, problems)
 			};
 		}

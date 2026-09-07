@@ -41,7 +41,7 @@
 			rows={2}
 			bind:value={engagement.description}
 			oninput={touch}
-			hint="A short paragraph about the organisation. Not printed on resumes."
+			hint="A short paragraph about the organisation. Off on resumes until you switch it on for one in the composer."
 		/>
 	</div>
 </div>

@@ -72,6 +72,8 @@ export interface RefEntry {
 	/** Highlight ids the item carries (for pre-selecting all). */
 	highlightIds: string[];
 	hidden?: boolean;
+	/** Library paragraph a resume may choose to print under the heading. */
+	description?: string;
 }
 
 /** Every selectable item in the profile, in library order. */
@@ -93,7 +95,8 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 						.filter(Boolean)
 						.join(' - '),
 					highlightIds: pos.highlights.map((h) => h.id),
-					hidden: e.x?.hidden
+					hidden: e.x?.hidden,
+					description: pos.summary || e.description || undefined
 				});
 			}
 		}
@@ -106,7 +109,8 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 				label: e.institution,
 				detail: e.x?.degreeLine ?? [e.studyType, e.area].filter(Boolean).join(' '),
 				highlightIds: e.highlights.map((h) => h.id),
-				hidden: e.x?.hidden
+				hidden: e.x?.hidden,
+				description: (e.x?.summary as string | undefined) || undefined
 			});
 		}
 	}
@@ -118,7 +122,8 @@ export function listRefs(profile: Profile, collection?: RefCollection): RefEntry
 				label: p.name,
 				detail: p.keywords.join(', '),
 				highlightIds: p.highlights.map((h) => h.id),
-				hidden: p.x?.hidden
+				hidden: p.x?.hidden,
+				description: p.description || undefined
 			});
 		}
 	}

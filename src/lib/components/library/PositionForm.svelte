@@ -61,7 +61,7 @@
 				rows={2}
 				bind:value={position.summary}
 				oninput={touch}
-				hint="Not printed by the default template."
+				hint="A paragraph for this stint. Off on resumes until you switch it on for one in the composer; wins over the organisation description."
 			/>
 		</div>
 		<div class="sm:col-span-2">
