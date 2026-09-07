@@ -27,7 +27,7 @@ emit('profile-1.json', profileSchema, PROFILE_SCHEMA_URL, 'Resume Builder profil
 emit(
 	'resume-1.json',
 	resumeSchema,
-	'https://resume.okaybro.dev/schema/resume-1.json',
+	'https://resume-builder.okaybro.dev/schema/resume-1.json',
 	'Resume Builder composition'
 );
 emit('workspace-1.json', workspaceSchema, WORKSPACE_SCHEMA_URL, 'Resume Builder workspace');

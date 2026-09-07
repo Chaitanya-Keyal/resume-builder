@@ -41,7 +41,7 @@ void _o;
 void _s;
 void _w;
 
-export const WORKSPACE_SCHEMA_URL = 'https://resume.okaybro.dev/schema/workspace-1.json';
+export const WORKSPACE_SCHEMA_URL = 'https://resume-builder.okaybro.dev/schema/workspace-1.json';
 
 export function emptyOverlay(): Overlay {
 	return { version: 1 };

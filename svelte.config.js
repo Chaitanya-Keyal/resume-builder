@@ -15,7 +15,7 @@ export default {
 		// what GitHub Pages serves for unknown paths.
 		adapter: adapter({ fallback: '404.html' }),
 		paths: {
-			// Empty at resume.okaybro.dev; '/resume-builder' when serving from
+			// Empty at resume-builder.okaybro.dev; '/resume-builder' when serving from
 			// project Pages without the custom domain (set by CI).
 			base: process.env.BASE_PATH || ''
 		},

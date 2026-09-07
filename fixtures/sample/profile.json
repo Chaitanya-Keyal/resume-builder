@@ -1,5 +1,5 @@
 {
-	"$schema": "https://resume.okaybro.dev/schema/profile-1.json",
+	"$schema": "https://resume-builder.okaybro.dev/schema/profile-1.json",
 	"version": 1,
 	"basics": {
 		"name": "Jane Doe",

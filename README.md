@@ -5,7 +5,7 @@ done, compose any number of resumes from it, and get a one-page PDF compiled
 in your browser. Nothing leaves your machine: there is no server, no account,
 and the LaTeX engine runs as WebAssembly.
 
-Live at https://resume.okaybro.dev.
+Live at https://resume-builder.okaybro.dev.
 
 ## How it works
 

@@ -218,7 +218,7 @@ const _in: z.output<typeof profileSchema> = null as unknown as Profile;
 void _out;
 void _in;
 
-export const PROFILE_SCHEMA_URL = 'https://resume.okaybro.dev/schema/profile-1.json';
+export const PROFILE_SCHEMA_URL = 'https://resume-builder.okaybro.dev/schema/profile-1.json';
 
 /** A profile with nothing in it, for "Start blank". */
 export function emptyProfile(name = ''): Profile {

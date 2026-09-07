@@ -1,5 +1,5 @@
 {
-	"$id": "https://resume.okaybro.dev/schema/workspace-1.json",
+	"$id": "https://resume-builder.okaybro.dev/schema/workspace-1.json",
 	"title": "Resume Builder workspace",
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"type": "object",
