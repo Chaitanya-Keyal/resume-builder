@@ -10,7 +10,8 @@
 	import OptionsBlock from './OptionsBlock.svelte';
 	import SectionBlock from './SectionBlock.svelte';
 
-	let { resume, profile }: { resume: Resume; profile: Profile } = $props();
+	let { resume, profile, onfit }: { resume: Resume; profile: Profile; onfit?: () => void } =
+		$props();
 	const missing = $derived(missingSectionTypes(resume));
 	const t = $derived(getTemplate(resume.template));
 
@@ -69,5 +70,5 @@
 			{#snippet trigger()}<Plus size={15} /> Add section{/snippet}
 		</Menu>
 	{/if}
-	<OptionsBlock {resume} />
+	<OptionsBlock {resume} {onfit} />
 </div>

@@ -3,6 +3,8 @@
  * `workspace.mutateResume`, so the components stay declarative.
  */
 import { getTemplate, templateOptions } from '$lib/core/latex';
+import { toPlain } from '$lib/core/markup';
+import { resolve } from '$lib/core/resolve/resolve';
 import { lookupRef } from '$lib/core/resolve/refs';
 import { isItemRef } from '$lib/core/resolve/resolve';
 import { newId } from '$lib/core/schema/ids';
@@ -237,6 +239,51 @@ export function applyDensity(id: string, presetId: string) {
 	if (!r) return;
 	const preset = getTemplate(r.template).density.find((d) => d.id === presetId);
 	if (preset) setOptions(id, preset.options);
+}
+
+/** The .tex this resume would produce with different template options (for fit probes). */
+export function texWith(r: Resume, options: Record<string, unknown>): string | null {
+	if (!ws.profile) return null;
+	// Plain module, so no runes: a JSON clone strips the state proxies just as well.
+	const clone = <T>(v: T): T => JSON.parse(JSON.stringify(v)) as T;
+	const { resolved } = resolve(clone(ws.profile), clone(ws.overlay), clone(r));
+	const t = getTemplate(r.template);
+	const parsed = t.optionsSchema.safeParse({ ...templateOptions(r), ...options });
+	return t.render(resolved, parsed.success ? parsed.data : t.defaults);
+}
+
+export interface LongBullet {
+	sectionId: string;
+	ref: string;
+	hid: string;
+	entry: string;
+	text: string;
+	chars: number;
+}
+
+/** The longest included bullets, the first candidates to cut when a resume runs long. */
+export function longestBullets(r: Resume, profile: Profile, n = 6): LongBullet[] {
+	const out: LongBullet[] = [];
+	for (const s of r.sections)
+		for (const it of s.items) {
+			if (!isItemRef(it)) continue;
+			const hit = lookupRef(profile, it.ref);
+			if (!hit) continue;
+			const entry =
+				'position' in hit
+					? hit.engagement.name
+					: 'name' in hit.item
+						? (hit.item as { name: string }).name
+						: 'institution' in hit.item
+							? (hit.item as { institution: string }).institution
+							: it.ref;
+			for (const h of highlightsOf(profile, it.ref)) {
+				if (!it.bullets.includes(h.id)) continue;
+				const text = toPlain(it.overrides?.bullets?.[h.id]?.text ?? h.text);
+				out.push({ sectionId: s.id, ref: it.ref, hid: h.id, entry, text, chars: text.length });
+			}
+		}
+	return out.sort((a, b) => b.chars - a.chars).slice(0, n);
 }
 
 /** Which density preset the current options match, if any. */

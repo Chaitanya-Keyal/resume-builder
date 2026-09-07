@@ -155,6 +155,24 @@ class CompileManager {
 		Object.assign(s, patch);
 	}
 
+	/** Compile once without touching any resume's state; returns the page count, or null on failure. */
+	async probe(tex: string): Promise<number | null> {
+		const texHash = hash53(tex);
+		const cached = this.lru.get(texHash);
+		if (cached) return cached.pages;
+		await this.warm();
+		if (this.engine !== 'ready') return null;
+		try {
+			const r = await this.compiler!.compile(tex);
+			if (!r.ok || !r.pdf) return null;
+			this.lru.set(texHash, { pdf: r.pdf, pages: r.pages, log: r.log });
+			if (this.lru.size > LRU_MAX) this.lru.delete(this.lru.keys().next().value!);
+			return r.pages;
+		} catch {
+			return null;
+		}
+	}
+
 	private async run(resumeId: string) {
 		const tex = this.pending.get(resumeId);
 		this.pending.delete(resumeId);

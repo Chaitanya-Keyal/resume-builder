@@ -6,7 +6,7 @@
 	import { applyDensity, currentDensity, setOptions } from '$lib/store/composer';
 	import { compiles } from '$lib/store/compile.svelte';
 
-	let { resume }: { resume: Resume } = $props();
+	let { resume, onfit }: { resume: Resume; onfit?: () => void } = $props();
 	const t = $derived(getTemplate(resume.template));
 	const o = $derived(templateOptions(resume) as Record<string, string | number | boolean>);
 	const density = $derived(currentDensity(resume));
@@ -91,10 +91,13 @@
 		{#if pages > 1 && nextDenser}
 			<div class="rounded-md bg-warn/10 px-3 py-2 text-xs text-warn sm:col-span-2">
 				{pages} pages.
+				{#if onfit}<button type="button" class="font-medium underline" onclick={onfit}
+						>Fit to one page</button
+					>, or{/if}
 				<button
 					type="button"
 					class="font-medium underline"
-					onclick={() => applyDensity(resume.id, nextDenser.id)}>Try "{nextDenser.label}"</button
+					onclick={() => applyDensity(resume.id, nextDenser.id)}>try "{nextDenser.label}"</button
 				> or untick a few bullets.
 			</div>
 		{/if}

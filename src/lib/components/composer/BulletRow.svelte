@@ -4,6 +4,8 @@
 	import Pencil from '@lucide/svelte/icons/pencil';
 	import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import CircleAlert from '@lucide/svelte/icons/circle-alert';
+	import type { LintHint } from '$lib/core/lint';
 	import { dragHandle } from 'svelte-dnd-action';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
@@ -14,6 +16,7 @@
 	let {
 		highlight,
 		included,
+		hints = [],
 		override,
 		canMove,
 		ontoggle,
@@ -23,6 +26,7 @@
 	}: {
 		highlight: Highlight;
 		included: boolean;
+		hints?: LintHint[];
 		override?: BulletOverride;
 		canMove: { up: boolean; down: boolean };
 		ontoggle: () => void;
@@ -66,7 +70,12 @@
 			/>
 		{:else}
 			<p class="text-[13px] leading-snug">
-				{toPlain(text)}
+				{#if hints.length}<span
+						class="mr-1 inline-flex align-middle {hints.some((h) => h.level === 'warn')
+							? 'text-warn'
+							: 'text-faint'}"
+						title={hints.map((h) => h.message).join('\n')}><CircleAlert size={12} /></span
+					>{/if}{toPlain(text)}
 				{#if override}
 					<Badge tone={stale ? 'warn' : 'accent'} class="ml-1 align-middle"
 						>{stale ? 'library changed' : 'edited'}</Badge

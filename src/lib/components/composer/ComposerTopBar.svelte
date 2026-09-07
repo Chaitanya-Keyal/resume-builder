@@ -12,6 +12,7 @@
 	import Tag from '@lucide/svelte/icons/tag';
 	import Trash2 from '@lucide/svelte/icons/trash-2';
 	import Upload from '@lucide/svelte/icons/upload';
+	import CircleAlert from '@lucide/svelte/icons/circle-alert';
 	import WandSparkles from '@lucide/svelte/icons/wand-sparkles';
 	import Badge from '$lib/components/ui/Badge.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
@@ -33,6 +34,9 @@
 		onats,
 		onexport,
 		onupload,
+		onfit,
+		onhints,
+		hintCount = 0,
 		ondelete
 	}: {
 		resume: Resume;
@@ -44,6 +48,9 @@
 		onats: () => void;
 		onexport: () => void;
 		onupload: () => void;
+		onfit: () => void;
+		onhints: () => void;
+		hintCount?: number;
 		ondelete: () => void;
 	} = $props();
 
@@ -105,7 +112,18 @@
 
 	<div class="flex-1"></div>
 
-	<PageBadge resumeId={resume.id} />
+	<PageBadge resumeId={resume.id} onclick={onfit} />
+	{#if hintCount}
+		<button
+			type="button"
+			class="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs whitespace-nowrap text-muted hover:bg-surface-2"
+			onclick={onhints}
+			title="Review hints"
+		>
+			<CircleAlert size={13} class="text-warn" />
+			<span class="hidden sm:inline">{hintCount} hint{hintCount === 1 ? '' : 's'}</span>
+		</button>
+	{/if}
 	<CompileStatus resumeId={resume.id} {onshowlog} />
 
 	<span class="mx-1 hidden h-5 w-px bg-border sm:block"></span>

@@ -25,6 +25,10 @@
 	import { downloadBlob, downloadText, slugFilename } from '$lib/util/download';
 	import { dbDel, KEYS } from '$lib/store/db';
 	import { deleteAllSnapshots } from '$lib/store/snapshots';
+	import { setContext } from 'svelte';
+	import { lintResume, type LintHint } from '$lib/core/lint';
+	import FitDialog from '$lib/components/composer/FitDialog.svelte';
+	import HintsDialog from '$lib/components/composer/HintsDialog.svelte';
 
 	const id = $derived(page.params.id!);
 	const resume = $derived(workspace.resume(id));
@@ -40,6 +44,10 @@
 			: null
 	);
 	const tex = $derived(result && resume ? renderTex(result.resolved, resume) : '');
+	const hints = $derived<LintHint[]>(result ? lintResume(result.resolved) : []);
+	setContext('lint', () => hints);
+	let showFit = $state(false);
+	let showHints = $state(false);
 
 	let showLog = $state(false);
 	let showLabels = $state(false);
@@ -191,13 +199,16 @@
 					'application/json'
 				)}
 			onupload={uploadPdf}
+			onfit={() => (showFit = true)}
+			onhints={() => (showHints = true)}
+			hintCount={hints.length}
 			ondelete={() => (confirmDelete = true)}
 		/>
 		<div bind:this={splitContainer} class="flex min-h-0 flex-1" style="--split: {splitPx}px">
 			<!-- Wide screens show both panes side by side; narrower ones show one at a time. -->
 			<div class="min-w-0 flex-1 overflow-y-auto {ui.previewOpen ? 'hidden lg:block' : ''}">
 				<div class="mx-auto max-w-3xl">
-					<CompositionPane {resume} {profile} />
+					<CompositionPane {resume} {profile} onfit={() => (showFit = true)} />
 				</div>
 			</div>
 			{#if ui.previewOpen}
@@ -212,6 +223,8 @@
 	</div>
 
 	<LogDrawer bind:open={showLog} resumeId={id} ondownloadtex={() => download('tex')} />
+	<FitDialog bind:open={showFit} {resume} {profile} />
+	<HintsDialog bind:open={showHints} {hints} {profile} />
 	<SnapshotsDialog bind:open={showSnapshots} resumeId={id} resumeName={resume.name} />
 	{#if result}
 		<AtsDrawer bind:open={showAts} resumeId={id} resolved={result.resolved} />

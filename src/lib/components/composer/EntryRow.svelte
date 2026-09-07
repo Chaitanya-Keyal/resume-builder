@@ -5,6 +5,9 @@
 	import ChevronDown from '@lucide/svelte/icons/chevron-down';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
+	import CircleAlert from '@lucide/svelte/icons/circle-alert';
+	import { getContext } from 'svelte';
+	import type { LintHint } from '$lib/core/lint';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import { toPlain } from '$lib/core/markup';
@@ -42,6 +45,9 @@
 	} = $props();
 
 	let open = $state(false);
+	const lint = getContext<() => LintHint[]>('lint');
+	const myHints = $derived(lint ? lint().filter((h) => h.key === entry.ref) : []);
+	const warns = $derived(myHints.filter((h) => h.level === 'warn').length);
 	const included = $derived(!!item);
 	const libraryOrder = $derived(highlights.map((h) => h.id));
 	const count = $derived(`${item?.bullets.length ?? 0}/${highlights.length}`);
@@ -90,8 +96,19 @@
 				<span class="block truncate text-sm font-medium">{toPlain(entry.label)}</span>
 				{#if entry.detail}<span class="block truncate text-xs text-muted">{entry.detail}</span>{/if}
 			</span>
+			{#if myHints.length}
+				<span
+					class="ml-auto inline-flex shrink-0 items-center gap-0.5 text-xs {warns
+						? 'text-warn'
+						: 'text-faint'}"
+					title={myHints.map((h) => h.message).join('\n')}
+					><CircleAlert size={12} />{myHints.length}</span
+				>
+			{/if}
 			{#if highlights.length}
-				<span class="ml-auto shrink-0 text-xs text-faint tabular-nums">{count}</span>
+				<span class="{myHints.length ? '' : 'ml-auto'} shrink-0 text-xs text-faint tabular-nums"
+					>{count}</span
+				>
 				<ChevronDown
 					size={14}
 					class="shrink-0 text-faint transition-transform {open ? 'rotate-180' : ''}"
@@ -165,6 +182,7 @@
 						<div>
 							<BulletRow
 								highlight={h}
+								hints={myHints.filter((x) => x.id === h.id)}
 								included={true}
 								override={item?.overrides?.bullets?.[h.id]}
 								canMove={{ up: idx > 0, down: idx < dnd.length - 1 }}
