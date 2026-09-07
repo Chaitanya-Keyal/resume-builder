@@ -23,7 +23,7 @@
 	} = $props();
 
 	let peek = $state<string | null>(null);
-	let areas: Record<string, HTMLTextAreaElement> = {};
+	let areas = $state<Record<string, HTMLTextAreaElement>>({});
 
 	function grow(el: HTMLTextAreaElement) {
 		el.style.height = 'auto';

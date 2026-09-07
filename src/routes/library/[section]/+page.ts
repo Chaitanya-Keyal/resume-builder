@@ -1,17 +1,6 @@
 import { error } from '@sveltejs/kit';
+import { SECTIONS, type LibrarySection } from '$lib/library-sections';
 import type { EntryGenerator, PageLoad } from './$types';
-
-export const SECTIONS = [
-	'basics',
-	'work',
-	'education',
-	'projects',
-	'leadership',
-	'skills',
-	'awards',
-	'more'
-] as const;
-export type LibrarySection = (typeof SECTIONS)[number];
 
 export const entries: EntryGenerator = () => SECTIONS.map((section) => ({ section }));
 

@@ -5,6 +5,8 @@
 	import { page } from '$app/state';
 	import { onMount, type Snippet } from 'svelte';
 	import { Toaster } from 'svelte-sonner';
+	import { pwaInfo } from 'virtual:pwa-info';
+	import { registerSW } from 'virtual:pwa-register';
 	import BottomTabs from '$lib/components/shell/BottomTabs.svelte';
 	import Rail from '$lib/components/shell/Rail.svelte';
 	import ReturnBar from '$lib/components/shell/ReturnBar.svelte';
@@ -21,6 +23,7 @@
 		if (import.meta.env.DEV)
 			(window as unknown as { __rb: unknown }).__rb = { workspace, compiles, ui };
 		ui.init();
+		if (!import.meta.env.DEV) registerSW({ immediate: true });
 		await workspace.load();
 		compiles.configure(workspace.settings);
 		if (!workspace.profile && !bare) await goto(`${base}/`, { replaceState: true });
@@ -61,6 +64,8 @@
 
 <svelte:head>
 	<title>Resume Builder</title>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+	{@html pwaInfo?.webManifest.linkTag ?? ''}
 	<meta
 		name="description"
 		content="A local-first LaTeX resume builder. Keep one library of everything you have done, compose resumes from it, and compile the PDF in your browser."

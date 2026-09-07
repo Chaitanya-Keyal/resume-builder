@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { workspace } from '$lib/store/workspace.svelte';
-	import type { LibrarySection } from '../../../routes/library/[section]/+page';
+	import type { LibrarySection } from '$lib/library-sections';
 
 	let { current }: { current: LibrarySection } = $props();
 	const p = $derived(workspace.profile);

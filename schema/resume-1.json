@@ -1,0 +1,265 @@
+{
+	"$id": "https://resume.okaybro.dev/schema/resume-1.json",
+	"title": "Resume Builder composition",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"properties": {
+		"id": {
+			"type": "string",
+			"minLength": 1
+		},
+		"name": {
+			"type": "string",
+			"minLength": 1
+		},
+		"labels": {
+			"default": [],
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"createdAt": {
+			"type": "string"
+		},
+		"updatedAt": {
+			"type": "string"
+		},
+		"template": {
+			"type": "string",
+			"minLength": 1
+		},
+		"options": {
+			"default": {},
+			"type": "object",
+			"propertyNames": {
+				"type": "string"
+			},
+			"additionalProperties": {}
+		},
+		"header": {
+			"default": {},
+			"type": "object",
+			"properties": {
+				"showPhone": {
+					"default": true,
+					"type": "boolean"
+				},
+				"showEmail": {
+					"default": true,
+					"type": "boolean"
+				},
+				"showUrl": {
+					"default": false,
+					"type": "boolean"
+				},
+				"showLocation": {
+					"default": false,
+					"type": "boolean"
+				},
+				"showTagline": {
+					"default": true,
+					"type": "boolean"
+				},
+				"profiles": {
+					"default": [],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"tagline": {
+					"type": "string"
+				}
+			}
+		},
+		"sections": {
+			"default": [],
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"type": {
+						"type": "string",
+						"enum": [
+							"work",
+							"volunteer",
+							"education",
+							"projects",
+							"skills",
+							"awards",
+							"certificates",
+							"publications",
+							"languages",
+							"interests",
+							"custom"
+						]
+					},
+					"title": {
+						"type": "string"
+					},
+					"items": {
+						"default": [],
+						"type": "array",
+						"items": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"ref": {
+											"type": "string",
+											"pattern": "^[a-z]+:[^/\\s]+(\\/[^/\\s]+)?$"
+										},
+										"bullets": {
+											"default": [],
+											"type": "array",
+											"items": {
+												"type": "string"
+											}
+										},
+										"overrides": {
+											"type": "object",
+											"properties": {
+												"title": {
+													"type": "string"
+												},
+												"subtitle": {
+													"type": "string"
+												},
+												"dateLabel": {
+													"type": "string"
+												},
+												"location": {
+													"type": "string"
+												},
+												"keywords": {
+													"type": "array",
+													"items": {
+														"type": "string"
+													}
+												},
+												"bullets": {
+													"type": "object",
+													"propertyNames": {
+														"type": "string"
+													},
+													"additionalProperties": {
+														"type": "object",
+														"properties": {
+															"text": {
+																"type": "string"
+															},
+															"baseText": {
+																"type": "string"
+															},
+															"origin": {
+																"type": "string",
+																"enum": [
+																	"user",
+																	"ai"
+																]
+															}
+														},
+														"required": [
+															"text",
+															"baseText"
+														]
+													}
+												},
+												"extraBullets": {
+													"type": "array",
+													"items": {
+														"type": "object",
+														"properties": {
+															"id": {
+																"type": "string",
+																"minLength": 1
+															},
+															"text": {
+																"type": "string"
+															},
+															"after": {
+																"type": "string"
+															}
+														},
+														"required": [
+															"id",
+															"text"
+														]
+													}
+												}
+											}
+										}
+									},
+									"required": [
+										"ref"
+									]
+								},
+								{
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string",
+											"minLength": 1
+										},
+										"title": {
+											"type": "string"
+										},
+										"subtitle": {
+											"type": "string"
+										},
+										"dateLabel": {
+											"type": "string"
+										},
+										"location": {
+											"type": "string"
+										},
+										"bullets": {
+											"default": [],
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"id": {
+														"type": "string",
+														"minLength": 1
+													},
+													"text": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id",
+													"text"
+												]
+											}
+										}
+									},
+									"required": [
+										"id",
+										"title"
+									]
+								}
+							]
+						}
+					}
+				},
+				"required": [
+					"id",
+					"type"
+				]
+			}
+		}
+	},
+	"required": [
+		"id",
+		"name",
+		"createdAt",
+		"updatedAt",
+		"template"
+	]
+}
