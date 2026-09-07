@@ -64,7 +64,8 @@ bun run dev
 | `bun run render`       | `bun run render profile.json resume.json [overlay.json] > out.tex`          |
 | `bun run texlive`      | Rebuild `static/texlive` (needs a local TeX Live and Playwright's Chromium) |
 | `bun scripts/smoke.ts` | Build, then compile the fixture in headless Chromium against the build      |
-| `bun run vendor`       | Copy the types, schema and markup module into the portfolio repo            |
+| `bun run vendor <dir>` | Copy the types, schema and markup module into a site's source tree          |
+| `bun run pdf`          | Render and compile a resume natively from the same TeX files the app uses   |
 
 `scripts/texlive-subset.ts` is how the TeX tree is produced: it runs the real
 engine in a headless browser against a server that answers file requests with

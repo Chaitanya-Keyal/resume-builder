@@ -15,7 +15,8 @@
 		"schema": "bun scripts/gen-schema.ts",
 		"texlive": "bun scripts/texlive-subset.ts",
 		"render": "bun scripts/render.ts",
-		"vendor": "bun scripts/vendor-to-portfolio.ts"
+		"vendor": "bun scripts/vendor.ts",
+		"pdf": "bun scripts/pdf.ts"
 	},
 	"lint-staged": {
 		"*.{js,ts,svelte}": [
