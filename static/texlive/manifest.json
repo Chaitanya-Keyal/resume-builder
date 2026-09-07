@@ -1,0 +1,729 @@
+{
+	"version": 1,
+	"engine": "swiftlatexpdftex v20022022 (pdfTeX 1.40.21)",
+	"format": {
+		"fmt": 10,
+		"name": "swiftlatexpdftex.fmt",
+		"file": "swiftlatexpdftex.fmt.gz",
+		"bytes": 22350763
+	},
+	"files": [
+		{
+			"fmt": 3,
+			"name": "cmmi10",
+			"bytes": 1528
+		},
+		{
+			"fmt": 3,
+			"name": "cmmi12",
+			"bytes": 1524
+		},
+		{
+			"fmt": 3,
+			"name": "cmmi6",
+			"bytes": 1512
+		},
+		{
+			"fmt": 3,
+			"name": "cmmi8",
+			"bytes": 1520
+		},
+		{
+			"fmt": 3,
+			"name": "cmmi9",
+			"bytes": 1524
+		},
+		{
+			"fmt": 3,
+			"name": "cmr10",
+			"bytes": 1296
+		},
+		{
+			"fmt": 3,
+			"name": "cmr12",
+			"bytes": 1288
+		},
+		{
+			"fmt": 3,
+			"name": "cmr6",
+			"bytes": 1300
+		},
+		{
+			"fmt": 3,
+			"name": "cmr8",
+			"bytes": 1292
+		},
+		{
+			"fmt": 3,
+			"name": "cmr9",
+			"bytes": 1292
+		},
+		{
+			"fmt": 3,
+			"name": "cmsy10",
+			"bytes": 1124
+		},
+		{
+			"fmt": 3,
+			"name": "cmsy6",
+			"bytes": 1116
+		},
+		{
+			"fmt": 3,
+			"name": "cmsy8",
+			"bytes": 1120
+		},
+		{
+			"fmt": 3,
+			"name": "cmsy9",
+			"bytes": 1116
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx0900",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx1000",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx1095",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx1200",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecbx2488",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "eccc1000",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc1095",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc1200",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "eccc1440",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm0500",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm0600",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm0900",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm1000",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm1095",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm1200",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecrm1440",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecti0900",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti1000",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti1095",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecti1200",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "ecxc2488",
+			"bytes": 3072
+		},
+		{
+			"fmt": 3,
+			"name": "lasy10",
+			"bytes": 520
+		},
+		{
+			"fmt": 3,
+			"name": "lasy5",
+			"bytes": 520
+		},
+		{
+			"fmt": 3,
+			"name": "lasy6",
+			"bytes": 520
+		},
+		{
+			"fmt": 3,
+			"name": "lasy7",
+			"bytes": 520
+		},
+		{
+			"fmt": 3,
+			"name": "lasy8",
+			"bytes": 520
+		},
+		{
+			"fmt": 3,
+			"name": "lasy9",
+			"bytes": 520
+		},
+		{
+			"fmt": 11,
+			"name": "pdftex.map",
+			"bytes": 2080
+		},
+		{
+			"fmt": 26,
+			"name": "array.sty",
+			"bytes": 12667
+		},
+		{
+			"fmt": 26,
+			"name": "article.cls",
+			"bytes": 20144
+		},
+		{
+			"fmt": 26,
+			"name": "atbegshi-ltx.sty",
+			"bytes": 3045
+		},
+		{
+			"fmt": 26,
+			"name": "atbegshi.sty",
+			"bytes": 24708
+		},
+		{
+			"fmt": 26,
+			"name": "atveryend-ltx.sty",
+			"bytes": 2462
+		},
+		{
+			"fmt": 26,
+			"name": "atveryend.sty",
+			"bytes": 19336
+		},
+		{
+			"fmt": 26,
+			"name": "auxhook.sty",
+			"bytes": 3935
+		},
+		{
+			"fmt": 26,
+			"name": "babel-en.ini",
+			"bytes": 3966
+		},
+		{
+			"fmt": 26,
+			"name": "babel-english.tex",
+			"bytes": 336
+		},
+		{
+			"fmt": 26,
+			"name": "babel.sty",
+			"bytes": 150008
+		},
+		{
+			"fmt": 26,
+			"name": "bigintcalc.sty",
+			"bytes": 40635
+		},
+		{
+			"fmt": 26,
+			"name": "bitset.sty",
+			"bytes": 33961
+		},
+		{
+			"fmt": 26,
+			"name": "color.cfg",
+			"bytes": 1213
+		},
+		{
+			"fmt": 26,
+			"name": "color.sty",
+			"bytes": 7233
+		},
+		{
+			"fmt": 26,
+			"name": "dvipsnam.def",
+			"bytes": 5009
+		},
+		{
+			"fmt": 26,
+			"name": "english.ldf",
+			"bytes": 7008
+		},
+		{
+			"fmt": 26,
+			"name": "enumitem.sty",
+			"bytes": 51697
+		},
+		{
+			"fmt": 26,
+			"name": "etoolbox.sty",
+			"bytes": 46845
+		},
+		{
+			"fmt": 26,
+			"name": "fancyhdr.sty",
+			"bytes": 18450
+		},
+		{
+			"fmt": 26,
+			"name": "fontenc.sty",
+			"bytes": 5119
+		},
+		{
+			"fmt": 26,
+			"name": "fullpage.sty",
+			"bytes": 2789
+		},
+		{
+			"fmt": 26,
+			"name": "gettitlestring.sty",
+			"bytes": 8371
+		},
+		{
+			"fmt": 26,
+			"name": "glyphtounicode",
+			"bytes": 216747
+		},
+		{
+			"fmt": 26,
+			"name": "glyphtounicode.tex",
+			"bytes": 216747
+		},
+		{
+			"fmt": 26,
+			"name": "hpdftex.def",
+			"bytes": 48154
+		},
+		{
+			"fmt": 26,
+			"name": "hycolor.sty",
+			"bytes": 17914
+		},
+		{
+			"fmt": 26,
+			"name": "hyperref.sty",
+			"bytes": 220920
+		},
+		{
+			"fmt": 26,
+			"name": "iftex.sty",
+			"bytes": 7237
+		},
+		{
+			"fmt": 26,
+			"name": "infwarerr.sty",
+			"bytes": 8356
+		},
+		{
+			"fmt": 26,
+			"name": "intcalc.sty",
+			"bytes": 31769
+		},
+		{
+			"fmt": 26,
+			"name": "keyval.sty",
+			"bytes": 2671
+		},
+		{
+			"fmt": 26,
+			"name": "kvdefinekeys.sty",
+			"bytes": 5412
+		},
+		{
+			"fmt": 26,
+			"name": "kvoptions.sty",
+			"bytes": 22555
+		},
+		{
+			"fmt": 26,
+			"name": "kvsetkeys.sty",
+			"bytes": 13815
+		},
+		{
+			"fmt": 26,
+			"name": "l3backend-pdftex.def",
+			"bytes": 30006
+		},
+		{
+			"fmt": 26,
+			"name": "latexsym.sty",
+			"bytes": 2853
+		},
+		{
+			"fmt": 26,
+			"name": "ltxcmds.sty",
+			"bytes": 17865
+		},
+		{
+			"fmt": 26,
+			"name": "marvosym.sty",
+			"bytes": 9393
+		},
+		{
+			"fmt": 26,
+			"name": "mathcolor.ltx",
+			"bytes": 2885
+		},
+		{
+			"fmt": 26,
+			"name": "nameref.sty",
+			"bytes": 11026
+		},
+		{
+			"fmt": 26,
+			"name": "pd1enc.def",
+			"bytes": 14249
+		},
+		{
+			"fmt": 26,
+			"name": "pdfescape.sty",
+			"bytes": 19007
+		},
+		{
+			"fmt": 26,
+			"name": "pdftex.def",
+			"bytes": 19448
+		},
+		{
+			"fmt": 26,
+			"name": "pdftexcmds.sty",
+			"bytes": 20089
+		},
+		{
+			"fmt": 26,
+			"name": "puenc.def",
+			"bytes": 117112
+		},
+		{
+			"fmt": 26,
+			"name": "refcount.sty",
+			"bytes": 9878
+		},
+		{
+			"fmt": 26,
+			"name": "rerunfilecheck.sty",
+			"bytes": 9714
+		},
+		{
+			"fmt": 26,
+			"name": "size10.clo",
+			"bytes": 8448
+		},
+		{
+			"fmt": 26,
+			"name": "size11.clo",
+			"bytes": 8464
+		},
+		{
+			"fmt": 26,
+			"name": "size12.clo",
+			"bytes": 8449
+		},
+		{
+			"fmt": 26,
+			"name": "supp-pdf.mkii",
+			"bytes": 71627
+		},
+		{
+			"fmt": 26,
+			"name": "tabularx.sty",
+			"bytes": 7147
+		},
+		{
+			"fmt": 26,
+			"name": "titlesec.sty",
+			"bytes": 48766
+		},
+		{
+			"fmt": 26,
+			"name": "txtbabel.def",
+			"bytes": 6948
+		},
+		{
+			"fmt": 26,
+			"name": "ulasy.fd",
+			"bytes": 2233
+		},
+		{
+			"fmt": 26,
+			"name": "uniquecounter.sty",
+			"bytes": 7008
+		},
+		{
+			"fmt": 26,
+			"name": "url.sty",
+			"bytes": 12796
+		},
+		{
+			"fmt": 26,
+			"name": "verbatim.sty",
+			"bytes": 7500
+		},
+		{
+			"fmt": 32,
+			"name": "cmsy10.pfb",
+			"bytes": 32569
+		},
+		{
+			"fmt": 32,
+			"name": "cmsy5.pfb",
+			"bytes": 32915
+		},
+		{
+			"fmt": 32,
+			"name": "cmsy6.pfb",
+			"bytes": 32587
+		},
+		{
+			"fmt": 32,
+			"name": "cmsy9.pfb",
+			"bytes": 32442
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx0900.pfb",
+			"bytes": 143961
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx1000.pfb",
+			"bytes": 145408
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx1095.pfb",
+			"bytes": 154600
+		},
+		{
+			"fmt": 32,
+			"name": "sfbx1200.pfb",
+			"bytes": 140176
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc1200.pfb",
+			"bytes": 108594
+		},
+		{
+			"fmt": 32,
+			"name": "sfcc1440.pfb",
+			"bytes": 110032
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm0900.pfb",
+			"bytes": 149037
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm1000.pfb",
+			"bytes": 138258
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm1095.pfb",
+			"bytes": 145929
+		},
+		{
+			"fmt": 32,
+			"name": "sfrm1200.pfb",
+			"bytes": 136101
+		},
+		{
+			"fmt": 32,
+			"name": "sfti0900.pfb",
+			"bytes": 183673
+		},
+		{
+			"fmt": 32,
+			"name": "sfti1000.pfb",
+			"bytes": 186554
+		},
+		{
+			"fmt": 32,
+			"name": "sfti1095.pfb",
+			"bytes": 196446
+		},
+		{
+			"fmt": 32,
+			"name": "sfxc2488.pfb",
+			"bytes": 115470
+		},
+		{
+			"fmt": 44,
+			"name": "cm-super-t1.enc",
+			"bytes": 2971
+		}
+	],
+	"misses": [
+		{
+			"fmt": 26,
+			"name": "10pt.ldf"
+		},
+		{
+			"fmt": 26,
+			"name": "11pt.ldf"
+		},
+		{
+			"fmt": 26,
+			"name": "12pt.ldf"
+		},
+		{
+			"fmt": 26,
+			"name": "a4paper.ldf"
+		},
+		{
+			"fmt": 26,
+			"name": "bblopts.cfg"
+		},
+		{
+			"fmt": 26,
+			"name": "english.cfg"
+		},
+		{
+			"fmt": 26,
+			"name": "gettitlestring.cfg"
+		},
+		{
+			"fmt": 26,
+			"name": "hyperref.cfg"
+		},
+		{
+			"fmt": 26,
+			"name": "letterpaper.ldf"
+		},
+		{
+			"fmt": 26,
+			"name": "pd1enc.dfu"
+		},
+		{
+			"fmt": 26,
+			"name": "puenc.dfu"
+		},
+		{
+			"fmt": 26,
+			"name": "rerunfilecheck.cfg"
+		},
+		{
+			"fmt": 33,
+			"name": "cmsy10.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmsy5.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmsy6.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "cmsy9.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecbx1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "eccc1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecrm1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecti1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecxc2488.vf"
+		}
+	]
+}

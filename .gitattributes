@@ -1,0 +1,4 @@
+# Generated TeX Live subset and engine: never diff, never reformat.
+static/texlive/** -diff -text
+static/engine/*.wasm -diff -text
+static/engine/*.js -diff

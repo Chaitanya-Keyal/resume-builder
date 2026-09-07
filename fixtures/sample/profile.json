@@ -1,0 +1,190 @@
+{
+	"$schema": "https://resume.okaybro.dev/schema/profile-1.json",
+	"version": 1,
+	"basics": {
+		"name": "Jane Doe",
+		"label": "Backend Engineer | Distributed Systems",
+		"email": "jane@example.com",
+		"url": "https://jane.example.com",
+		"summary": "Backend engineer who likes boring, reliable systems.",
+		"location": { "city": "Bengaluru", "countryCode": "IN" },
+		"profiles": [
+			{ "network": "GitHub", "username": "janedoe", "url": "https://github.com/janedoe" },
+			{ "network": "LinkedIn", "username": "janedoe", "url": "https://linkedin.com/in/janedoe" }
+		]
+	},
+	"work": [
+		{
+			"id": "acme",
+			"name": "Acme Corp",
+			"url": "https://acme.example.com",
+			"location": "Bengaluru, India",
+			"positions": [
+				{
+					"id": "senior",
+					"position": "Senior Backend Engineer",
+					"startDate": "2024-01",
+					"highlights": [
+						{
+							"id": "h_acme_s1",
+							"text": "Led the rewrite of the billing service to **event sourcing**, cutting reconciliation bugs by 80%."
+						},
+						{
+							"id": "h_acme_s2",
+							"text": "Designed a multi-region deployment on Kubernetes serving 30k requests/s at p99 < 120 ms."
+						},
+						{
+							"id": "h_acme_s3",
+							"text": "Mentored four engineers; two were promoted within the year."
+						}
+					]
+				},
+				{
+					"id": "engineer",
+					"position": "Backend Engineer",
+					"startDate": "2021-07",
+					"endDate": "2023-12",
+					"highlights": [
+						{
+							"id": "h_acme_e1",
+							"text": "Built the internal feature-flag platform used by 40+ services."
+						},
+						{
+							"id": "h_acme_e2",
+							"text": "Migrated 2 TB of customer data from MySQL to PostgreSQL with zero downtime."
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "startup",
+			"name": "Widgets Inc",
+			"location": "Remote",
+			"positions": [
+				{
+					"id": "intern",
+					"position": "Software Engineering Intern",
+					"startDate": "2020-05",
+					"endDate": "2020-08",
+					"highlights": [
+						{
+							"id": "h_w_1",
+							"text": "Shipped the public REST API and its [SDK](https://github.com/janedoe/widgets-sdk)."
+						},
+						{
+							"id": "h_w_2",
+							"text": "Wrote the load-testing harness that became the team's release gate."
+						}
+					]
+				}
+			]
+		}
+	],
+	"volunteer": [
+		{
+			"id": "codeclub",
+			"name": "Code Club",
+			"location": "Bengaluru, India",
+			"positions": [
+				{
+					"id": "mentor",
+					"position": "Mentor",
+					"startDate": "2022-01",
+					"highlights": [
+						{
+							"id": "h_cc_1",
+							"text": "Taught weekend Python workshops to 60+ high-school students."
+						}
+					]
+				}
+			]
+		}
+	],
+	"education": [
+		{
+			"id": "university",
+			"institution": "State University",
+			"location": "Pune, India",
+			"studyType": "B.Tech.",
+			"area": "Computer Science",
+			"startDate": "2017",
+			"endDate": "2021",
+			"score": "8.9/10",
+			"courses": ["Distributed Systems", "Databases", "Operating Systems"],
+			"highlights": [
+				{ "id": "h_edu_1", "text": "Graduated with distinction; teaching assistant for Databases." }
+			]
+		}
+	],
+	"projects": [
+		{
+			"id": "queue",
+			"name": "tinyqueue",
+			"description": "A single-binary job queue backed by SQLite.",
+			"url": "https://github.com/janedoe/tinyqueue",
+			"keywords": ["Go", "SQLite"],
+			"startDate": "2023",
+			"highlights": [
+				{
+					"id": "h_q_1",
+					"text": "Exactly-once delivery with a 200-line core and no external dependencies."
+				},
+				{ "id": "h_q_2", "text": "1.2k GitHub stars; used in production by three companies." }
+			]
+		},
+		{
+			"id": "dotfiles",
+			"name": "dotfiles",
+			"url": "https://github.com/janedoe/dotfiles",
+			"keywords": ["Shell", "Nix"],
+			"highlights": [{ "id": "h_d_1", "text": "Reproducible machine setup with Nix flakes." }]
+		}
+	],
+	"skills": [
+		{ "id": "languages", "name": "Languages", "keywords": ["Go", "Python", "TypeScript", "SQL"] },
+		{
+			"id": "infra",
+			"name": "Infrastructure",
+			"keywords": ["Kubernetes", "PostgreSQL", "Kafka", "Terraform", "AWS"]
+		},
+		{
+			"id": "practices",
+			"name": "Practices",
+			"keywords": ["Observability", "Incident response", "API design"]
+		}
+	],
+	"awards": [
+		{
+			"id": "hackathon",
+			"title": "1st place, National Hackathon",
+			"date": "2020-11",
+			"awarder": "TechFest",
+			"summary": "Built a disaster-relief routing app in 36 hours."
+		}
+	],
+	"certificates": [
+		{
+			"id": "cka",
+			"name": "Certified Kubernetes Administrator",
+			"date": "2023-03",
+			"issuer": "CNCF",
+			"url": "https://www.cncf.io/certification/cka/"
+		}
+	],
+	"publications": [
+		{
+			"id": "paper",
+			"name": "Practical event sourcing for billing systems",
+			"publisher": "Acme Engineering Blog",
+			"releaseDate": "2024-06",
+			"url": "https://acme.example.com/blog/event-sourcing"
+		}
+	],
+	"languages": [
+		{ "id": "english", "language": "English", "fluency": "Fluent" },
+		{ "id": "hindi", "language": "Hindi", "fluency": "Native" }
+	],
+	"interests": [{ "id": "climbing", "name": "Climbing", "keywords": ["Bouldering", "Trad"] }],
+	"references": []
+}

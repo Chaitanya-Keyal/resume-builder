@@ -15,7 +15,10 @@ export function applyOverlay(profile: Profile, overlay: Overlay | undefined): Pr
 	for (const patch of overlay.patches ?? []) {
 		const hit = lookupRef(out, patch.ref);
 		if (!hit) continue;
-		const target: Record<string, unknown> = 'position' in hit ? hit.position : hit.item;
+		const target = ('position' in hit ? hit.position : hit.item) as unknown as Record<
+			string,
+			unknown
+		>;
 		for (const [k, v] of Object.entries(patch.fields)) if (k !== 'id') target[k] = v;
 	}
 	return out;

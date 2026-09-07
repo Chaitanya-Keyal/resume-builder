@@ -14,7 +14,6 @@
 		"prepare": "svelte-kit sync && husky",
 		"schema": "bun scripts/gen-schema.ts",
 		"texlive": "bun scripts/texlive-subset.ts",
-		"format:tex": "bun scripts/build-format.ts",
 		"render": "bun scripts/render.ts",
 		"vendor": "bun scripts/vendor-to-portfolio.ts"
 	},
