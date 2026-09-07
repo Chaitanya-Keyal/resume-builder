@@ -28,7 +28,7 @@
 		<span class="text-xs text-faint">{profile.basics.name || 'No name yet'}</span>
 	</div>
 	<div class="grid gap-x-6 gap-y-2 border-t border-border px-3 py-3 sm:grid-cols-2">
-		<div class="space-y-2">
+		<div class="flex flex-col items-start gap-2">
 			<Checkbox
 				checked={h.showPhone}
 				disabled={!phone}
@@ -59,10 +59,10 @@
 				onchange={(v) => setHeader(resume.id, { showLocation: v })}
 			/>
 		</div>
-		<div class="space-y-2">
+		<div class="flex flex-col gap-2">
 			{#each ordered as p (p.network)}
 				{@const on = h.profiles.some((n) => n.toLowerCase() === p.network.toLowerCase())}
-				<div class="flex items-center gap-1">
+				<div class="flex w-full items-center gap-1">
 					<Checkbox
 						checked={on}
 						label="{p.network} - {p.url.replace(/^https?:\/\//, '')}"
