@@ -9,7 +9,7 @@ import { resumeSchema } from './schema/resume';
 import { parseProfile } from './schema/validate';
 import { overlaySchema } from './schema/workspace';
 
-const FIX = join(import.meta.dir, '../../../fixtures/okaybro');
+const FIX = join(import.meta.dir, '../../../fixtures/sample');
 const read = (f: string) => readFileSync(join(FIX, f), 'utf8');
 
 function loadFixture() {
@@ -48,6 +48,7 @@ describe('fixture', () => {
 		expect(resolved.header.contacts.map((c) => c.kind)).toEqual([
 			'phone',
 			'email',
+			'url',
 			'profile',
 			'profile'
 		]);
@@ -56,11 +57,12 @@ describe('fixture', () => {
 			'work',
 			'projects',
 			'volunteer',
+			'awards',
 			'skills'
 		]);
 	});
 
-	test('jake renders the hand-written resume (modulo whitespace and comments)', () => {
+	test('jake renders the golden resume.tex (modulo whitespace and comments)', () => {
 		const { profile, overlay, resume } = loadFixture();
 		const { resolved } = resolve(profile, overlay, resume);
 		const got = normalizeTex(renderTex(resolved, resume));
@@ -86,7 +88,7 @@ describe('fixture', () => {
 			bullets: string[];
 			overrides?: Record<string, unknown>;
 		};
-		item.overrides = { bullets: { h_onf_agents: { text: 'New wording', baseText: 'old' } } };
+		item.overrides = { bullets: { h_acme_e1: { text: 'New wording', baseText: 'old' } } };
 		const { resolved, problems } = resolve(profile, overlay, r);
 		const work = resolved.sections[1].items[1];
 		expect(work.bullets[0]).toMatchObject({ text: 'New wording', overridden: true });

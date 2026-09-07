@@ -93,12 +93,10 @@ function everythingResume(
 
 function documents(): Record<string, string> {
 	const docs: Record<string, string> = {};
-	const okaybro = parseProfile(readJson(join(ROOT, 'fixtures/okaybro/profile.json'))).profile;
-	const overlay = overlaySchema.parse(readJson(join(ROOT, 'fixtures/okaybro/overlay.json')));
-	const okResume = resumeSchema.parse(readJson(join(ROOT, 'fixtures/okaybro/resume.jake.json')));
-	docs['okaybro'] = renderTex(resolve(okaybro, overlay, okResume).resolved, okResume);
-
 	const sample = parseProfile(readJson(join(ROOT, 'fixtures/sample/profile.json'))).profile;
+	const overlay = overlaySchema.parse(readJson(join(ROOT, 'fixtures/sample/overlay.json')));
+	const sampleResume = resumeSchema.parse(readJson(join(ROOT, 'fixtures/sample/resume.jake.json')));
+	docs['sample'] = renderTex(resolve(sample, overlay, sampleResume).resolved, sampleResume);
 	for (const t of Object.values(templates)) {
 		// Options that change fonts or class files. Margins and spacing only move things.
 		for (const fontSize of [10, 11, 12]) {

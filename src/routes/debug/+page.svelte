@@ -9,9 +9,9 @@
 	import { resumeSchema } from '$lib/core/schema/resume';
 	import { parseProfile } from '$lib/core/schema/validate';
 	import { overlaySchema } from '$lib/core/schema/workspace';
-	import profileJson from '../../../fixtures/okaybro/profile.json';
-	import overlayJson from '../../../fixtures/okaybro/overlay.json';
-	import resumeJson from '../../../fixtures/okaybro/resume.jake.json';
+	import profileJson from '../../../fixtures/sample/profile.json';
+	import overlayJson from '../../../fixtures/sample/overlay.json';
+	import resumeJson from '../../../fixtures/sample/resume.jake.json';
 
 	let lines = $state<string[]>([]);
 	let progress = $state<CompileProgress | null>(null);

@@ -4,7 +4,7 @@
  *
  *   bun scripts/shot.ts <outDir> <step> [<step> …]
  *   steps:  goto:/path   click:<css or text=…>   wait:<ms>   shot:<name>   type:<css>=<text>
- *           key:<Key>   dark   light   viewport:<w>x<h>   eval:<js>   seed:sample   seed:okaybro
+ *           key:<Key>   dark   light   viewport:<w>x<h>   eval:<js>   seed:sample
  */
 import { mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -26,11 +26,11 @@ page.on('console', (m) => {
 		console.log(`[${m.type()}]`, m.text().slice(0, 300));
 });
 
-async function seed(kind: 'sample' | 'okaybro') {
+async function seed(kind: 'sample') {
 	const root = join(import.meta.dir, '..', 'fixtures', kind);
 	const profile = readFileSync(join(root, 'profile.json'), 'utf8');
-	const overlay = kind === 'okaybro' ? readFileSync(join(root, 'overlay.json'), 'utf8') : null;
-	const resume = kind === 'okaybro' ? readFileSync(join(root, 'resume.jake.json'), 'utf8') : null;
+	const overlay = readFileSync(join(root, 'overlay.json'), 'utf8');
+	const resume = readFileSync(join(root, 'resume.jake.json'), 'utf8');
 	await page.goto(`${BASE}/`);
 	await page.evaluate(
 		async ({ profile, overlay, resume }) => {
@@ -75,7 +75,7 @@ for (const step of steps) {
 		const [w, h] = rest.split('x').map(Number);
 		await page.setViewportSize({ width: w, height: h });
 	} else if (cmd === 'eval') console.log(await page.evaluate(rest));
-	else if (cmd === 'seed') await seed(rest as 'sample' | 'okaybro');
+	else if (cmd === 'seed') await seed('sample');
 	else console.log('unknown step', step);
 }
 await browser.close();

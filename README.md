@@ -28,9 +28,9 @@ Live at https://resume-builder.okaybro.dev.
   separate local overlay that never enters the public file. A `workspace.json`
   export backs up everything.
 
-The default template reproduces the classic single-column "Jake's Resume"
-byte for byte; the snapshot test in `src/lib/core/core.test.ts` holds it to
-`fixtures/okaybro/resume.tex`.
+The default template is the classic single-column "Jake's Resume", reproduced
+exactly; the snapshot test in `src/lib/core/core.test.ts` holds its output to
+`fixtures/sample/resume.tex`.
 
 ## Data model
 
