@@ -9,7 +9,7 @@
  *      two stints at one organisation are two selectable entries under one name.
  *   3. `highlights` are objects with stable ids, so a resume can pick and
  *      override individual bullets.
- *   4. Anything a consumer (the portfolio, a template) needs beyond the standard
+ *   4. Anything a consumer (a website, a template) needs beyond the standard
  *      lives under `x` on the item.
  *
  * Text fields that end up on the page (`name`, `highlights[].text`, `summary`,
@@ -23,7 +23,7 @@ export type Iso = string;
 export interface Highlight {
 	id: string;
 	text: string;
-	/** Kept in the library but skipped by consumers that list everything (the portfolio). */
+	/** Kept in the library but skipped by consumers that list everything (a website). */
 	hidden?: boolean;
 }
 
@@ -52,7 +52,7 @@ export interface BasicsX {
 	role?: string;
 	status?: string;
 	repo?: string;
-	/** Short lowercase tagline for the portfolio; `basics.label` is the resume's. */
+	/** Short lowercase tagline for a website; `basics.label` is the resume's. */
 	tagline?: string;
 	[key: string]: unknown;
 }
@@ -79,7 +79,7 @@ export interface EntryX {
 	stack?: string[];
 	links?: Link[];
 	related?: Link[];
-	/** Free-text period for the portfolio ("Summer 2025 and Summer 2026"). */
+	/** Free-text period for a website ("Summer 2025 and Summer 2026"). */
 	periodLabel?: string;
 	[key: string]: unknown;
 }
@@ -354,12 +354,13 @@ export interface WebsiteSync {
 	path?: string;
 	/** Where the site keeps the resume PDF, e.g. `static/resume.pdf`. */
 	pdfPath?: string;
+	/** The resume the site builds its PDF from, and where its composition lives. */
+	resumeId?: string;
+	resumePath?: string;
 }
 
 export interface Settings {
 	website: WebsiteSync;
-	compiler: 'wasm' | 'remote';
-	remoteUrl?: string;
 	/** Where the profile was last imported from, for one-click re-import. */
 	sourceUrl?: string;
 	autoCompile: boolean;

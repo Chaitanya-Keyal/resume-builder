@@ -1350,19 +1350,14 @@
 						},
 						"pdfPath": {
 							"type": "string"
+						},
+						"resumeId": {
+							"type": "string"
+						},
+						"resumePath": {
+							"type": "string"
 						}
 					}
-				},
-				"compiler": {
-					"default": "wasm",
-					"type": "string",
-					"enum": [
-						"wasm",
-						"remote"
-					]
-				},
-				"remoteUrl": {
-					"type": "string"
 				},
 				"sourceUrl": {
 					"type": "string"

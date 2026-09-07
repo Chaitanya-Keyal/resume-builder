@@ -21,13 +21,13 @@ export const websiteSyncSchema = z.object({
 	repo: z.string().optional(),
 	branch: z.string().optional(),
 	path: z.string().optional(),
-	pdfPath: z.string().optional()
+	pdfPath: z.string().optional(),
+	resumeId: z.string().optional(),
+	resumePath: z.string().optional()
 });
 
 export const settingsSchema = z.object({
 	website: websiteSyncSchema.prefault({}),
-	compiler: z.enum(['wasm', 'remote']).default('wasm'),
-	remoteUrl: z.string().optional(),
 	sourceUrl: z.string().optional(),
 	autoCompile: z.boolean().default(true),
 	theme: z.enum(['system', 'light', 'dark']).default('system')

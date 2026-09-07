@@ -4,8 +4,7 @@
  * the last good PDF on screen while the next one compiles.
  */
 import { base } from '$app/paths';
-import { RemoteCompiler, WasmCompiler, type CompileProgress, type Compiler } from '$lib/compiler';
-import type { Settings } from '$lib/core/schema/types';
+import { WasmCompiler, type CompileProgress, type Compiler } from '$lib/compiler';
 import { hash53 } from '$lib/util/hash';
 import { dbGet, dbSet, KEYS } from './db';
 
@@ -50,7 +49,6 @@ class CompileManager {
 	online = $state(typeof navigator === 'undefined' ? true : navigator.onLine);
 
 	private compiler: Compiler | undefined;
-	private compilerKey = '';
 	private timers = new Map<string, ReturnType<typeof setTimeout>>();
 	private pending = new Map<string, string>();
 	private seq = new Map<string, number>();
@@ -72,31 +70,29 @@ class CompileManager {
 		return (this.states[resumeId] ??= blank());
 	}
 
-	/** Pick the compiler from settings; safe to call repeatedly. */
-	configure(settings: Settings) {
-		const key =
-			settings.compiler === 'remote' && settings.remoteUrl
-				? `remote:${settings.remoteUrl}`
-				: 'wasm';
-		if (key === this.compilerKey) return;
-		this.compiler?.dispose();
-		this.compilerKey = key;
-		this.compiler =
-			key === 'wasm' ? new WasmCompiler(base) : new RemoteCompiler(settings.remoteUrl!);
+	/** Create the in-browser engine wrapper; safe to call repeatedly. */
+	configure() {
+		if (this.compiler) return;
+		this.compiler = new WasmCompiler(base);
 		this.engine = 'idle';
+	}
+
+	/** Forget a deleted resume: timers, in-flight work and its blob URL. */
+	dispose(resumeId: string) {
+		clearTimeout(this.timers.get(resumeId));
+		this.timers.delete(resumeId);
+		this.pending.delete(resumeId);
+		this.seq.delete(resumeId);
+		const s = this.states[resumeId];
+		if (s?.pdfUrl) URL.revokeObjectURL(s.pdfUrl);
+		delete this.states[resumeId];
 	}
 
 	private warming: Promise<void> | undefined;
 
 	/** Download and start the engine ahead of the first compile. Concurrent callers share one load. */
 	warm(): Promise<void> {
-		if (!this.compiler)
-			this.configure({
-				website: { enabled: false },
-				compiler: 'wasm',
-				autoCompile: true,
-				theme: 'system'
-			});
+		this.configure();
 		if (this.engine === 'ready') return Promise.resolve();
 		if (this.warming) return this.warming;
 		this.engine = 'loading';

@@ -17,7 +17,7 @@ export interface CompileProgress {
 }
 
 export interface Compiler {
-	readonly id: 'wasm' | 'remote';
+	readonly id: 'wasm';
 	/** Idempotent; downloads and warms whatever the compiler needs. */
 	init(onProgress?: (p: CompileProgress) => void): Promise<void>;
 	compile(tex: string, opts?: { signal?: AbortSignal; timeoutMs?: number }): Promise<CompileResult>;
