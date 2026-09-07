@@ -52,7 +52,7 @@ function render(resume: ResolvedResume, o: JakeOptions): string {
 	// using the same label-less list the skills block uses.
 	const paragraph = (text: string | undefined) =>
 		text
-			? `\\begin{itemize}[leftmargin=0.15in, label={}]\n    \\small{\\item{${md(text)}}}\n\\end{itemize}\\vspace{-14pt}\n`
+			? `\\begin{itemize}[leftmargin=0.15in, label={}]\n    \\small{\\item{${md(text)}}}\n\\end{itemize}\\vspace{-11pt}\n`
 			: '';
 
 	const subheading = (it: Extract<ResolvedItem, { kind: 'subheading' }>, type: SectionType) => {
