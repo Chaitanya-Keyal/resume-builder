@@ -129,13 +129,15 @@ function documents(): Record<string, string> {
 					`{\\${sz} Aa \\textbf{Bb} \\textit{Cc} \\emph{Dd} \\textsc{Ee} \\underline{Ff} $|$ $\\sim$ $\\bullet$ $\\vcenter{\\hbox{\\tiny$\\bullet$}}$ $\\rightarrow$ $\\times$ $\\geq$ $\\leq$ $\\pm$ $\\mu$ \\ldots{} \\textdegree{} \\texteuro{} \\pounds{} \\S{} \\copyright{} \\textbullet{} \\texttrademark{} \\textregistered{} \\textquotedbl{} \\textless{} \\textgreater{} \\#\\$\\%\\&\\_\\{\\}\\^{}\\textbackslash{} 0123456789}\\par`
 			)
 			.join('\n');
-		const t = templates.jake;
-		docs[`fontprobe-${fontSize}`] =
-			`${t.render({ header: { name: 'Probe', contacts: [] }, sections: [] }, { ...t.defaults, fontSize } as never).replace('\\end{document}', '')}
+		// One probe per template: each preamble selects its own font family.
+		for (const t of Object.values(templates)) {
+			docs[`fontprobe-${t.id}-${fontSize}`] =
+				`${t.render({ header: { name: 'Probe', contacts: [] }, sections: [] }, { ...t.defaults, fontSize } as never).replace('\\end{document}', '')}
 \\begin{itemize}\\item level one \\begin{itemize}\\item level two \\begin{itemize}\\item level three\\end{itemize}\\end{itemize}\\end{itemize}
 ${body}
 \\end{document}
 `;
+		}
 	}
 	return docs;
 }

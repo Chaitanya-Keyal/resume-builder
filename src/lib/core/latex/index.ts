@@ -1,10 +1,12 @@
 import type { ResolvedResume } from '../resolve/types';
 import type { Resume } from '../schema/types';
+import { clean } from './clean';
 import { jake } from './jake';
 import type { Template } from './template';
 
 export const templates: Record<string, Template> = {
-	[jake.id]: jake as unknown as Template
+	[jake.id]: jake as unknown as Template,
+	[clean.id]: clean as unknown as Template
 };
 
 export const DEFAULT_TEMPLATE = jake.id;

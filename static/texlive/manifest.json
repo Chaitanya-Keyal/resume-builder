@@ -11,7 +11,7 @@
 		{
 			"fmt": 3,
 			"name": "cmmi10",
-			"bytes": 1528
+			"bytes": 1464
 		},
 		{
 			"fmt": 3,
@@ -21,12 +21,12 @@
 		{
 			"fmt": 3,
 			"name": "cmmi6",
-			"bytes": 1512
+			"bytes": 1448
 		},
 		{
 			"fmt": 3,
 			"name": "cmmi8",
-			"bytes": 1520
+			"bytes": 1456
 		},
 		{
 			"fmt": 3,
@@ -36,7 +36,7 @@
 		{
 			"fmt": 3,
 			"name": "cmr10",
-			"bytes": 1296
+			"bytes": 1232
 		},
 		{
 			"fmt": 3,
@@ -51,12 +51,12 @@
 		{
 			"fmt": 3,
 			"name": "cmr6",
-			"bytes": 1300
+			"bytes": 1236
 		},
 		{
 			"fmt": 3,
 			"name": "cmr8",
-			"bytes": 1292
+			"bytes": 1228
 		},
 		{
 			"fmt": 3,
@@ -66,17 +66,17 @@
 		{
 			"fmt": 3,
 			"name": "cmsy10",
-			"bytes": 1124
+			"bytes": 1060
 		},
 		{
 			"fmt": 3,
 			"name": "cmsy6",
-			"bytes": 1116
+			"bytes": 1052
 		},
 		{
 			"fmt": 3,
 			"name": "cmsy8",
-			"bytes": 1120
+			"bytes": 1056
 		},
 		{
 			"fmt": 3,
@@ -111,12 +111,12 @@
 		{
 			"fmt": 3,
 			"name": "ecbx1000",
-			"bytes": 3584
+			"bytes": 3136
 		},
 		{
 			"fmt": 3,
 			"name": "ecbx1095",
-			"bytes": 3584
+			"bytes": 3164
 		},
 		{
 			"fmt": 3,
@@ -141,7 +141,7 @@
 		{
 			"fmt": 3,
 			"name": "ecbx2488",
-			"bytes": 3584
+			"bytes": 3128
 		},
 		{
 			"fmt": 3,
@@ -176,12 +176,12 @@
 		{
 			"fmt": 3,
 			"name": "eccc1095",
-			"bytes": 3072
+			"bytes": 2736
 		},
 		{
 			"fmt": 3,
 			"name": "eccc1200",
-			"bytes": 3072
+			"bytes": 2732
 		},
 		{
 			"fmt": 3,
@@ -211,7 +211,7 @@
 		{
 			"fmt": 3,
 			"name": "ecrm0600",
-			"bytes": 3584
+			"bytes": 3096
 		},
 		{
 			"fmt": 3,
@@ -231,12 +231,12 @@
 		{
 			"fmt": 3,
 			"name": "ecrm1000",
-			"bytes": 3584
+			"bytes": 3084
 		},
 		{
 			"fmt": 3,
 			"name": "ecrm1095",
-			"bytes": 3584
+			"bytes": 3108
 		},
 		{
 			"fmt": 3,
@@ -261,6 +261,141 @@
 		{
 			"fmt": 3,
 			"name": "ecrm2488",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi0800",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi0900",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi1000",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi1095",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi1200",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi1440",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi1728",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi2074",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsi2488",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss0800",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss0900",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss1000",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss1095",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss1200",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss1440",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss1728",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss2074",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecss2488",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx0800",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx0900",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx1000",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx1095",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx1200",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx1440",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx1728",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx2074",
+			"bytes": 3584
+		},
+		{
+			"fmt": 3,
+			"name": "ecsx2488",
 			"bytes": 3584
 		},
 		{
@@ -291,12 +426,12 @@
 		{
 			"fmt": 3,
 			"name": "ecti1000",
-			"bytes": 3072
+			"bytes": 2776
 		},
 		{
 			"fmt": 3,
 			"name": "ecti1095",
-			"bytes": 3072
+			"bytes": 2788
 		},
 		{
 			"fmt": 3,
@@ -326,32 +461,32 @@
 		{
 			"fmt": 3,
 			"name": "ecxc2488",
-			"bytes": 3072
+			"bytes": 2788
 		},
 		{
 			"fmt": 3,
 			"name": "lasy10",
-			"bytes": 520
+			"bytes": 456
 		},
 		{
 			"fmt": 3,
 			"name": "lasy5",
-			"bytes": 520
+			"bytes": 456
 		},
 		{
 			"fmt": 3,
 			"name": "lasy6",
-			"bytes": 520
+			"bytes": 456
 		},
 		{
 			"fmt": 3,
 			"name": "lasy7",
-			"bytes": 520
+			"bytes": 456
 		},
 		{
 			"fmt": 3,
 			"name": "lasy8",
-			"bytes": 520
+			"bytes": 456
 		},
 		{
 			"fmt": 3,
@@ -386,7 +521,7 @@
 		{
 			"fmt": 3,
 			"name": "tcrm1000",
-			"bytes": 1536
+			"bytes": 1372
 		},
 		{
 			"fmt": 3,
@@ -419,9 +554,69 @@
 			"bytes": 1536
 		},
 		{
+			"fmt": 3,
+			"name": "tcss0500",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss0600",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss0700",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss0800",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss0900",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss1000",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss1095",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss1200",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss1440",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss1728",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss2074",
+			"bytes": 1536
+		},
+		{
+			"fmt": 3,
+			"name": "tcss2488",
+			"bytes": 1536
+		},
+		{
 			"fmt": 11,
 			"name": "pdftex.map",
-			"bytes": 22581
+			"bytes": 36681
 		},
 		{
 			"fmt": 26,
@@ -680,6 +875,11 @@
 		},
 		{
 			"fmt": 26,
+			"name": "t1cmss.fd",
+			"bytes": 2641
+		},
+		{
+			"fmt": 26,
 			"name": "tabularx.sty",
 			"bytes": 7147
 		},
@@ -687,6 +887,11 @@
 			"fmt": 26,
 			"name": "titlesec.sty",
 			"bytes": 48766
+		},
+		{
+			"fmt": 26,
+			"name": "ts1cmss.fd",
+			"bytes": 2374
 		},
 		{
 			"fmt": 26,
@@ -957,6 +1162,156 @@
 			"fmt": 32,
 			"name": "sfrm2488.pfb",
 			"bytes": 131381
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi0800.pfb",
+			"bytes": 106155
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi0900.pfb",
+			"bytes": 104439
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi1000.pfb",
+			"bytes": 103607
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi1095.pfb",
+			"bytes": 106965
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi1200.pfb",
+			"bytes": 104587
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi1440.pfb",
+			"bytes": 99279
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi1728.pfb",
+			"bytes": 99816
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi2074.pfb",
+			"bytes": 96650
+		},
+		{
+			"fmt": 32,
+			"name": "sfsi2488.pfb",
+			"bytes": 95540
+		},
+		{
+			"fmt": 32,
+			"name": "sfss0500.pfb",
+			"bytes": 101283
+		},
+		{
+			"fmt": 32,
+			"name": "sfss0600.pfb",
+			"bytes": 99931
+		},
+		{
+			"fmt": 32,
+			"name": "sfss0700.pfb",
+			"bytes": 96887
+		},
+		{
+			"fmt": 32,
+			"name": "sfss0800.pfb",
+			"bytes": 95441
+		},
+		{
+			"fmt": 32,
+			"name": "sfss0900.pfb",
+			"bytes": 94648
+		},
+		{
+			"fmt": 32,
+			"name": "sfss1000.pfb",
+			"bytes": 94269
+		},
+		{
+			"fmt": 32,
+			"name": "sfss1095.pfb",
+			"bytes": 97272
+		},
+		{
+			"fmt": 32,
+			"name": "sfss1200.pfb",
+			"bytes": 95792
+		},
+		{
+			"fmt": 32,
+			"name": "sfss1440.pfb",
+			"bytes": 90944
+		},
+		{
+			"fmt": 32,
+			"name": "sfss1728.pfb",
+			"bytes": 91468
+		},
+		{
+			"fmt": 32,
+			"name": "sfss2074.pfb",
+			"bytes": 91932
+		},
+		{
+			"fmt": 32,
+			"name": "sfss2488.pfb",
+			"bytes": 92148
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx0800.pfb",
+			"bytes": 151158
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx0900.pfb",
+			"bytes": 154664
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx1000.pfb",
+			"bytes": 149078
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx1095.pfb",
+			"bytes": 145807
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx1200.pfb",
+			"bytes": 148436
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx1440.pfb",
+			"bytes": 148301
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx1728.pfb",
+			"bytes": 144018
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx2074.pfb",
+			"bytes": 141339
+		},
+		{
+			"fmt": 32,
+			"name": "sfsx2488.pfb",
+			"bytes": 142843
 		},
 		{
 			"fmt": 32,
@@ -1281,6 +1636,114 @@
 		},
 		{
 			"fmt": 33,
+			"name": "ecsi0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsi2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecss2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "ecsx2488.vf"
+		},
+		{
+			"fmt": 33,
 			"name": "ecti0500.vf"
 		},
 		{
@@ -1378,6 +1841,54 @@
 		{
 			"fmt": 33,
 			"name": "tcrm2488.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss0500.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss0600.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss0700.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss0800.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss0900.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss1000.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss1095.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss1200.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss1440.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss1728.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss2074.vf"
+		},
+		{
+			"fmt": 33,
+			"name": "tcss2488.vf"
 		}
 	]
 }

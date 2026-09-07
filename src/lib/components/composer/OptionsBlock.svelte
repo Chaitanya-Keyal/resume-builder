@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Select from '$lib/components/ui/Select.svelte';
 	import Switch from '$lib/components/ui/Switch.svelte';
-	import { getTemplate, templateOptions } from '$lib/core/latex';
+	import { getTemplate, templateOptions, templates } from '$lib/core/latex';
 	import type { Resume } from '$lib/core/schema/types';
-	import { applyDensity, currentDensity, setOptions } from '$lib/store/composer';
+	import { applyDensity, currentDensity, setOptions, setTemplate } from '$lib/store/composer';
 	import { compiles } from '$lib/store/compile.svelte';
 
 	let { resume, onfit }: { resume: Resume; onfit?: () => void } = $props();
@@ -23,6 +23,15 @@
 		<span class="text-xs text-faint">{t.name}</span>
 	</div>
 	<div class="grid gap-3 border-t border-border px-3 py-3 sm:grid-cols-2">
+		{#if Object.keys(templates).length > 1}
+			<Select
+				label="Template"
+				value={resume.template}
+				options={Object.values(templates).map((x) => ({ value: x.id, label: x.name }))}
+				onchange={(v) => setTemplate(resume.id, v)}
+				class="sm:col-span-2"
+			/>
+		{/if}
 		<Select
 			label="Density"
 			value={density ?? 'custom'}

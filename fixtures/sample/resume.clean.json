@@ -1,0 +1,99 @@
+{
+	"id": "res_sample_clean",
+	"name": "Jane Doe (Clean)",
+	"labels": ["sample"],
+	"createdAt": "2026-09-07T00:00:00.000Z",
+	"updatedAt": "2026-09-07T00:00:00.000Z",
+	"template": "clean",
+	"options": {},
+	"header": {
+		"showPhone": true,
+		"showEmail": true,
+		"showUrl": true,
+		"showLocation": false,
+		"showTagline": true,
+		"profiles": ["GitHub", "LinkedIn"]
+	},
+	"sections": [
+		{
+			"id": "sec_education",
+			"type": "education",
+			"items": [
+				{
+					"ref": "education:university",
+					"bullets": ["h_edu_1"]
+				}
+			]
+		},
+		{
+			"id": "sec_work",
+			"type": "work",
+			"items": [
+				{
+					"ref": "work:acme/senior",
+					"bullets": ["h_acme_s1", "h_acme_s2", "h_acme_s3"]
+				},
+				{
+					"ref": "work:acme/engineer",
+					"bullets": ["h_acme_e1", "h_acme_e2"]
+				},
+				{
+					"ref": "work:startup/intern",
+					"bullets": ["h_w_1", "h_w_2"]
+				}
+			]
+		},
+		{
+			"id": "sec_projects",
+			"type": "projects",
+			"items": [
+				{
+					"ref": "projects:queue",
+					"bullets": ["h_q_1", "h_q_2"]
+				},
+				{
+					"ref": "projects:dotfiles",
+					"bullets": ["h_d_1"]
+				}
+			]
+		},
+		{
+			"id": "sec_volunteer",
+			"type": "volunteer",
+			"items": [
+				{
+					"ref": "volunteer:codeclub/mentor",
+					"bullets": ["h_cc_1"]
+				}
+			]
+		},
+		{
+			"id": "sec_awards",
+			"type": "awards",
+			"items": [
+				{
+					"ref": "awards:hackathon",
+					"bullets": []
+				}
+			]
+		},
+		{
+			"id": "sec_skills",
+			"type": "skills",
+			"items": [
+				{
+					"ref": "skills:languages",
+					"bullets": []
+				},
+				{
+					"ref": "skills:infra",
+					"bullets": []
+				},
+				{
+					"ref": "skills:practices",
+					"bullets": []
+				}
+			]
+		}
+	]
+}

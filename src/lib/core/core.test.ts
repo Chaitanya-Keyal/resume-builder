@@ -71,6 +71,21 @@ describe('fixture', () => {
 		expect(got).toBe(want);
 	});
 
+	test('every template renders the sample and its golden fixture stays a clean snapshot', () => {
+		const { profile, overlay } = loadFixture();
+		for (const t of Object.values(templates)) {
+			const resume = resumeSchema.parse(
+				JSON.parse(read(`resume.${t.id}.json`).replace(/"template": ".*"/, `"template": "${t.id}"`))
+			);
+			const { resolved, problems } = resolve(profile, overlay, resume);
+			expect(problems).toEqual([]);
+			const tex = renderTex(resolved, resume);
+			expect(tex).toContain('\\begin{document}');
+			expect(tex).toContain('Jane Doe');
+			expect(tex.split('\\section{').length - 1).toBe(resume.sections.length);
+		}
+	});
+
 	test('orphans are reported, not thrown', () => {
 		const { profile, overlay, resume } = loadFixture();
 		const r = structuredClone(resume);

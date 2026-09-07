@@ -28,9 +28,11 @@ Live at https://resume-builder.okaybro.dev.
   separate local overlay that never enters the public file. A `workspace.json`
   export backs up everything.
 
-The default template is the classic single-column "Jake's Resume", reproduced
-exactly; the snapshot test in `src/lib/core/core.test.ts` holds its output to
-`fixtures/sample/resume.tex`.
+Two templates ship: the classic single-column "Jake's Resume", reproduced
+exactly (the snapshot test in `src/lib/core/core.test.ts` holds its output to
+`fixtures/sample/resume.tex`), and "Clean", a sans-serif, left-aligned layout
+with thin rules under bold section titles. A resume can switch between them in
+the composer's Layout block; density presets and page options carry over.
 
 ## Data model
 

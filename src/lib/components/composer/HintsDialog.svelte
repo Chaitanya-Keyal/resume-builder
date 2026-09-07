@@ -59,7 +59,10 @@
 								size={14}
 								class="mt-0.5 shrink-0 text-warn"
 							/>{:else}<Info size={14} class="mt-0.5 shrink-0 text-faint" />{/if}
-						{h.message}
+						<span class="min-w-0">
+							{h.message}
+							{#if h.snippet}<span class="block truncate text-xs text-faint">{h.snippet}</span>{/if}
+						</span>
 					</li>
 				{/each}
 			</ul>

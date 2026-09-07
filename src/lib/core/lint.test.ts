@@ -31,7 +31,7 @@ describe('lint', () => {
 			resume([
 				'Responsible for the billing service.',
 				'I cut costs by 40%.',
-				'Built a pipeline that processed 10k events per second with exactly-once delivery guarantees across three regions and two cloud providers, including failover drills.',
+				'Built a pipeline that processed 10k events per second with exactly-once delivery guarantees across three regions and two cloud providers, including quarterly failover drills, runbooks and on-call rotations for the whole platform team.',
 				'Mentored engineers.'
 			])
 		).map((h) => h.code);

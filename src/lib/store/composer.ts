@@ -286,6 +286,16 @@ export function longestBullets(r: Resume, profile: Profile, n = 6): LongBullet[]
 	return out.sort((a, b) => b.chars - a.chars).slice(0, n);
 }
 
+/** Switch template; options the new template also understands carry over, the rest reset. */
+export function setTemplate(id: string, templateId: string) {
+	ws.mutateResume(id, (r) => {
+		const t = getTemplate(templateId);
+		const parsed = t.optionsSchema.safeParse({ ...t.defaults, ...r.options });
+		r.template = t.id;
+		r.options = parsed.success ? parsed.data : { ...t.defaults };
+	});
+}
+
 /** Which density preset the current options match, if any. */
 export function currentDensity(r: Resume): string | null {
 	const t = getTemplate(r.template);
