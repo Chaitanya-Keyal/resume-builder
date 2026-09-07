@@ -20,7 +20,9 @@ export function applyOverlay(profile: Profile, overlay: Overlay | undefined): Pr
 			string,
 			unknown
 		>;
-		for (const [k, v] of Object.entries(patch.fields)) if (k !== 'id') target[k] = v;
+		// Only plain text fields can be patched; arrays and ids are never overwritten.
+		for (const [k, v] of Object.entries(patch.fields))
+			if (k !== 'id' && (target[k] === undefined || typeof target[k] === 'string')) target[k] = v;
 	}
 	return out;
 }

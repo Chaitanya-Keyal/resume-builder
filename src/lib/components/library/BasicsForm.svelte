@@ -138,7 +138,7 @@
 			<div class="grid gap-3 sm:grid-cols-2">
 				<TextField
 					label="Handle"
-					placeholder="okaybro"
+					placeholder="janedoe"
 					value={b.x?.handle ?? ''}
 					oninput={(e) => {
 						b.x = { ...b.x, handle: (e.currentTarget as HTMLInputElement).value || undefined };

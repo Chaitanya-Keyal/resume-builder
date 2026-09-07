@@ -141,6 +141,7 @@
 	async function remove() {
 		confirmDelete = false;
 		workspace.deleteResume(id);
+		compiles.dispose(id);
 		await deleteAllSnapshots(id);
 		await dbDel(KEYS.artifact(id));
 		await goto(`${base}/resumes`);
@@ -151,10 +152,12 @@
 		if (e.type === 'rb:download') download(detail);
 		if (e.type === 'rb:compile') compiles.request(id, tex, 'now');
 	}
+	let topBar = $state<{ startRename: () => void }>();
+
 	function onkeydown(e: KeyboardEvent) {
 		if (e.key === 'F2') {
 			e.preventDefault();
-			(document.querySelector('[title="Rename (F2)"]') as HTMLButtonElement | null)?.click();
+			topBar?.startRename();
 		}
 	}
 </script>
@@ -169,6 +172,7 @@
 {:else}
 	<div class="flex h-full flex-col">
 		<ComposerTopBar
+			bind:this={topBar}
 			{resume}
 			ondownload={download}
 			onshowlog={() => (showLog = true)}

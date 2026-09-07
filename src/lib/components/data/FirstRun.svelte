@@ -157,7 +157,7 @@
 						bind:value={url}
 						class="flex-1"
 						mono
-						placeholder="https://okaybro.dev/profile.json"
+						placeholder="https://your-site.dev/profile.json"
 					/>
 					<Button variant="primary" type="submit" disabled={busy !== null || !url.trim()}
 						>{busy === 'url' ? 'Fetching...' : 'Import'}</Button

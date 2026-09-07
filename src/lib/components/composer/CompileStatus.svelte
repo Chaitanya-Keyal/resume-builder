@@ -11,31 +11,44 @@
 </script>
 
 {#if compiles.engine === 'loading' && p && p.phase !== 'ready'}
-	<span class="inline-flex items-center gap-1.5 text-xs text-muted" aria-live="polite">
+	<span
+		class="inline-flex items-center gap-1.5 text-xs whitespace-nowrap text-muted"
+		aria-live="polite"
+	>
 		<LoaderCircle size={13} class="animate-spin" />
-		{p.phase === 'engine' ? 'Starting engine' : `Fetching TeX ${mb(p.loaded)} / ${mb(p.total)} MB`}
+		<span class="hidden sm:inline"
+			>{p.phase === 'engine'
+				? 'Starting engine'
+				: `Fetching TeX ${mb(p.loaded)} / ${mb(p.total)} MB`}</span
+		>
 	</span>
 {:else if s.status === 'compiling'}
-	<span class="inline-flex items-center gap-1.5 text-xs text-muted" aria-live="polite">
-		<LoaderCircle size={13} class="animate-spin" /> Compiling
+	<span
+		class="inline-flex items-center gap-1.5 text-xs whitespace-nowrap text-muted"
+		aria-live="polite"
+	>
+		<LoaderCircle size={13} class="animate-spin" /> <span class="hidden sm:inline">Compiling</span>
 	</span>
 {:else if s.status === 'error'}
 	<button
 		type="button"
-		class="inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs text-danger hover:bg-danger/10"
+		class="inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs whitespace-nowrap text-danger hover:bg-danger/10"
 		onclick={onshowlog}
 		title={s.error}
+		aria-label="Compile failed"
 	>
-		<CircleAlert size={13} /> Compile failed
+		<CircleAlert size={13} /> <span class="hidden sm:inline">Compile failed</span>
 	</button>
 {:else if s.status === 'ok'}
 	<button
 		type="button"
-		class="inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs text-muted hover:bg-surface-2"
+		class="inline-flex items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs whitespace-nowrap text-muted hover:bg-surface-2"
 		onclick={onshowlog}
 		title="Show the compile log"
+		aria-label="Up to date"
 	>
 		<CircleCheck size={13} class="text-ok" />
-		{s.stale ? 'From last session' : `Up to date - ${s.ms} ms`}
+		<span class="hidden sm:inline">{s.stale ? 'From last session' : `Up to date - ${s.ms} ms`}</span
+		>
 	</button>
 {/if}

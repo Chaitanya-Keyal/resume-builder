@@ -12,7 +12,6 @@
 	import Select from '$lib/components/ui/Select.svelte';
 	import Switch from '$lib/components/ui/Switch.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
-	import { compiles } from '$lib/store/compile.svelte';
 	import { jsonResumeJson, profileJson, workspaceJson } from '$lib/store/exporter';
 	import { fetchImport, ImportError, parseImport, type Imported } from '$lib/store/importer';
 	import { ui } from '$lib/store/ui.svelte';
@@ -21,7 +20,6 @@
 	import WebsiteSync from '$lib/components/data/WebsiteSync.svelte';
 
 	const ws = workspace;
-	const endpointHint = 'POST { tex } -> { ok, pdf (base64), pages, log }';
 	let includeOverlay = $state(false);
 	let url = $state(ws.settings.sourceUrl ?? '');
 	let busy = $state(false);
@@ -265,35 +263,10 @@
 					onchange={(v) => ws.updateSettings({ autoCompile: v })}
 				/>
 			</div>
-			<Select
-				label="Compiler"
-				value={ws.settings.compiler}
-				options={[
-					{ value: 'wasm', label: 'In this browser (default)' },
-					{ value: 'remote', label: 'A server I run' }
-				]}
-				onchange={(v) => {
-					ws.updateSettings({ compiler: v as 'wasm' | 'remote' });
-					compiles.configure(ws.settings);
-				}}
-			/>
-			{#if ws.settings.compiler === 'remote'}
-				<TextField
-					label="Compile endpoint"
-					mono
-					placeholder="https://.../api/compile"
-					value={ws.settings.remoteUrl ?? ''}
-					oninput={(e) => {
-						ws.updateSettings({ remoteUrl: (e.currentTarget as HTMLInputElement).value });
-						compiles.configure(ws.settings);
-					}}
-					hint={endpointHint}
-				/>
-			{/if}
 		</div>
 	</section>
 
-	<section class="rounded-lg border border-danger/30 p-4">
+	<section class="rounded-lg border border-danger/30 bg-surface p-4">
 		<h2 class="text-sm font-semibold text-danger">Start over</h2>
 		<p class="mb-3 text-xs text-muted">
 			Deletes the library, every resume, snapshots and settings from this browser.

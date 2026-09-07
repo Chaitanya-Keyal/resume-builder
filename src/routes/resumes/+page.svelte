@@ -39,6 +39,7 @@
 		const id = deleting;
 		deleting = null;
 		workspace.deleteResume(id);
+		compiles.dispose(id);
 		await deleteAllSnapshots(id);
 		await dbDel(KEYS.artifact(id));
 		toast.success('Resume deleted');

@@ -50,7 +50,7 @@
 	let editing = $state(false);
 	let draft = $state('');
 
-	function startRename() {
+	export function startRename() {
 		draft = resume.name;
 		editing = true;
 	}
@@ -82,29 +82,31 @@
 	{:else}
 		<button
 			type="button"
-			class="h-8 max-w-[38vw] truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2 sm:max-w-64"
+			class="h-8 max-w-[38vw] min-w-14 truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2 sm:max-w-64"
 			title="Rename (F2)"
 			onclick={startRename}>{resume.name}</button
 		>
 	{/if}
 	<button
 		type="button"
-		class="hidden h-7 items-center gap-1 rounded-md px-1.5 text-xs text-muted hover:bg-surface-2 hover:text-text sm:inline-flex"
+		class="inline-flex h-7 shrink-0 items-center gap-1 rounded-md px-1.5 text-xs text-muted hover:bg-surface-2 hover:text-text"
 		onclick={onlabels}
 		title="Edit labels"
 	>
 		<Tag size={13} />
-		{#if resume.labels.length}
-			{#each resume.labels as l (l)}<Badge tone="accent">{l}</Badge>{/each}
-		{:else}
-			labels
-		{/if}
+		<span class="hidden sm:contents">
+			{#if resume.labels.length}
+				{#each resume.labels as l (l)}<Badge tone="accent">{l}</Badge>{/each}
+			{:else}
+				labels
+			{/if}
+		</span>
 	</button>
 
 	<div class="flex-1"></div>
 
 	<PageBadge resumeId={resume.id} />
-	<span class="hidden md:contents"><CompileStatus resumeId={resume.id} {onshowlog} /></span>
+	<CompileStatus resumeId={resume.id} {onshowlog} />
 
 	<span class="mx-1 hidden h-5 w-px bg-border sm:block"></span>
 
@@ -114,10 +116,10 @@
 		onclick={() => ondownload('pdf')}
 		title="Download PDF (Ctrl+Shift+D)"
 	>
-		<Download size={14} /> PDF
+		<Download size={14} /> <span class="hidden sm:inline">PDF</span>
 	</Button>
 	<Button size="sm" onclick={() => ondownload('tex')} title="Download LaTeX source (Ctrl+Shift+T)">
-		<FileDown size={14} /> .tex
+		<FileDown size={14} /> <span class="hidden sm:inline">.tex</span>
 	</Button>
 	<IconButton
 		label={ui.previewOpen ? 'Hide preview (Ctrl+\\)' : 'Show preview (Ctrl+\\)'}
