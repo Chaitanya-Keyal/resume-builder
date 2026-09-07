@@ -31,9 +31,11 @@ function render(resume: ResolvedResume, o: CleanOptions): string {
 		const h = resume.header;
 		const contacts = h.contacts.map((c) => (c.href ? link(c.href, c.text) : escapeLatex(c.text)));
 		const lines = [`{\\Huge\\bfseries ${md(h.name)}}\\par`];
-		if (h.tagline) lines.push(`\\vspace{2pt}{\\large ${md(h.tagline)}}\\par`);
+		if (h.tagline) lines.push(`\\vspace{2pt}\\textcolor[gray]{0.3}{\\large ${md(h.tagline)}}\\par`);
 		if (contacts.length)
-			lines.push(`\\vspace{3pt}{\\small ${contacts.join(' \\textbullet{} ')}}\\par`);
+			lines.push(
+				`\\vspace{4pt}{\\small ${contacts.join(' \\textcolor[gray]{0.55}{\\textbullet} ')}}\\par`
+			);
 		if (h.summary) lines.push(`\\vspace{4pt}{\\small ${md(h.summary)}}\\par`);
 		return `${lines.join('\n')}\n`;
 	};
@@ -50,9 +52,10 @@ function render(resume: ResolvedResume, o: CleanOptions): string {
 
 	const project = (it: Extract<ResolvedItem, { kind: 'project' }>) => {
 		const parts = [`\\textbf{${md(it.title)}}`];
-		if (it.keywords.length) parts.push(`\\textit{${escapeLatex(it.keywords.join(', '))}}`);
+		if (it.keywords.length)
+			parts.push(`\\textcolor[gray]{0.35}{\\itshape ${escapeLatex(it.keywords.join(', '))}}`);
 		if (it.url) parts.push(link(it.url, displayUrl(it.url)));
-		const head = parts.join(' \\textbullet{} ');
+		const head = parts.join(' \\textcolor[gray]{0.55}{\\textbullet} ');
 		return `\\cleanLine{${head}}{${escapeLatex(dates(it.dates))}}\n${paragraph(it.description)}${bullets(it.bullets)}`;
 	};
 

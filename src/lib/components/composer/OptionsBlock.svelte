@@ -45,8 +45,8 @@
 			label="Paper"
 			value={String(o.paper)}
 			options={[
-				{ value: 'letterpaper', label: 'US Letter' },
-				{ value: 'a4paper', label: 'A4' }
+				{ value: 'a4paper', label: 'A4' },
+				{ value: 'letterpaper', label: 'US Letter' }
 			]}
 			onchange={(v) => setOptions(resume.id, { paper: v })}
 		/>

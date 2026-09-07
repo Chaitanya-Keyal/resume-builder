@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const jakeOptionsSchema = z.object({
-	paper: z.enum(['letterpaper', 'a4paper']).default('letterpaper'),
+	paper: z.enum(['letterpaper', 'a4paper']).default('a4paper'),
 	fontSize: z.union([z.literal(10), z.literal(11), z.literal(12)]).default(11),
 	margins: z.enum(['tight', 'default', 'roomy']).default('tight'),
 	spacing: z.enum(['tight', 'normal']).default('tight'),

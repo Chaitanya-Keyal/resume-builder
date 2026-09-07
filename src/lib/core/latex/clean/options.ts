@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 /** Same option keys as Jake's template, so density presets and the layout block work for both. */
 export const cleanOptionsSchema = z.object({
-	paper: z.enum(['letterpaper', 'a4paper']).default('letterpaper'),
+	paper: z.enum(['letterpaper', 'a4paper']).default('a4paper'),
 	fontSize: z.union([z.literal(10), z.literal(11), z.literal(12)]).default(11),
 	margins: z.enum(['tight', 'default', 'roomy']).default('default'),
 	spacing: z.enum(['tight', 'normal']).default('normal'),
@@ -36,6 +36,6 @@ export const SPACING: Record<
 		listEnd: number;
 	}
 > = {
-	tight: { section: 5, afterRule: -8, entry: 3, itemSep: -2, listTop: 3, listEnd: -8 },
-	normal: { section: 8, afterRule: -7, entry: 4, itemSep: -1, listTop: 4, listEnd: -7 }
+	tight: { section: 6, afterRule: -5, entry: 3, itemSep: -1, listTop: 2, listEnd: -3 },
+	normal: { section: 9, afterRule: -4, entry: 4, itemSep: 0, listTop: 3, listEnd: -2 }
 };

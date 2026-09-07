@@ -35,7 +35,8 @@ export function preamble(o: CleanOptions): string {
 \\setlength{\\tabcolsep}{0in}
 \\setlength{\\parindent}{0pt}
 
-\\titleformat{\\section}{\\vspace{${pt(s.section)}}\\bfseries\\normalsize\\raggedright}{}{0em}{}[\\vspace{-4pt}\\color{black}\\rule{\\textwidth}{0.4pt}\\vspace{${pt(s.afterRule)}}]
+% Bold uppercase title, a soft grey rule tight under it, then real space before the first entry.
+\\titleformat{\\section}{\\vspace{${pt(s.section)}}\\bfseries\\normalsize\\raggedright\\color[gray]{0.12}}{}{0em}{}[\\vspace{-7pt}{\\color[gray]{0.62}\\rule{\\textwidth}{0.5pt}}\\vspace{${pt(s.afterRule)}}]
 \\titlespacing*{\\section}{0pt}{0pt}{0pt}
 
 % One entry: bold title with the date on the right, then an italic line with the place on the right.
@@ -44,19 +45,19 @@ export function preamble(o: CleanOptions): string {
 \\newcommand{\\cleanEntry}[4]{
   \\vspace{${pt(s.entry)}}
   \\begin{tabular*}{\\textwidth}[t]{@{}>{\\raggedright\\arraybackslash}p{\\dimexpr\\textwidth-1.7in\\relax}@{\\extracolsep{\\fill}}r@{}}
-    \\textbf{#1} & #2 \\\\
-    \\textit{\\small #3} & \\textit{\\small #4}
+    \\textbf{#1} & \\textcolor[gray]{0.35}{\\small #2} \\\\
+    \\textcolor[gray]{0.35}{\\small\\itshape #3} & \\textcolor[gray]{0.35}{\\small\\itshape #4}
   \\end{tabular*}\\par
 }
 % A one-line entry: bold title with the date on the right.
 \\newcommand{\\cleanLine}[2]{
   \\vspace{${pt(s.entry)}}
   \\begin{tabular*}{\\textwidth}[t]{@{}>{\\raggedright\\arraybackslash}p{\\dimexpr\\textwidth-1.7in\\relax}@{\\extracolsep{\\fill}}r@{}}
-    #1 & #2
+    #1 & \\textcolor[gray]{0.35}{\\small #2}
   \\end{tabular*}\\par
 }
 \\newcommand{\\cleanItem}[1]{\\item\\small{#1}}
-\\newcommand{\\cleanListStart}{\\begin{itemize}[leftmargin=0.15in, label=\\textbullet, itemsep=${pt(s.itemSep)}, topsep=${pt(s.listTop)}, parsep=0pt, partopsep=0pt]}
+\\newcommand{\\cleanListStart}{\\begin{itemize}[leftmargin=0.15in, label={\\color[gray]{0.45}\\textbullet}, itemsep=${pt(s.itemSep)}, topsep=${pt(s.listTop)}, parsep=0pt, partopsep=0pt]}
 \\newcommand{\\cleanListEnd}{\\end{itemize}\\vspace{${pt(s.listEnd)}}}
 `;
 }
