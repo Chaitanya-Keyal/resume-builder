@@ -1,0 +1,65 @@
+{
+	"name": "resume-builder",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "bun test",
+		"format": "prettier --write .",
+		"lint": "prettier --check . && eslint .",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"prepare": "svelte-kit sync && husky",
+		"schema": "bun scripts/gen-schema.ts",
+		"texlive": "bun scripts/texlive-subset.ts",
+		"format:tex": "bun scripts/build-format.ts",
+		"render": "bun scripts/render.ts",
+		"vendor": "bun scripts/vendor-to-portfolio.ts"
+	},
+	"lint-staged": {
+		"*.{js,ts,svelte}": [
+			"prettier --write",
+			"eslint --fix --no-warn-ignored"
+		],
+		"*.{css,json,md,html,yml,yaml}": [
+			"prettier --write"
+		]
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.70.3",
+		"@sveltejs/vite-plugin-svelte": "^7.3.0",
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "^26.5.0",
+		"@vite-pwa/sveltekit": "^1.1.0",
+		"bun-types": "^1.4.2",
+		"eslint": "^10.10.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.23.0",
+		"globals": "^17.12.0",
+		"husky": "^9.1.7",
+		"lint-staged": "^17.5.0",
+		"playwright": "^1.63.0",
+		"prettier": "^3.9.6",
+		"prettier-plugin-svelte": "^4.1.1",
+		"prettier-plugin-tailwindcss": "^0.8.1",
+		"svelte": "^5.57.0",
+		"svelte-check": "^4.7.6",
+		"tailwindcss": "^4.3.3",
+		"typescript": "~6",
+		"typescript-eslint": "^8.69.0",
+		"vite": "^8.2.2"
+	},
+	"dependencies": {
+		"@lucide/svelte": "^1.42.0",
+		"bits-ui": "^2.19.0",
+		"idb-keyval": "^6.3.0",
+		"pdfjs-dist": "^6.3.289",
+		"svelte-dnd-action": "^0.9.79",
+		"svelte-sonner": "^1.2.1",
+		"zod": "^4.5.4"
+	}
+}

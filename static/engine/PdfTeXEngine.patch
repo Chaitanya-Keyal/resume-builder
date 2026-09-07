@@ -1,0 +1,20 @@
+--- static/engine/PdfTeXEngine.orig.js	2026-09-07 20:18:33.746955397 +0530
++++ static/engine/PdfTeXEngine.js	2026-09-07 20:18:33.699219881 +0530
+@@ -60,7 +60,7 @@
+     EngineStatus[EngineStatus["Busy"] = 3] = "Busy";
+     EngineStatus[EngineStatus["Error"] = 4] = "Error";
+ })(EngineStatus = exports.EngineStatus || (exports.EngineStatus = {}));
+-var ENGINE_PATH = 'swiftlatexpdftex.js';
++var ENGINE_PATH = 'engine/swiftlatexpdftex.js';
+ var CompileResult = /** @class */ (function () {
+     function CompileResult() {
+         this.pdf = undefined;
+@@ -234,7 +234,7 @@
+     PdfTeXEngine.prototype.setTexliveEndpoint = function (url) {
+         if (this.latexWorker !== undefined) {
+             this.latexWorker.postMessage({ 'cmd': 'settexliveurl', 'url': url });
+-            this.latexWorker = undefined;
++            
+         }
+     };
+     PdfTeXEngine.prototype.closeWorker = function () {

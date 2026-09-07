@@ -1,0 +1,3 @@
+# The slow half: too slow for every commit, worth catching before CI.
+bun run check
+bun run test
