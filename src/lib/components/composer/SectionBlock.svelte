@@ -17,6 +17,7 @@
 	} from '$lib/store/composer';
 	import GripVertical from '@lucide/svelte/icons/grip-vertical';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
+	import { unhideAfterDrop } from '$lib/util/dnd';
 	import EntryRow from './EntryRow.svelte';
 
 	let {
@@ -147,6 +148,7 @@
 			use:dragHandleZone={{ items: dnd, ...DND }}
 			onconsider={(e) => (dnd = e.detail.items)}
 			onfinalize={(e) => {
+				unhideAfterDrop(e);
 				dnd = e.detail.items;
 				reorderItems(
 					resume.id,

@@ -9,6 +9,7 @@
 	import { getContext } from 'svelte';
 	import type { LintHint } from '$lib/core/lint';
 	import { dragHandle, dragHandleZone } from 'svelte-dnd-action';
+	import { unhideAfterDrop } from '$lib/util/dnd';
 	import Checkbox from '$lib/components/ui/Checkbox.svelte';
 	import { toPlain } from '$lib/core/markup';
 	import type { RefEntry } from '$lib/core/resolve/refs';
@@ -180,6 +181,7 @@
 				use:dragHandleZone={{ items: dnd, ...DND }}
 				onconsider={(e) => (dnd = e.detail.items)}
 				onfinalize={(e) => {
+					unhideAfterDrop(e);
 					dnd = e.detail.items;
 					reorderBullets(
 						resume.id,

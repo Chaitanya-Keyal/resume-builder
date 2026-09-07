@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Plus from '@lucide/svelte/icons/plus';
 	import { dragHandleZone } from 'svelte-dnd-action';
+	import { unhideAfterDrop } from '$lib/util/dnd';
 	import Menu from '$lib/components/ui/Menu.svelte';
 	import { getTemplate } from '$lib/core/latex';
 	import { fullSection } from '$lib/core/resolve/compose';
@@ -33,6 +34,7 @@
 		use:dragHandleZone={{ items: dnd, ...DND }}
 		onconsider={(e) => (dnd = e.detail.items)}
 		onfinalize={(e) => {
+			unhideAfterDrop(e);
 			dnd = e.detail.items;
 			reorderSections(
 				resume.id,
