@@ -34,7 +34,7 @@ interface Artifact {
 }
 
 const LRU_MAX = 20;
-const DEBOUNCE = { discrete: 250, typing: 700, now: 0 } as const;
+const DEBOUNCE = { discrete: 250, now: 0 } as const;
 
 function blank(): CompileState {
 	return { status: 'idle', pages: 0, log: '', errors: [], ms: 0, texHash: '' };
@@ -46,20 +46,13 @@ class CompileManager {
 	engine = $state<'idle' | 'loading' | 'ready' | 'error'>('idle');
 	progress = $state<CompileProgress | null>(null);
 	engineError = $state<string | null>(null);
-	online = $state(typeof navigator === 'undefined' ? true : navigator.onLine);
 
 	private compiler: Compiler | undefined;
 	private timers = new Map<string, ReturnType<typeof setTimeout>>();
 	private pending = new Map<string, string>();
 	private seq = new Map<string, number>();
 	private lru = new Map<string, { pdf: Uint8Array; pages: number; log: string }>();
-
-	constructor() {
-		if (typeof window !== 'undefined') {
-			window.addEventListener('online', () => (this.online = true));
-			window.addEventListener('offline', () => (this.online = false));
-		}
-	}
+	private restoring = new Set<string>();
 
 	/** Read-only view; safe inside $derived. Entries are created by writes. */
 	state(resumeId: string): CompileState {
@@ -70,19 +63,13 @@ class CompileManager {
 		return (this.states[resumeId] ??= blank());
 	}
 
-	/** Create the in-browser engine wrapper; safe to call repeatedly. */
-	configure() {
-		if (this.compiler) return;
-		this.compiler = new WasmCompiler(base);
-		this.engine = 'idle';
-	}
-
 	/** Forget a deleted resume: timers, in-flight work and its blob URL. */
 	dispose(resumeId: string) {
 		clearTimeout(this.timers.get(resumeId));
 		this.timers.delete(resumeId);
 		this.pending.delete(resumeId);
 		this.seq.delete(resumeId);
+		this.restoring.delete(resumeId);
 		const s = this.states[resumeId];
 		if (s?.pdfUrl) URL.revokeObjectURL(s.pdfUrl);
 		delete this.states[resumeId];
@@ -92,7 +79,7 @@ class CompileManager {
 
 	/** Download and start the engine ahead of the first compile. Concurrent callers share one load. */
 	warm(): Promise<void> {
-		this.configure();
+		this.compiler ??= new WasmCompiler(base);
 		if (this.engine === 'ready') return Promise.resolve();
 		if (this.warming) return this.warming;
 		this.engine = 'loading';
@@ -113,10 +100,12 @@ class CompileManager {
 
 	/** Show the PDF from the last session immediately, marked stale until the next compile lands. */
 	async restore(resumeId: string) {
-		const s = this.state(resumeId);
-		if (s.pdf) return;
+		if (this.state(resumeId).status !== 'idle' || this.restoring.has(resumeId)) return;
+		this.restoring.add(resumeId);
 		const a = await dbGet<Artifact>(KEYS.artifact(resumeId));
-		if (!a || s.pdf) return;
+		this.restoring.delete(resumeId);
+		// A compile that started while the artifact was loading is newer than the artifact.
+		if (!a || this.state(resumeId).status !== 'idle') return;
 		this.apply(resumeId, {
 			pdf: a.pdf,
 			pages: a.pages,
@@ -136,12 +125,6 @@ class CompileManager {
 			resumeId,
 			setTimeout(() => void this.run(resumeId), delay)
 		);
-	}
-
-	cancel(resumeId: string) {
-		clearTimeout(this.timers.get(resumeId));
-		this.pending.delete(resumeId);
-		this.seq.set(resumeId, (this.seq.get(resumeId) ?? 0) + 1);
 	}
 
 	private apply(resumeId: string, patch: Partial<CompileState>) {

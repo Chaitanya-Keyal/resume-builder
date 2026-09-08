@@ -65,7 +65,6 @@
 		ui.init();
 		if (!import.meta.env.DEV) registerWorker();
 		await workspace.load();
-		compiles.configure();
 		if (!workspace.profile && !bare) await goto(`${base}/`, { replaceState: true });
 		// Fetch the engine while the user is still reading; it is cached after the first visit.
 		if (workspace.profile) void compiles.warm();
