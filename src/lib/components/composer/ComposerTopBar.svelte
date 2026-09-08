@@ -89,7 +89,7 @@
 	{:else}
 		<button
 			type="button"
-			class="h-8 max-w-[38vw] min-w-14 truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2 sm:max-w-64"
+			class="h-8 max-w-[38vw] min-w-14 truncate rounded-md px-2 text-sm font-semibold hover:bg-surface-2 lg:max-w-64"
 			title="Rename (F2)"
 			onclick={startRename}>{resume.name}</button
 		>
@@ -101,7 +101,7 @@
 		title="Edit labels"
 	>
 		<Tag size={13} />
-		<span class="hidden sm:contents">
+		<span class="hidden lg:contents">
 			{#if resume.labels.length}
 				{#each resume.labels as l (l)}<Badge tone="accent">{l}</Badge>{/each}
 			{:else}
@@ -121,12 +121,12 @@
 			title="Review hints"
 		>
 			<CircleAlert size={13} class="text-warn" />
-			<span class="hidden sm:inline">{hintCount} hint{hintCount === 1 ? '' : 's'}</span>
+			<span class="hidden lg:inline">{hintCount} hint{hintCount === 1 ? '' : 's'}</span>
 		</button>
 	{/if}
 	<CompileStatus resumeId={resume.id} {onshowlog} />
 
-	<span class="mx-1 hidden h-5 w-px bg-border sm:block"></span>
+	<span class="mx-1 hidden h-5 w-px bg-border lg:block"></span>
 
 	<Button
 		variant="primary"
@@ -134,10 +134,10 @@
 		onclick={() => ondownload('pdf')}
 		title="Download PDF (Ctrl+Shift+D)"
 	>
-		<Download size={14} /> <span class="hidden sm:inline">PDF</span>
+		<Download size={14} /> <span class="hidden lg:inline">PDF</span>
 	</Button>
 	<Button size="sm" onclick={() => ondownload('tex')} title="Download LaTeX source (Ctrl+Shift+T)">
-		<FileDown size={14} /> <span class="hidden sm:inline">.tex</span>
+		<FileDown size={14} /> <span class="hidden lg:inline">.tex</span>
 	</Button>
 	<IconButton
 		label={ui.previewOpen ? 'Hide preview (Ctrl+\\)' : 'Show preview (Ctrl+\\)'}

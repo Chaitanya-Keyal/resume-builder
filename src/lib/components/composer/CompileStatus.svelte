@@ -16,7 +16,7 @@
 		aria-live="polite"
 	>
 		<LoaderCircle size={13} class="animate-spin" />
-		<span class="hidden sm:inline"
+		<span class="hidden lg:inline"
 			>{p.phase === 'engine'
 				? 'Starting engine'
 				: `Fetching TeX ${mb(p.loaded)} / ${mb(p.total)} MB`}</span
@@ -27,7 +27,7 @@
 		class="inline-flex items-center gap-1.5 text-xs whitespace-nowrap text-muted"
 		aria-live="polite"
 	>
-		<LoaderCircle size={13} class="animate-spin" /> <span class="hidden sm:inline">Compiling</span>
+		<LoaderCircle size={13} class="animate-spin" /> <span class="hidden lg:inline">Compiling</span>
 	</span>
 {:else if s.status === 'error'}
 	<button
@@ -37,7 +37,7 @@
 		title={s.error}
 		aria-label="Compile failed"
 	>
-		<CircleAlert size={13} /> <span class="hidden sm:inline">Compile failed</span>
+		<CircleAlert size={13} /> <span class="hidden lg:inline">Compile failed</span>
 	</button>
 {:else if s.status === 'ok'}
 	<button
@@ -48,7 +48,7 @@
 		aria-label="Up to date"
 	>
 		<CircleCheck size={13} class="text-ok" />
-		<span class="hidden sm:inline">{s.stale ? 'From last session' : `Up to date - ${s.ms} ms`}</span
+		<span class="hidden lg:inline">{s.stale ? 'From last session' : `Up to date - ${s.ms} ms`}</span
 		>
 	</button>
 {/if}

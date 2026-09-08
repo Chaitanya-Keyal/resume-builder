@@ -24,7 +24,7 @@
 </script>
 
 <nav
-	class="flex gap-1 overflow-x-auto md:w-44 md:shrink-0 md:flex-col md:overflow-visible"
+	class="flex gap-1 overflow-x-auto lg:w-44 lg:shrink-0 lg:flex-col lg:overflow-visible"
 	aria-label="Library sections"
 >
 	{#each items as it (it.id)}

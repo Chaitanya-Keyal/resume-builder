@@ -112,8 +112,8 @@
 	}
 </script>
 
-<div class="mx-auto flex max-w-6xl flex-col gap-4 p-4 md:flex-row md:gap-8 md:p-8">
-	<div class="md:sticky md:top-8 md:self-start">
+<div class="mx-auto flex max-w-6xl flex-col gap-4 p-4 md:p-8 lg:flex-row lg:gap-8">
+	<div class="lg:sticky lg:top-8 lg:self-start">
 		<SectionNav current={section} />
 	</div>
 
