@@ -37,7 +37,7 @@
 	function onkeydown(e: KeyboardEvent) {
 		if (!container) return;
 		const rect = container.getBoundingClientRect();
-		const cur = Number(getComputedStyle(container).getPropertyValue('--split')) || 0;
+		const cur = parseFloat(getComputedStyle(container).getPropertyValue('--split')) || 0;
 		if (e.key === 'ArrowLeft') onresize(Math.min(rect.width - reserve, cur + 24));
 		if (e.key === 'ArrowRight') onresize(Math.max(min, cur - 24));
 	}
