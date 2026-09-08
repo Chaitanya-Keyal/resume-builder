@@ -55,7 +55,11 @@
 			title="Drag to reorder"><GripVertical size={13} /></span
 		>
 	{/if}
-	<Checkbox checked={included} onchange={ontoggle} />
+	<Checkbox
+		checked={included}
+		aria-label={included ? 'Exclude this bullet' : 'Include this bullet'}
+		onchange={ontoggle}
+	/>
 	<div class="min-w-0 flex-1">
 		{#if editing}
 			<TextArea

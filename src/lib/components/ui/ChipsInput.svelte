@@ -6,12 +6,14 @@
 		label,
 		placeholder = 'Type and press Enter',
 		hint,
+		id = `c_${Math.random().toString(36).slice(2, 8)}`,
 		onchange
 	}: {
 		value?: string[];
 		label?: string;
 		placeholder?: string;
 		hint?: string;
+		id?: string;
 		onchange?: (v: string[]) => void;
 	} = $props();
 
@@ -67,13 +69,13 @@
 </script>
 
 <div>
-	{#if label}<span class="mb-1 block text-xs font-medium text-muted">{label}</span>{/if}
+	{#if label}<label for={id} class="mb-1 block text-xs font-medium text-muted">{label}</label>{/if}
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 	<div
 		class="flex min-h-8 flex-wrap items-center gap-1 rounded-md border border-border bg-surface px-1.5 py-1 focus-within:border-accent focus-within:ring-2 focus-within:ring-[color-mix(in_srgb,var(--color-accent)_25%,transparent)]"
 		onclick={() => input?.focus()}
 	>
-		{#each value as chip, i (chip)}
+		{#each value as chip, i (i)}
 			<!-- A chip is a focusable, draggable list item: the listeners are the reordering controls. -->
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
 			<span
@@ -125,6 +127,7 @@
 			</span>
 		{/each}
 		<input
+			{id}
 			bind:this={input}
 			bind:value={draft}
 			{placeholder}

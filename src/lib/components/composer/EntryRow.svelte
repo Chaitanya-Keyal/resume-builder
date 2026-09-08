@@ -84,6 +84,7 @@
 		{/if}
 		<Checkbox
 			checked={included}
+			aria-label="{included ? 'Exclude' : 'Include'} {toPlain(entry.label)}"
 			onchange={() => toggleItem(resume.id, sectionId, entry.ref, entry.highlightIds)}
 		/>
 		<button
@@ -153,6 +154,7 @@
 					<Checkbox
 						checked={!!item?.overrides?.showEntity}
 						disabled={!item}
+						aria-label="Print the context"
 						onchange={(v) => setItemOverride(resume.id, sectionId, entry.ref, { showEntity: v })}
 					/>
 					<div class="min-w-0">
@@ -168,6 +170,7 @@
 					<Checkbox
 						checked={!!item?.overrides?.showUrl}
 						disabled={!item}
+						aria-label="Print the link"
 						onchange={(v) => setItemOverride(resume.id, sectionId, entry.ref, { showUrl: v })}
 					/>
 					<div class="min-w-0">
@@ -181,6 +184,7 @@
 					<Checkbox
 						checked={!!item?.overrides?.showDescription}
 						disabled={!item}
+						aria-label="Print the description"
 						onchange={(v) =>
 							setItemOverride(resume.id, sectionId, entry.ref, { showDescription: v })}
 					/>

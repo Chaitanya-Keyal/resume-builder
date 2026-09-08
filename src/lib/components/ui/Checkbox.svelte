@@ -7,12 +7,15 @@
 		indeterminate = false,
 		label,
 		disabled = false,
+		'aria-label': ariaLabel,
 		onchange
 	}: {
 		checked?: boolean;
 		indeterminate?: boolean;
 		label?: string;
 		disabled?: boolean;
+		/** Accessible name when there is no visible label. */
+		'aria-label'?: string;
 		onchange?: (v: boolean) => void;
 	} = $props();
 </script>
@@ -28,6 +31,7 @@
 			bind:checked
 			{indeterminate}
 			{disabled}
+			aria-label={ariaLabel}
 			onchange={(e) => onchange?.((e.currentTarget as HTMLInputElement).checked)}
 			class="peer absolute inset-0 h-4 w-4 cursor-pointer appearance-none rounded-[4px] border border-border-strong bg-surface transition-colors checked:border-accent checked:bg-accent indeterminate:border-accent indeterminate:bg-accent disabled:cursor-not-allowed"
 		/>

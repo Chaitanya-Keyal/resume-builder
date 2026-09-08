@@ -30,6 +30,7 @@
 		}}
 	>
 		<Select.Trigger
+			aria-label={label}
 			class="flex h-8 w-full items-center justify-between gap-2 rounded-md border border-border bg-surface pr-2 pl-2.5 text-left text-sm outline-none hover:bg-surface-2 focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--color-accent)_25%,transparent)] data-[state=open]:border-accent"
 		>
 			<span class="truncate">{current}</span>
