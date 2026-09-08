@@ -9,6 +9,8 @@
 	});
 </script>
 
-{#if workspace.loaded && !workspace.profile}
+<!-- Rendered before the workspace loads as well, so the prerendered page carries
+     the landing content; a returning user is redirected the moment it loads. -->
+{#if !workspace.profile}
 	<FirstRun />
 {/if}

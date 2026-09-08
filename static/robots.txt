@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /$
+Disallow: /library
+Disallow: /resumes
+Disallow: /data
+Disallow: /debug
+Sitemap: https://resume-builder.okaybro.dev/sitemap.xml

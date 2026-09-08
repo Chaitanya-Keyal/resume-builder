@@ -40,7 +40,23 @@
 		}
 	}
 
+	const SITE = 'https://resume-builder.okaybro.dev';
+	const DESCRIPTION =
+		'A free, local-first LaTeX resume builder. Keep one library of everything you have done, compose any number of resumes from it, and compile the PDF in your browser. No accounts, no uploads, works offline.';
+	const TITLES: [string, string][] = [
+		['/library', 'Library'],
+		['/resumes', 'Resumes'],
+		['/data', 'Data']
+	];
+
 	const path = $derived(page.url.pathname.replace(base, '') || '/');
+	const title = $derived.by(() => {
+		const hit = TITLES.find(([prefix]) => path.startsWith(prefix));
+		return hit
+			? `${hit[1]} - Resume Builder`
+			: 'Resume Builder - LaTeX resumes, built in your browser';
+	});
+	const canonical = $derived(`${SITE}${path === '/' ? '/' : path}`);
 	const bare = $derived(path === '/' || path === '/debug');
 
 	onMount(async () => {
@@ -109,18 +125,33 @@
 <svelte:window {onkeydown} />
 
 <svelte:head>
-	<title>Resume Builder</title>
+	<title>{title}</title>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	{@html pwaInfo?.webManifest.linkTag ?? ''}
-	<meta
-		name="description"
-		content="A local-first LaTeX resume builder. Keep one library of everything you have done, compose resumes from it, and compile the PDF in your browser."
-	/>
+	<meta name="description" content={DESCRIPTION} />
+	<link rel="canonical" href={canonical} />
+	<link rel="apple-touch-icon" href="{base}/icons/icon-192.png" />
+	<meta name="theme-color" content="#2f6fed" />
+	<!-- Only the landing page is worth indexing: every other route is an empty shell until the browser fills it from IndexedDB. -->
+	<meta name="robots" content={bare && path === '/' ? 'index,follow' : 'noindex,nofollow'} />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="Resume Builder" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={DESCRIPTION} />
+	<meta property="og:url" content={canonical} />
+	<meta property="og:image" content="{SITE}/og.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content={title} />
+	<meta name="twitter:description" content={DESCRIPTION} />
+	<meta name="twitter:image" content="{SITE}/og.png" />
 </svelte:head>
 
-{#if !workspace.loaded}
+{#if bare}
+	{@render children()}
+{:else if !workspace.loaded}
 	<div class="flex h-dvh items-center justify-center text-sm text-faint">Loading...</div>
-{:else if bare}
 	{@render children()}
 {:else}
 	<div class="flex h-dvh overflow-hidden">
