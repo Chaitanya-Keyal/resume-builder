@@ -6,13 +6,13 @@
 	import { workspace } from '$lib/store/workspace.svelte';
 	import DateField from './DateField.svelte';
 
-	type Item =
+	export type SimpleEntry =
 		| { kind: 'certificates'; item: Certificate }
 		| { kind: 'publications'; item: Publication }
 		| { kind: 'languages'; item: Language }
 		| { kind: 'interests'; item: Interest };
 
-	let { entry }: { entry: Item } = $props();
+	let { entry }: { entry: SimpleEntry } = $props();
 	const touch = () => workspace.touch('profile');
 </script>
 

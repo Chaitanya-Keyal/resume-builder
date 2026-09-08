@@ -11,7 +11,7 @@
 	import EntryCard from '$lib/components/library/EntryCard.svelte';
 	import ProjectForm from '$lib/components/library/ProjectForm.svelte';
 	import SectionNav from '$lib/components/library/SectionNav.svelte';
-	import SimpleForm from '$lib/components/library/SimpleForm.svelte';
+	import SimpleForm, { type SimpleEntry } from '$lib/components/library/SimpleForm.svelte';
 	import SkillGroupForm from '$lib/components/library/SkillGroupForm.svelte';
 	import Button from '$lib/components/ui/Button.svelte';
 	import EmptyState from '$lib/components/ui/EmptyState.svelte';
@@ -344,7 +344,7 @@
 								onmove={(dir) => moveEntry(group.c, it.id, dir)}
 								ondelete={() => del(group.c, it.id, title)}
 							>
-								<SimpleForm entry={{ kind: group.c, item: it } as never} />
+								<SimpleForm entry={{ kind: group.c, item: it } as SimpleEntry} />
 							</EntryCard>
 						{/each}
 						{#if profile[group.c].length === 0}

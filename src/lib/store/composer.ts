@@ -7,7 +7,6 @@ import { toPlain } from '$lib/core/markup';
 import { resolve } from '$lib/core/resolve/resolve';
 import { lookupRef } from '$lib/core/resolve/refs';
 import { isItemRef } from '$lib/core/resolve/resolve';
-import { newId } from '$lib/core/schema/ids';
 import type {
 	HeaderOptions,
 	Highlight,
@@ -222,10 +221,8 @@ export function removeSection(id: string, sectionId: string) {
 	ws.mutateResume(id, (r) => (r.sections = r.sections.filter((s) => s.id !== sectionId)));
 }
 
-export function addSection(id: string, type: SectionType, items: ItemRef[] = []): string {
-	const sid = newId('sec');
-	ws.mutateResume(id, (r) => r.sections.push({ id: sid, type, items }));
-	return sid;
+export function addSection(id: string, section: Section) {
+	ws.mutateResume(id, (r) => r.sections.push(section));
 }
 
 export function setOptions(id: string, patch: Record<string, unknown>) {

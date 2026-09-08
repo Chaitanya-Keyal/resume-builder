@@ -63,9 +63,7 @@
 			items={missing.map((type) => ({
 				label: t.sectionTitles[type] ?? type,
 				onSelect: () => {
-					if (type === 'custom') return;
-					const s = fullSection(profile, type);
-					addSection(resume.id, type, s.items as never);
+					if (type !== 'custom') addSection(resume.id, fullSection(profile, type));
 				}
 			}))}
 		>

@@ -23,7 +23,7 @@
 		ondelete: () => void;
 	} = $props();
 
-	const state = $derived(compiles.states[resume.id]);
+	const state = $derived(compiles.state(resume.id));
 	const entries = $derived(resume.sections.reduce((n, s) => n + s.items.length, 0));
 </script>
 
@@ -64,7 +64,7 @@
 		{#each resume.labels as l (l)}
 			<Badge tone="accent">{l}</Badge>
 		{/each}
-		{#if state?.pages}
+		{#if state.pages}
 			<Badge tone={state.pages === 1 ? 'ok' : 'warn'}
 				>{state.pages} page{state.pages === 1 ? '' : 's'}</Badge
 			>
