@@ -8,14 +8,13 @@
 	import Moon from '@lucide/svelte/icons/moon';
 	import Sun from '@lucide/svelte/icons/sun';
 	import Monitor from '@lucide/svelte/icons/monitor';
-	import Kbd from '$lib/components/ui/Kbd.svelte';
 	import { ui } from '$lib/store/ui.svelte';
 	import { workspace } from '$lib/store/workspace.svelte';
 
 	const items = [
-		{ href: '/library', label: 'Library', icon: BookOpen, key: '1' },
-		{ href: '/resumes', label: 'Resumes', icon: Files, key: '2' },
-		{ href: '/data', label: 'Data', icon: Database, key: '3' }
+		{ href: '/library', label: 'Library', icon: BookOpen },
+		{ href: '/resumes', label: 'Resumes', icon: Files },
+		{ href: '/data', label: 'Data', icon: Database }
 	];
 	const path = $derived(page.url.pathname.replace(base, '') || '/');
 	const last = $derived(ui.lastResumeId ? workspace.resume(ui.lastResumeId) : undefined);
@@ -49,9 +48,6 @@
 		>
 			<it.icon size={16} />
 			<span class="flex-1">{it.label}</span>
-			<span class="opacity-0 transition-opacity group-hover:opacity-100"
-				><Kbd keys="Mod+{it.key}" /></span
-			>
 		</a>
 		{#if it.href === '/resumes' && last}
 			<a

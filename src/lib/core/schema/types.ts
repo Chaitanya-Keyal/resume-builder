@@ -372,7 +372,6 @@ export interface Settings {
 	/** Where the profile was last imported from, for one-click re-import. */
 	sourceUrl?: string;
 	autoCompile: boolean;
-	theme: 'system' | 'light' | 'dark';
 }
 
 export interface SnapshotMeta {

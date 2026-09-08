@@ -106,9 +106,6 @@
 			e.preventDefault();
 			const keys = workspace.redo();
 			if (keys.length) toast.message('Redone', { description: undoLabel(keys) });
-		} else if (e.key === '1' || e.key === '2' || e.key === '3') {
-			e.preventDefault();
-			void goto(`${base}${['/library', '/resumes', '/data'][Number(e.key) - 1]}`);
 		} else if (e.key === '\\') {
 			e.preventDefault();
 			ui.setPreviewOpen(!ui.previewOpen);

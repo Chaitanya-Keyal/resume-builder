@@ -29,8 +29,7 @@ export const websiteSyncSchema = z.object({
 export const settingsSchema = z.object({
 	website: websiteSyncSchema.prefault({}),
 	sourceUrl: z.string().optional(),
-	autoCompile: z.boolean().default(true),
-	theme: z.enum(['system', 'light', 'dark']).default('system')
+	autoCompile: z.boolean().default(true)
 });
 
 export const workspaceSchema = z.object({

@@ -1365,15 +1365,6 @@
 				"autoCompile": {
 					"default": true,
 					"type": "boolean"
-				},
-				"theme": {
-					"default": "system",
-					"type": "string",
-					"enum": [
-						"system",
-						"light",
-						"dark"
-					]
 				}
 			}
 		}
