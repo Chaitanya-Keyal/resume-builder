@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { untrack } from 'svelte';
 	import FirstRun from '$lib/components/data/FirstRun.svelte';
 	import { workspace } from '$lib/store/workspace.svelte';
 
+	// A returning user goes straight to their resumes. Only the load is watched: when the
+	// first-run screen installs a profile it navigates to the new resume by itself.
 	$effect(() => {
-		if (workspace.loaded && workspace.profile) void goto(`${base}/resumes`, { replaceState: true });
+		if (workspace.loaded && untrack(() => workspace.profile))
+			void goto(`${base}/resumes`, { replaceState: true });
 	});
 </script>
 
