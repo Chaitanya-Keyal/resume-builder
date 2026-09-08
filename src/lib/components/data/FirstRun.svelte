@@ -174,7 +174,13 @@
 
 		<p class="mt-8 text-xs text-faint">
 			Nothing is uploaded anywhere. The LaTeX engine is downloaded once (about 10 MB) and runs
-			offline afterwards.
+			offline afterwards. Open source:
+			<a
+				class="text-accent underline"
+				href="https://github.com/Chaitanya-Keyal/resume-builder"
+				target="_blank"
+				rel="noopener">source, issues and ideas on GitHub</a
+			>.
 		</p>
 	</div>
 </main>
