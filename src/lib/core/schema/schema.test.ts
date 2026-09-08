@@ -76,8 +76,17 @@ describe('migrate + validate', () => {
 		dup.projects.push({ ...dup.projects[0] });
 		expect(() => parseProfile(dup)).toThrow(ValidationError);
 	});
-	test('empty profile parses', () => {
+	test('empty profile parses, with or without a name', () => {
 		expect(profileSchema.parse(emptyProfile('X')).basics.name).toBe('X');
+		expect(emptyProfile().basics.name).toBe('');
+	});
+
+	test('entries the library creates blank still parse on the next load', () => {
+		const p = emptyProfile();
+		p.work.push({ id: 'new', name: '', positions: [{ id: 'role', position: '', highlights: [] }] });
+		p.projects.push({ id: 'project', name: '', keywords: [], highlights: [] });
+		p.basics.profiles.push({ network: '', url: '' });
+		expect(profileSchema.safeParse(p).success).toBe(true);
 	});
 	test('bad dates are rejected', () => {
 		const bad = structuredClone(fromJsonResume(sample));

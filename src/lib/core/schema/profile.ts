@@ -35,13 +35,13 @@ export const locationSchema = z.object({
 });
 
 export const socialProfileSchema = z.object({
-	network: z.string().min(1),
+	network: text,
 	username: z.string().optional(),
 	url: z.string()
 });
 
 export const basicsSchema = z.object({
-	name: z.string().min(1),
+	name: text,
 	label: z.string().optional(),
 	image: z.string().optional(),
 	email: z.string().optional(),
@@ -74,7 +74,7 @@ export const positionSchema = z.object({
 
 export const engagementSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	url: z.string().optional(),
 	location: z.string().optional(),
 	description: z.string().optional(),
@@ -84,7 +84,7 @@ export const engagementSchema = z.object({
 
 export const educationSchema = z.object({
 	id,
-	institution: z.string().min(1),
+	institution: text,
 	url: z.string().optional(),
 	area: z.string().optional(),
 	studyType: z.string().optional(),
@@ -117,7 +117,7 @@ export const educationSchema = z.object({
 
 export const projectSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	description: z.string().optional(),
 	url: z.string().optional(),
 	entity: z.string().optional(),
@@ -133,7 +133,7 @@ export const projectSchema = z.object({
 
 export const skillGroupSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	level: z.string().optional(),
 	keywords: z.array(z.string()).default([]),
 	x: z.looseObject({ key: z.string().optional() }).optional()
@@ -141,7 +141,7 @@ export const skillGroupSchema = z.object({
 
 export const awardSchema = z.object({
 	id,
-	title: z.string().min(1),
+	title: text,
 	date: isoDate.optional(),
 	dateLabel: z.string().optional(),
 	awarder: z.string().optional(),
@@ -151,7 +151,7 @@ export const awardSchema = z.object({
 
 export const certificateSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	date: isoDate.optional(),
 	dateLabel: z.string().optional(),
 	issuer: z.string().optional(),
@@ -160,7 +160,7 @@ export const certificateSchema = z.object({
 
 export const publicationSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	publisher: z.string().optional(),
 	releaseDate: isoDate.optional(),
 	dateLabel: z.string().optional(),
@@ -170,19 +170,19 @@ export const publicationSchema = z.object({
 
 export const languageSchema = z.object({
 	id,
-	language: z.string().min(1),
+	language: text,
 	fluency: z.string().optional()
 });
 
 export const interestSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	keywords: z.array(z.string()).default([])
 });
 
 export const referenceSchema = z.object({
 	id,
-	name: z.string().min(1),
+	name: text,
 	reference: z.string().optional()
 });
 

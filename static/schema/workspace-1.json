@@ -28,8 +28,7 @@
 					"type": "object",
 					"properties": {
 						"name": {
-							"type": "string",
-							"minLength": 1
+							"type": "string"
 						},
 						"label": {
 							"type": "string"
@@ -76,8 +75,7 @@
 								"type": "object",
 								"properties": {
 									"network": {
-										"type": "string",
-										"minLength": 1
+										"type": "string"
 									},
 									"username": {
 										"type": "string"
@@ -130,8 +128,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"url": {
 								"type": "string"
@@ -283,8 +280,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"url": {
 								"type": "string"
@@ -436,8 +432,7 @@
 								"maxLength": 200
 							},
 							"institution": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"url": {
 								"type": "string"
@@ -610,8 +605,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"description": {
 								"type": "string"
@@ -752,8 +746,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"level": {
 								"type": "string"
@@ -793,8 +786,7 @@
 								"maxLength": 200
 							},
 							"title": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"date": {
 								"type": "string",
@@ -831,8 +823,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"date": {
 								"type": "string",
@@ -866,8 +857,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"publisher": {
 								"type": "string"
@@ -904,8 +894,7 @@
 								"maxLength": 200
 							},
 							"language": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"fluency": {
 								"type": "string"
@@ -929,8 +918,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"keywords": {
 								"default": [],
@@ -958,8 +946,7 @@
 								"maxLength": 200
 							},
 							"name": {
-								"type": "string",
-								"minLength": 1
+								"type": "string"
 							},
 							"reference": {
 								"type": "string"
