@@ -12,7 +12,3 @@ export function relativeTime(iso: string | number | undefined, now = Date.now())
 	if (d < 30) return `${d} d ago`;
 	return new Date(t).toLocaleDateString();
 }
-
-export function nowIso(): string {
-	return new Date().toISOString();
-}

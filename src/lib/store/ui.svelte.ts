@@ -81,10 +81,10 @@ class UiStore {
 		return this.expanded[route]?.includes(id) ?? false;
 	}
 
-	toggleExpanded(route: string, id: string, exclusive = true) {
+	/** Collapse an open entry, or open this one alone. */
+	toggleExpanded(route: string, id: string) {
 		const cur = this.expanded[route] ?? [];
-		const next = cur.includes(id) ? cur.filter((x) => x !== id) : exclusive ? [id] : [...cur, id];
-		this.expanded = { ...this.expanded, [route]: next };
+		this.expanded = { ...this.expanded, [route]: cur.includes(id) ? [] : [id] };
 		write('expanded', this.expanded);
 	}
 

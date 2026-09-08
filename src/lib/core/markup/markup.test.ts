@@ -24,8 +24,8 @@ describe('parseMarkup', () => {
 	});
 
 	test('nesting: bold inside link, link inside bold', () => {
-		expect(toLatex('[**BitsGPT:**](https://g.h/x) built')).toBe(
-			'\\href{https://g.h/x}{\\underline{\\textbf{BitsGPT:}}} built'
+		expect(toLatex('[**Widget:**](https://g.h/x) built')).toBe(
+			'\\href{https://g.h/x}{\\underline{\\textbf{Widget:}}} built'
 		);
 		expect(toLatex('**see [docs](https://d.io)**')).toBe(
 			'\\textbf{see \\href{https://d.io}{\\underline{docs}}}'

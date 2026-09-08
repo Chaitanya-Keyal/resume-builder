@@ -210,8 +210,6 @@ export const profileSchema = z.object({
 		.optional()
 });
 
-export type ProfileInput = z.input<typeof profileSchema>;
-
 // The zod output must be assignable to the hand-written type, and vice versa.
 const _out: Profile = null as unknown as z.output<typeof profileSchema>;
 const _in: z.output<typeof profileSchema> = null as unknown as Profile;

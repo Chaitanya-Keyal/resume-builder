@@ -3,7 +3,7 @@
  * `fromJsonResume` is lossless for everything the standard can express;
  * `toJsonResume` drops what it cannot (ids, `x`, per-bullet identity).
  */
-import { newHighlightId, slugify, uniqueSlug } from './ids';
+import { newHighlightId, uniqueSlug } from './ids';
 import { PROFILE_SCHEMA_URL, profileSchema } from './profile';
 import type { Engagement, Highlight, Position, Profile } from './types';
 
@@ -238,5 +238,3 @@ export function toJsonResume(p: Profile): Json {
 		meta: p.meta
 	});
 }
-
-export { slugify };

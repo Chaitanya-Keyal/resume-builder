@@ -38,16 +38,6 @@ export function newHighlightId(): string {
 	return 'h_' + randomChars(8);
 }
 
-/** Resume-only bullet id. */
-export function newExtraBulletId(): string {
-	return 'r_' + randomChars(8);
-}
-
-/** Custom-section item id. */
-export function newCustomId(): string {
-	return 'c_' + randomChars(8);
-}
-
 /** Resume / section / snapshot ids. */
 export function newId(prefix = 'id'): string {
 	return `${prefix}_${randomChars(10)}`;

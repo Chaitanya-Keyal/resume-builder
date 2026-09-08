@@ -35,10 +35,9 @@ export async function dbDel(key: string): Promise<void> {
 	await del(key, store);
 }
 
-export async function dbKeys(prefix?: string): Promise<string[]> {
+async function dbKeys(): Promise<string[]> {
 	if (!store) return [];
-	const all = (await keys(store)).map(String);
-	return prefix ? all.filter((k) => k.startsWith(prefix)) : all;
+	return (await keys(store)).map(String);
 }
 
 /** Wipe everything this app stored. */
