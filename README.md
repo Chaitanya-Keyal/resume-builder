@@ -26,7 +26,9 @@ Live at https://resume-builder.okaybro.dev.
   [JSON Resume](https://jsonresume.org)) that you can publish from a site and
   re-import anywhere. Private fields such as your phone number live in a
   separate local overlay that never enters the public file. A `workspace.json`
-  export backs up everything.
+  export backs up everything. With the Website setting on, Data can hand
+  `profile.json` and a `resume.json` to GitHub's editor, and the library
+  shows the extra fields such a site uses.
 
 Two templates ship: the classic single-column "Jake's Resume", reproduced
 exactly (the snapshot test in `src/lib/core/core.test.ts` holds its output to
@@ -45,7 +47,7 @@ the composer's Layout block; density presets and page options carry over.
 3. `highlights` are `{ id, text, hidden? }` objects, so a resume can pick and
    reword individual bullets.
 4. Anything a consumer needs beyond the standard lives under `x` on the item
-   (the portfolio's slug, one-liner, stack, links).
+   (a site's slug, one-liner, stack, links).
 
 JSON Schemas are published at `/schema/profile-1.json`,
 `/schema/resume-1.json` and `/schema/workspace-1.json`.
@@ -79,12 +81,6 @@ package to a template, re-run it, commit the result.
 
 The site is static. `.github/workflows/deploy.yml` builds and publishes to
 GitHub Pages on every push to `main`; `static/CNAME` carries the custom domain.
-
-## Self-hosting a compiler instead
-
-The browser engine is the default and needs nothing. If you would rather compile
-on a machine you run, point Data → Preferences → Compiler at an endpoint that
-accepts `POST { tex }` and answers `{ ok, pdf (base64), pages, log }`.
 
 ## License
 
