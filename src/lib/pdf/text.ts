@@ -4,6 +4,7 @@
  * contact details).
  */
 import type { ResolvedResume } from '$lib/core/resolve/types';
+import type { SectionType } from '$lib/core/schema/types';
 import { toPlain } from '$lib/core/markup';
 
 export interface AtsCheck {
@@ -17,7 +18,12 @@ export interface AtsReport {
 	checks: AtsCheck[];
 }
 
-export function atsReport(pagesText: string[], resolved: ResolvedResume): AtsReport {
+/** `defaultTitles` are the template's headings for sections without a title of their own. */
+export function atsReport(
+	pagesText: string[],
+	resolved: ResolvedResume,
+	defaultTitles: Partial<Record<SectionType, string>> = {}
+): AtsReport {
 	const text = pagesText.join('\n\n');
 	const checks: AtsCheck[] = [];
 	const flat = text.replace(/\s+/g, ' ');
@@ -63,12 +69,15 @@ export function atsReport(pagesText: string[], resolved: ResolvedResume): AtsRep
 	if (/\uFFFD/.test(flat))
 		checks.push({ level: 'warn', message: 'Some characters could not be mapped to text.' });
 
-	// Section headings should appear, in order.
-	const titles = resolved.sections.map((s) => s.title ?? '').filter(Boolean);
+	// Section headings should appear, in order. Templates may print them in capitals.
+	const titles = resolved.sections
+		.map((s) => toPlain(s.title ?? defaultTitles[s.type] ?? '').toLowerCase())
+		.filter(Boolean);
+	const lower = flat.toLowerCase();
 	let cursor = 0;
 	let ordered = true;
 	for (const t of titles) {
-		const at = flat.indexOf(t, cursor);
+		const at = lower.indexOf(t, cursor);
 		if (at === -1) {
 			ordered = false;
 			break;

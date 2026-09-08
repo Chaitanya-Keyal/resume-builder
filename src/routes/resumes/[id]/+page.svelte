@@ -227,7 +227,12 @@
 	<HintsDialog bind:open={showHints} {hints} {profile} />
 	<SnapshotsDialog bind:open={showSnapshots} resumeId={id} resumeName={resume.name} />
 	{#if result}
-		<AtsDrawer bind:open={showAts} resumeId={id} resolved={result.resolved} />
+		<AtsDrawer
+			bind:open={showAts}
+			resumeId={id}
+			resolved={result.resolved}
+			templateId={resume.template}
+		/>
 	{/if}
 
 	<Dialog

@@ -5,6 +5,7 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Dialog from '$lib/components/ui/Dialog.svelte';
 	import type { ResolvedResume } from '$lib/core/resolve/types';
+	import { getTemplate } from '$lib/core/latex';
 	import { atsReport, type AtsReport } from '$lib/pdf/text';
 	import { closePdf, extractText, openPdf } from '$lib/pdf/viewer';
 	import { compiles } from '$lib/store/compile.svelte';
@@ -14,8 +15,9 @@
 	let {
 		open = $bindable(false),
 		resumeId,
-		resolved
-	}: { open?: boolean; resumeId: string; resolved: ResolvedResume } = $props();
+		resolved,
+		templateId
+	}: { open?: boolean; resumeId: string; resolved: ResolvedResume; templateId: string } = $props();
 	let report = $state<AtsReport | null>(null);
 	let busy = $state(false);
 
@@ -27,13 +29,18 @@
 			return;
 		}
 		busy = true;
+		let cancelled = false;
 		void (async () => {
 			const d = await openPdf(bytes);
 			const pages = await extractText(d);
-			report = atsReport(pages, resolved);
-			busy = false;
 			void closePdf(d);
+			if (cancelled) return;
+			report = atsReport(pages, resolved, getTemplate(templateId).sectionTitles);
+			busy = false;
 		})();
+		return () => {
+			cancelled = true;
+		};
 	});
 	const icons = { ok: CircleCheck, warn: TriangleAlert, error: CircleAlert };
 	const tones = { ok: 'text-ok', warn: 'text-warn', error: 'text-danger' };
