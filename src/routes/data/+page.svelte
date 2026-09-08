@@ -298,7 +298,7 @@
 </div>
 
 <Dialog
-	open={pending !== null}
+	bind:open={() => pending !== null, (v) => !v && (pending = null)}
 	title={pending?.resume
 		? existing
 			? 'Replace this resume?'

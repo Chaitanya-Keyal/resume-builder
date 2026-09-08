@@ -110,7 +110,11 @@
 
 <NewResumeDialog bind:open={creating} />
 
-<Dialog open={renaming !== null} title="Rename resume" size="sm">
+<Dialog
+	bind:open={() => renaming !== null, (v) => !v && (renaming = null)}
+	title="Rename resume"
+	size="sm"
+>
 	{#if renaming}
 		<form
 			onsubmit={(e) => {
@@ -128,7 +132,7 @@
 </Dialog>
 
 <Dialog
-	open={deleting !== null}
+	bind:open={() => deleting !== null, (v) => !v && (deleting = null)}
 	title="Delete this resume?"
 	description="Its selections, overrides and snapshots go with it. The library is untouched."
 	size="sm"
