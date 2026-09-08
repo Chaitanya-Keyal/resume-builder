@@ -9,8 +9,15 @@
 	import { toast } from 'svelte-sonner';
 	import Button from '$lib/components/ui/Button.svelte';
 	import TextField from '$lib/components/ui/TextField.svelte';
+	import { emptyProfile } from '$lib/core/schema/profile';
 	import { parseProfile } from '$lib/core/schema/validate';
-	import { fetchImport, ImportError, parseImport, type Imported } from '$lib/store/importer';
+	import {
+		applyWorkspace,
+		fetchImport,
+		ImportError,
+		parseImport,
+		type Imported
+	} from '$lib/store/importer';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import sampleJson from '../../../../fixtures/sample/profile.json';
 
@@ -18,36 +25,30 @@
 	let busy = $state<string | null>(null);
 	let fileInput = $state<HTMLInputElement>();
 
-	function finish(imported?: Imported) {
-		if (imported?.workspace) {
-			workspace.setProfile(imported.workspace.profile, imported.warnings);
-			workspace.setResumes(imported.workspace.resumes);
-			if (imported.workspace.overlay) workspace.setOverlay(imported.workspace.overlay);
-			if (imported.workspace.settings) workspace.updateSettings(imported.workspace.settings);
-		} else if (imported?.profile) {
-			workspace.setProfile(imported.profile, imported.warnings);
-		} else if (imported?.resume) {
+	/** Install the library (and resumes, for a workspace), make sure one resume exists, open it. */
+	function finish(imported: Imported) {
+		if (imported.resume) {
 			toast.error(
 				'That is a resume.json. Start with your library first, then import it from Data.'
 			);
 			return;
 		}
-		let first = workspace.resumes[0];
-		if (!first) first = workspace.newResume({ name: 'Default', mode: 'all' })!;
-		for (const w of imported?.warnings ?? []) toast.warning(w.message, { description: w.path });
-		void goto(`${base}/resumes/${first.id}`);
+		workspace.batch(() => {
+			if (imported.workspace) applyWorkspace(imported.workspace);
+			else if (imported.profile) workspace.setProfile(imported.profile);
+			if (!workspace.resumes.length) workspace.newResume({ name: 'Default', mode: 'all' });
+		});
+		for (const w of imported.warnings) toast.warning(w.message, { description: w.path });
+		void goto(`${base}/resumes/${workspace.resumes[0].id}`);
 	}
 
 	function blank() {
-		workspace.startBlank();
-		finish();
+		finish({ kind: 'profile', profile: emptyProfile(), warnings: [] });
 	}
 
 	function sample() {
 		const { profile, warnings } = parseProfile(sampleJson);
-		workspace.setProfile(profile, warnings);
-		workspace.setResumes([]);
-		finish();
+		finish({ kind: 'profile', profile, warnings });
 	}
 
 	async function fromFile(e: Event) {

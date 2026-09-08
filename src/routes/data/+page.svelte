@@ -14,7 +14,13 @@
 	import TextField from '$lib/components/ui/TextField.svelte';
 	import { jsonResumeJson, profileJson, workspaceJson } from '$lib/store/exporter';
 	import { resolve } from '$lib/core/resolve/resolve';
-	import { fetchImport, ImportError, parseImport, type Imported } from '$lib/store/importer';
+	import {
+		applyWorkspace,
+		fetchImport,
+		ImportError,
+		parseImport,
+		type Imported
+	} from '$lib/store/importer';
 	import { ui } from '$lib/store/ui.svelte';
 	import { workspace } from '$lib/store/workspace.svelte';
 	import { copyText, downloadText } from '$lib/util/download';
@@ -74,11 +80,6 @@
 		}
 	}
 
-	/** A workspace import touched profile, resumes and overlay: undo each. */
-	function undoImport(steps: number) {
-		for (let i = 0; i < steps; i++) ws.undo();
-	}
-
 	function applyPending() {
 		if (!pending) return;
 		const imp = pending;
@@ -91,18 +92,14 @@
 			return;
 		}
 		if (!imp.profile) return;
-		ws.setProfile(imp.profile, imp.warnings);
-		if (imp.workspace) {
-			ws.setResumes(imp.workspace.resumes);
-			if (imp.workspace.overlay) ws.setOverlay(imp.workspace.overlay);
-			if (imp.workspace.settings) ws.updateSettings(imp.workspace.settings);
-		}
+		if (imp.workspace) applyWorkspace(imp.workspace);
+		else ws.setProfile(imp.profile);
 		for (const w of imp.warnings) toast.warning(w.message, { description: w.path });
 		toast.success(imp.workspace ? 'Workspace restored' : 'Library replaced', {
 			description: imp.workspace
 				? 'Ctrl+Z, or Undo here, brings the previous state back.'
 				: 'Resumes keep their selections; anything that no longer exists is flagged in the composer.',
-			action: { label: 'Undo', onClick: () => undoImport(imp.workspace ? 3 : 1) }
+			action: { label: 'Undo', onClick: () => workspace.undo() }
 		});
 	}
 

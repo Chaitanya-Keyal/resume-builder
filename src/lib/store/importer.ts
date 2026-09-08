@@ -7,6 +7,7 @@ import {
 	ValidationError,
 	type Problem
 } from '$lib/core/schema/validate';
+import { workspace as store } from './workspace.svelte';
 
 export type ImportKind = 'workspace' | 'profile' | 'jsonresume' | 'resume';
 
@@ -76,6 +77,16 @@ export function parseImport(text: string): Imported {
 	throw new ImportError(
 		'Unrecognised file: expected a profile.json, a resume.json, a workspace export, or a JSON Resume.'
 	);
+}
+
+/** Replace the whole workspace with an export, as one undo step. */
+export function applyWorkspace(w: Workspace) {
+	store.batch(() => {
+		store.setProfile(w.profile);
+		store.setResumes(w.resumes);
+		if (w.overlay) store.setOverlay(w.overlay);
+		if (w.settings) store.updateSettings(w.settings);
+	});
 }
 
 export async function fetchImport(url: string): Promise<Imported> {

@@ -85,6 +85,9 @@
 		resumes: 'Resume change reverted',
 		settings: 'Settings reverted'
 	} as const;
+	/** One step may span documents (a library delete also edits resumes); name the first. */
+	const undoLabel = (keys: (keyof typeof UNDO_LABEL)[]) =>
+		keys.length > 1 ? 'Library and resumes reverted' : UNDO_LABEL[keys[0]];
 
 	function onkeydown(e: KeyboardEvent) {
 		const mod = e.metaKey || e.ctrlKey;
@@ -95,13 +98,14 @@
 		if (e.key.toLowerCase() === 'z' && !typing) {
 			// Inside a field the browser's own text undo applies; everywhere else, ours.
 			e.preventDefault();
-			const key = e.shiftKey ? workspace.redo() : workspace.undo();
-			if (key) toast.message(e.shiftKey ? 'Redone' : 'Undone', { description: UNDO_LABEL[key] });
+			const keys = e.shiftKey ? workspace.redo() : workspace.undo();
+			if (keys.length)
+				toast.message(e.shiftKey ? 'Redone' : 'Undone', { description: undoLabel(keys) });
 			else toast.message(e.shiftKey ? 'Nothing to redo' : 'Nothing to undo');
 		} else if (e.key.toLowerCase() === 'y' && !typing) {
 			e.preventDefault();
-			const key = workspace.redo();
-			if (key) toast.message('Redone', { description: UNDO_LABEL[key] });
+			const keys = workspace.redo();
+			if (keys.length) toast.message('Redone', { description: undoLabel(keys) });
 		} else if (e.key === '1' || e.key === '2' || e.key === '3') {
 			e.preventDefault();
 			void goto(`${base}${['/library', '/resumes', '/data'][Number(e.key) - 1]}`);

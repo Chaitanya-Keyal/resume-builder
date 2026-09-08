@@ -6,11 +6,9 @@
 import { createResume, type NewResumeOptions } from '$lib/core/resolve/compose';
 import { stripRef } from '$lib/core/resolve/compose';
 import { usageIndex } from '$lib/core/resolve/usage';
-import { newId } from '$lib/core/schema/ids';
-import { emptyProfile, profileSchema } from '$lib/core/schema/profile';
+import { profileSchema } from '$lib/core/schema/profile';
 import { resumeSchema } from '$lib/core/schema/resume';
 import type { Overlay, Profile, Resume, Settings } from '$lib/core/schema/types';
-import type { Problem } from '$lib/core/schema/validate';
 import {
 	defaultSettings,
 	emptyOverlay,
@@ -27,9 +25,9 @@ const UNDOABLE: Key[] = ['profile', 'overlay', 'resumes'];
 const COALESCE_MS = 700;
 const MAX_UNDO = 100;
 
+/** One undo step: the documents it touched and what each looked like before. */
 interface UndoEntry {
-	key: Key;
-	before: unknown;
+	changes: { key: Key; before: unknown }[];
 	at: number;
 }
 
@@ -39,14 +37,13 @@ class WorkspaceStore {
 	resumes = $state<Resume[]>([]);
 	settings = $state<Settings>(defaultSettings());
 	loaded = $state(false);
-	/** Warnings from the last import, shown once in the UI. */
-	warnings = $state<Problem[]>([]);
 
 	usage = $derived(usageIndex(this.resumes));
 	labels = $derived([...new Set(this.resumes.flatMap((r) => r.labels))].sort());
 
 	private dirty = new Set<Key>();
 	private timer: ReturnType<typeof setTimeout> | undefined;
+	private flushing: Promise<void> | undefined;
 
 	/* ---------- undo ---------- */
 
@@ -55,6 +52,8 @@ class WorkspaceStore {
 	private undoStack: UndoEntry[] = [];
 	private redoStack: UndoEntry[] = [];
 	private recording = true;
+	/** While set, every change lands in this one entry (see `batch`). */
+	private group: UndoEntry | null = null;
 	canUndo = $state(false);
 	canRedo = $state(false);
 
@@ -95,19 +94,25 @@ class WorkspaceStore {
 		if (!this.recording || !UNDOABLE.includes(key)) return;
 		const before = this.last[key];
 		const now = JSON.stringify(this.current(key));
-		if (before === undefined || before === now) {
-			this.last[key] = now;
+		this.last[key] = now;
+		if (before === undefined || before === now) return;
+		const change = { key, before: JSON.parse(before) as unknown };
+		if (this.group) {
+			if (!this.group.changes.some((c) => c.key === key)) this.group.changes.push(change);
 			return;
 		}
 		const top = this.undoStack[this.undoStack.length - 1];
 		const t = Date.now();
-		if (top && top.key === key && t - top.at < COALESCE_MS) top.at = t;
-		else {
-			this.undoStack.push({ key, before: JSON.parse(before), at: t });
-			if (this.undoStack.length > MAX_UNDO) this.undoStack.shift();
-		}
+		const typing =
+			top && top.changes.length === 1 && top.changes[0].key === key && t - top.at < COALESCE_MS;
+		if (typing) top.at = t;
+		else this.push({ changes: [change], at: t });
+	}
+
+	private push(entry: UndoEntry) {
+		this.undoStack.push(entry);
+		if (this.undoStack.length > MAX_UNDO) this.undoStack.shift();
 		this.redoStack = [];
-		this.last[key] = now;
 		this.syncUndoFlags();
 	}
 
@@ -116,32 +121,44 @@ class WorkspaceStore {
 		this.canRedo = this.redoStack.length > 0;
 	}
 
-	/** Seal the current typing group so the next edit starts a new undo step. */
-	sealUndo() {
-		const top = this.undoStack[this.undoStack.length - 1];
-		if (top) top.at = 0;
+	/** Everything `fn` changes, across documents, undoes as one step. */
+	batch(fn: () => void) {
+		if (this.group) return fn();
+		this.group = { changes: [], at: 0 };
+		try {
+			fn();
+		} finally {
+			const g = this.group;
+			this.group = null;
+			if (g.changes.length) this.push(g);
+		}
 	}
 
-	private swap(from: UndoEntry[], to: UndoEntry[]): Key | null {
+	private swap(from: UndoEntry[], to: UndoEntry[]): Key[] {
 		const entry = from.pop();
-		if (!entry) return null;
-		to.push({ key: entry.key, before: this.current(entry.key), at: 0 });
+		if (!entry) return [];
+		to.push({
+			changes: entry.changes.map((c) => ({ key: c.key, before: this.current(c.key) })),
+			at: 0
+		});
 		this.recording = false;
-		this.assign(entry.key, entry.before);
-		this.remember(entry.key);
-		this.dirty.add(entry.key);
+		for (const c of entry.changes) {
+			this.assign(c.key, c.before);
+			this.remember(c.key);
+			this.dirty.add(c.key);
+		}
 		void this.flush();
 		this.recording = true;
 		this.syncUndoFlags();
-		return entry.key;
+		return entry.changes.map((c) => c.key);
 	}
 
-	/** Returns which document was restored, or null when there was nothing to undo. */
-	undo(): Key | null {
+	/** Returns which documents were restored; empty when there was nothing to undo. */
+	undo(): Key[] {
 		return this.swap(this.undoStack, this.redoStack);
 	}
 
-	redo(): Key | null {
+	redo(): Key[] {
 		return this.swap(this.redoStack, this.undoStack);
 	}
 
@@ -168,7 +185,9 @@ class WorkspaceStore {
 			.flatMap((r) => (r.success ? [r.data] : []));
 		const s = settings ? settingsSchema.safeParse(settings) : undefined;
 		this.settings = s?.success ? s.data : defaultSettings();
-		for (const k of UNDOABLE) this.remember(k);
+		// Without a profile the next edits are the first-run setup; undoing back to no profile
+		// would strand the shell, so the baseline is only taken once there is something to keep.
+		if (this.profile) for (const k of UNDOABLE) this.remember(k);
 		this.loaded = true;
 	}
 
@@ -183,31 +202,31 @@ class WorkspaceStore {
 		this.timer = setTimeout(() => void this.flush(), 250);
 	}
 
-	async flush() {
+	flush(): Promise<void> {
 		clearTimeout(this.timer);
 		const keys = [...this.dirty];
 		this.dirty.clear();
-		await Promise.all(
-			keys.map((k) => {
-				switch (k) {
-					case 'profile':
-						return dbSet(KEYS.profile, $state.snapshot(this.profile));
-					case 'overlay':
-						return dbSet(KEYS.overlay, $state.snapshot(this.overlay));
-					case 'resumes':
-						return dbSet(KEYS.resumes, $state.snapshot(this.resumes));
-					case 'settings':
-						return dbSet(KEYS.settings, $state.snapshot(this.settings));
-				}
-			})
-		);
+		const writes = keys.map((k) => {
+			switch (k) {
+				case 'profile':
+					return dbSet(KEYS.profile, $state.snapshot(this.profile));
+				case 'overlay':
+					return dbSet(KEYS.overlay, $state.snapshot(this.overlay));
+				case 'resumes':
+					return dbSet(KEYS.resumes, $state.snapshot(this.resumes));
+				case 'settings':
+					return dbSet(KEYS.settings, $state.snapshot(this.settings));
+			}
+		});
+		const done = Promise.all([this.flushing, ...writes]).then(() => {});
+		this.flushing = done;
+		return done;
 	}
 
 	/* ---------- whole-document replacement ---------- */
 
-	setProfile(profile: Profile, warnings: Problem[] = []) {
+	setProfile(profile: Profile) {
 		this.profile = profile;
-		this.warnings = warnings;
 		this.touch('profile');
 	}
 
@@ -235,17 +254,15 @@ class WorkspaceStore {
 		this.touch('settings');
 	}
 
-	startBlank(name = '') {
-		this.setProfile(emptyProfile(name));
-		this.setResumes([]);
-	}
-
 	async reset() {
+		clearTimeout(this.timer);
+		this.dirty.clear();
+		// A write still on its way to IndexedDB must not land after the wipe.
+		await this.flushing;
 		this.profile = null;
 		this.overlay = emptyOverlay();
 		this.resumes = [];
 		this.settings = defaultSettings();
-		this.dirty.clear();
 		this.clearUndo();
 		this.last = {};
 		await dbClear();
@@ -301,14 +318,10 @@ class WorkspaceStore {
 		this.touch('resumes');
 	}
 
-	/** Remove a library item everywhere: the profile and every resume that used it. */
+	/** Drop a library item (or one of its bullets) from every resume that picked it. */
 	removeRef(ref: string, hid?: string) {
 		stripRef(this.resumes, ref, hid);
 		this.touch('resumes');
-	}
-
-	newSectionId() {
-		return newId('sec');
 	}
 }
 

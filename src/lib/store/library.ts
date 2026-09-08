@@ -3,6 +3,7 @@
  * entries while keeping every resume consistent.
  */
 import { formatRef } from '$lib/core/resolve/refs';
+import { usedByPrefix } from '$lib/core/resolve/usage';
 import { newHighlightId, uniqueSlug } from '$lib/core/schema/ids';
 import type {
 	Award,
@@ -68,12 +69,14 @@ export function addPosition(c: 'work' | 'volunteer', engagementId: string): stri
 }
 
 export function removePosition(c: 'work' | 'volunteer', engagementId: string, positionId: string) {
-	ws.mutateProfile((p) => {
-		const e = p[c].find((x) => x.id === engagementId);
-		if (!e) return;
-		e.positions = e.positions.filter((x) => x.id !== positionId);
+	ws.batch(() => {
+		ws.mutateProfile((p) => {
+			const e = p[c].find((x) => x.id === engagementId);
+			if (!e) return;
+			e.positions = e.positions.filter((x) => x.id !== positionId);
+		});
+		ws.removeRef(formatRef(c, engagementId, positionId));
 	});
-	ws.removeRef(formatRef(c, engagementId, positionId));
 }
 
 export function addEducation(): string {
@@ -138,23 +141,18 @@ export function addSimple(c: 'certificates' | 'publications' | 'languages' | 'in
 	return id;
 }
 
-/** Remove an entry from the library and every resume. Returns how many resumes were touched. */
+/** Remove an entry from the library and every resume, as one undo step. Returns how many resumes were touched. */
 export function removeEntry(c: ListCollection, id: string): number {
-	const before = ws.resumes.filter((r) =>
-		r.sections.some((s) =>
-			s.items.some(
-				(it) => 'ref' in it && (it.ref === `${c}:${id}` || it.ref.startsWith(`${c}:${id}/`))
-			)
-		)
-	).length;
-	ws.mutateProfile((p) => {
-		(p[c] as { id: string }[]).splice(
-			(p[c] as { id: string }[]).findIndex((i) => i.id === id),
-			1
-		);
+	const touched = usedIn(`${c}:${id}`);
+	ws.batch(() => {
+		ws.mutateProfile((p) => {
+			const list = p[c] as { id: string }[];
+			const i = list.findIndex((x) => x.id === id);
+			if (i !== -1) list.splice(i, 1);
+		});
+		ws.removeRef(`${c}:${id}`);
 	});
-	ws.removeRef(`${c}:${id}`);
-	return before;
+	return touched;
 }
 
 export function moveEntry(c: ListCollection, id: string, dir: -1 | 1) {
@@ -171,20 +169,24 @@ export function moveEntry(c: ListCollection, id: string, dir: -1 | 1) {
 /** Move an engagement between work and leadership. */
 export function moveEngagement(from: 'work' | 'volunteer', id: string) {
 	const to = from === 'work' ? 'volunteer' : 'work';
-	ws.mutateProfile((p) => {
-		const i = p[from].findIndex((e) => e.id === id);
-		if (i === -1) return;
-		const [e] = p[from].splice(i, 1);
-		e.id = uniqueSlug(e.id, ids(p, to));
-		p[to].unshift(e);
+	ws.batch(() => {
+		ws.mutateProfile((p) => {
+			const i = p[from].findIndex((e) => e.id === id);
+			if (i === -1) return;
+			const [e] = p[from].splice(i, 1);
+			e.id = uniqueSlug(e.id, ids(p, to));
+			p[to].unshift(e);
+		});
+		ws.removeRef(`${from}:${id}`);
 	});
-	ws.removeRef(`${from}:${id}`);
 }
 
 /** Highlights removed from a list must also leave every resume that picked them. */
 export function syncRemovedHighlights(ref: string, before: Highlight[], after: Highlight[]) {
 	const kept = new Set(after.map((h) => h.id));
-	for (const h of before) if (!kept.has(h.id)) ws.removeRef(ref, h.id);
+	ws.batch(() => {
+		for (const h of before) if (!kept.has(h.id)) ws.removeRef(ref, h.id);
+	});
 }
 
 /**
@@ -209,12 +211,7 @@ export function syncId(c: ListCollection, id: string, name: string): string {
 	return next;
 }
 
-/** Resumes using a ref or any of its positions. */
+/** How many resumes use a ref or any of its positions. */
 export function usedIn(ref: string): number {
-	let n = 0;
-	for (const [key, list] of ws.usage) {
-		if (key.includes('#')) continue;
-		if (key === ref || key.startsWith(ref + '/')) n = Math.max(n, list.length);
-	}
-	return n;
+	return usedByPrefix(ws.usage, ref).length;
 }
